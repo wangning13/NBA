@@ -2,6 +2,7 @@ package data.getdata;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,11 +16,12 @@ import dataservice.getdatadataservice.GetPlayerdataDataService;
 
 public class GetPlayerdata implements GetPlayerdataDataService{
 
+	Connection conn;
 	Statement statement;
-	public GetPlayerdata(){
+	public GetPlayerdata() {
 		try {
 			Class.forName(InitialDatabase.driver);
-			Connection conn = DriverManager.getConnection(InitialDatabase.url);
+			conn = DriverManager.getConnection(InitialDatabase.url);
 			statement = conn.createStatement();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -488,132 +490,76 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 		String sql="CREATE TABLE IF NOT EXISTS tempplayerdata (	 playerName varchar(255), team varchar(255),appearance int,firstPlay int,backboard int,assist int,minutes double,fieldGoal int,fieldGoalAttempts int,threePointFieldGoal int,threePointFieldGoalAttempts int,freeThrow int,freeThrowAttempts int,offensiveRebound int,defensiveRebound int,steal int,block int,turnOver int, foul int,scoring int,teamFieldGoalAttempts int,teamBackboard int,teamFieldGoal int,teamFreeThrow int, teamOffensiveRebound int, teamDefensiveRebound int,teamMinutes double,teamFreeThrowAttempts int,teamTurnOver int,opponentBackBoard int, opponentOffensiveRebound int, opponentDefensiveRebound int,opponentFieldGoalAttempts int,opponentThreePointFieldGoalAttempts int,fieldGoalShotPercentage double,threePointShotPercentage double, freeThrowPercentage double, efficiency double, GmScEfficiency double, nearlyFivePercentage double, trueShootingPercentage double, shootingEfficiency double, backboardPercentage double, offensiveReboundPercentage double, defensiveReboundPercentage double, assistPercentage double, stealPercentage double, blockPercentage double, turnOverPercentage double, `usage` double,	"
 				+ "nearlyFiveBackboardPercentage double, nearlyFiveAssistPercentage double,previousAverageScoring double, nearlyFiveAverageScoring double,previousAverageBackboard double, nearlyFiveAverageBackboard double, previousAverageAssist double, nearlyFiveAverageAssist double,doubleDouble int)";
 		try {
-			statement.addBatch(sql);
+			statement.execute(sql);
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO tempplayerdata values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			for (int i = 0; i < po.size(); i++) {
 				PlayerPO pp=po.get(i);
 				if(pp.getPlayerName().contains("'"))
 					pp.setPlayerName(pp.getPlayerName().substring(0,pp.getPlayerName().indexOf("'"))+"'"+pp.getPlayerName().substring(pp.getPlayerName().indexOf("'"), pp.getPlayerName().length()));
-				sql="INSERT INTO tempplayerdata values('"
-						+ pp.getPlayerName()
-						+ "','"
-						+ pp.getTeam()
-						+ "','"
-						+ pp.getAppearance()
-						+ "','"
-						+ pp.getFirstPlay()
-						+ "','"
-						+ pp.getBackboard()
-						+ "','"
-						+ pp.getAssist()
-						+ "','"
-						+ pp.getMinutes()
-						+ "','"
-						+ pp.getFieldGoal()
-						+ "','"
-						+ pp.getFieldGoalAttempts()
-						+ "','"
-						+ pp.getThreePointFieldGoal()
-						+ "','"
-						+ pp.getThreePointFieldGoalAttempts()
-						+ "','"
-						+ pp.getFreeThrow()
-						+ "','"
-						+ pp.getFreeThrowAttempts()
-						+ "','"
-						+ pp.getOffensiveRebound()
-						+ "','"
-						+ pp.getDefensiveRebound()
-						+ "','"
-						+ pp.getSteal()
-						+ "','"
-						+ pp.getBlock()
-						+ "','"
-						+ pp.getTurnOver()
-						+ "','"
-						+ pp.getFoul()
-						+ "','"
-						+ pp.getScoring() 
-						+ "','"
-						+ pp.getTeamFieldGoalAttempts()
-						+ "','"
-						+ pp.getTeamBackboard()
-						+ "','"
-						+ pp.getTeamFieldGoal()
-						+ "','"
-						+pp.getTeamFreeThrow()
-						+ "','"
-						+pp.getTeamOffensiveRebound()
-						+ "','"
-						+pp.getTeamDefensiveRebound()
-						+ "','"
-						+ pp.getTeamMinutes()
-						+ "','"
-						+ pp.getTeamFreeThrowAttempts()
-						+ "','"
-						+ pp.getTeamTurnOver()
-						+ "','"
-						+pp.getOpponentBackBoard()
-						+ "','"
-						+pp.getOpponentOffensiveRebound()
-						+ "','"
-						+pp.getOpponentDefensiveRebound()
-						+ "','"
-						+ pp.getOpponentFieldGoalAttempts()
-						+ "','"
-						+pp.getOpponentThreePointFieldGoalAttempts()
-						+ "','"
-						+pp.getFieldGoalShotPercentage()
-						+ "','"
-						+pp.getThreePointShotPercentage()
-						+ "','"
-						+pp.getFreeThrowPercentage()
-						+ "','"
-						+pp.getEfficiency()
-						+ "','"
-						+pp.getGmScEfficiency()
-						+ "','"
-						+pp.getNearlyFivePercentage()
-						+ "','"
-						+pp.getTrueShootingPercentage()
-						+ "','"
-						+pp.getShootingEfficiency()
-						+ "','"
-						+pp.getBackboardPercentage()
-						+ "','"
-						+pp.getOffensiveReboundPercentage()
-						+ "','"
-						+pp.getDefensiveReboundPercentage()
-						+ "','"
-						+pp.getAssistPercentage()
-						+ "','"
-						+pp.getStealPercentage()
-						+ "','"
-						+pp.getBlockPercentage()
-						+ "','"
-						+pp.getTurnOverPercentage()
-						+ "','"
-						+pp.getUsage()
-						+ "','"
-						+pp.getNearlyFiveBackboardPercentage()
-						+ "','"
-						+pp.getNearlyFiveAssistPercentage()
-						+ "','"
-						+pp.getPreviousAverageScoring()
-						+ "','"
-						+pp.getNearlyFiveAverageScoring()
-						+ "','"
-						+pp.getPreviousAverageBackboard()
-						+ "','"
-						+pp.getNearlyFiveAverageBackboard()
-						+ "','"
-						+pp.getPreviousAverageAssist()
-						+ "','"
-						+pp.getNearlyFiveAverageAssist()
-						+ "','"
-						+pp.getDoubleDouble()+"')";
-				statement.addBatch(sql);
+				ps.setString(1, pp.getPlayerName());
+				ps.setString(2, pp.getTeam());
+				ps.setInt(3, pp.getAppearance());
+				ps.setInt(4, pp.getFirstPlay());
+				ps.setInt(5, pp.getBackboard());
+				ps.setInt(6, pp.getAssist());
+				ps.setDouble(7, pp.getMinutes());
+				ps.setInt(8, pp.getFieldGoal());
+				ps.setInt(9, pp.getFieldGoalAttempts());
+				ps.setInt(10, pp.getThreePointFieldGoal());
+				ps.setInt(11, pp.getThreePointFieldGoalAttempts());
+				ps.setInt(12, pp.getFreeThrow());
+				ps.setInt(13, pp.getFreeThrowAttempts());
+				ps.setInt(14, pp.getOffensiveRebound());
+				ps.setInt(15,pp.getDefensiveRebound());
+				ps.setInt(16, pp.getSteal());
+				ps.setInt(17, pp.getBlock());
+				ps.setInt(18, pp.getTurnOver());
+				ps.setInt(19, pp.getFoul());
+				ps.setInt(20, pp.getScoring());
+				ps.setInt(21, pp.getTeamFieldGoalAttempts());
+				ps.setInt(22, pp.getTeamBackboard());
+				ps.setInt(23, pp.getTeamFieldGoal());
+				ps.setInt(24, pp.getTeamFreeThrow());
+				ps.setInt(25, pp.getTeamOffensiveRebound());
+				ps.setInt(26, pp.getTeamDefensiveRebound());
+				ps.setDouble(27, pp.getTeamMinutes());
+				ps.setInt(28, pp.getTeamFreeThrowAttempts());
+				ps.setInt(29, pp.getTeamTurnOver());
+				ps.setInt(30, pp.getOpponentBackBoard());
+				ps.setInt(31, pp.getOpponentOffensiveRebound());
+				ps.setInt(32, pp.getOpponentDefensiveRebound());
+				ps.setInt(33, pp.getOpponentFieldGoalAttempts());
+				ps.setInt(34, pp.getOpponentThreePointFieldGoalAttempts());
+				ps.setDouble(35, pp.getFieldGoalShotPercentage());
+				ps.setDouble(36, pp.getThreePointShotPercentage());
+				ps.setDouble(37, pp.getFreeThrowPercentage());
+				ps.setDouble(38, pp.getEfficiency());
+				ps.setDouble(39, pp.getGmScEfficiency());
+				ps.setDouble(40, pp.getNearlyFivePercentage());
+				ps.setDouble(41, pp.getTrueShootingPercentage());
+				ps.setDouble(42, pp.getShootingEfficiency());
+				ps.setDouble(43, pp.getBackboardPercentage());
+				ps.setDouble(44, pp.getOffensiveReboundPercentage());
+				ps.setDouble(45, pp.getDefensiveReboundPercentage());
+				ps.setDouble(46, pp.getAssistPercentage());
+				ps.setDouble(47, pp.getStealPercentage());
+				ps.setDouble(48, pp.getBlockPercentage());
+				ps.setDouble(49, pp.getTurnOverPercentage());
+				ps.setDouble(50, pp.getUsage());
+				ps.setDouble(51, pp.getNearlyFiveBackboardPercentage());
+				ps.setDouble(52, pp.getNearlyFiveAssistPercentage());
+				ps.setDouble(53, pp.getPreviousAverageScoring());
+				ps.setDouble(54, pp.getNearlyFiveAverageScoring());
+				ps.setDouble(55, pp.getPreviousAverageBackboard());
+				ps.setDouble(56, pp.getNearlyFiveAverageBackboard());
+				ps.setDouble(57, pp.getPreviousAverageAssist());
+				ps.setDouble(58, pp.getNearlyFiveAverageAssist());
+				ps.setDouble(59, pp.getDoubleDouble());
+				ps.addBatch();
+				if(i%50 == 0)
+					ps.executeBatch();
 			}
-			statement.executeBatch();
+			ps.executeBatch();
 				sql="SELECT * FROM tempplayerdata ORDER BY `"+key+"` "+order;
 			ResultSet rs=statement.executeQuery(sql);
 			while(rs.next()){
@@ -621,6 +567,7 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 				r.add(pp);
 			}
 			sql="DROP TABLE tempplayerdata";
+			statement.executeBatch();
 			statement.execute(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
