@@ -212,7 +212,7 @@ public class Statistics extends MyPanel implements ActionListener{
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
 		
-        Object[][] data = getData(prs.getAllPlayerdata("13-14","scoring", "DESC"));
+        Object[][] data = null/*getData(prs.getAllPlayerdata("13-14","scoring", "DESC"))*/;
 	    model =  new DefaultTableModel(new Object[][]{}, columnNames);   
 	    model.setDataVector(data, columnNames);
 
