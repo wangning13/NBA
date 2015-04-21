@@ -14,7 +14,7 @@ import ui.material.Img;
 @SuppressWarnings("serial")
 public class MainFrame extends MyPanel implements ActionListener{
 	private Frame frame;
-
+    
 	MyButton ranking = new MyButton(Img.RANKICON1,Img.RANKICON2);
 	MyButton statistics = new MyButton(Img.STATISTICSICON1,Img.STATISTICSICON2);
 	MyButton teams = new MyButton(Img.TEAMICON1,Img.TEAMICON2);
@@ -57,23 +57,28 @@ public class MainFrame extends MyPanel implements ActionListener{
 	    copyright.setBounds(850, 620, 200, 50);
 
     }
-
+	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("ranking")){
 			frame.change(this, frame.rankingPanel);
+			Frame.currentPanel = "ranking";
 		}
 		else if(e.getActionCommand().equals("statistics")){
 			frame.change(this, frame.statisticsPanel);
+			Frame.currentPanel = "statistics";
 		}
 		else if(e.getActionCommand().equals("teams")){
 			frame.change(this, frame.teamsSelectPanel);
+			Frame.currentPanel = "teams";
 		}
 		else if(e.getActionCommand().equals("players")){
 			frame.change(this, frame.playersSelectPanel);
+			Frame.currentPanel = "players";
 		}
 		else if(e.getActionCommand().equals("matches")){
 			frame.change(this, frame.matchesPanel);
+			Frame.currentPanel = "matches";
 		}
 	}
 

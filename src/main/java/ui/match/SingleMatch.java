@@ -216,12 +216,17 @@ public class SingleMatch extends MyPanel implements ActionListener{
 		
 		if(e.getActionCommand().equals("home")){
 			frame.change(this, frame.mainFrame);
+			Frame.currentPanel = "main";
 		}
 		if(e.getActionCommand().equals("back")){
-			if(!flag)
+			if(!flag){
 			    frame.change(this, frame.matchesPanel);
-			else
+			    Frame.currentPanel = "matches";
+			}
+			else{
 				frame.change(this, frame.singleTeamPanel);
+				Frame.currentPanel = "singleTeam";
+			}
 		}
 
 	}

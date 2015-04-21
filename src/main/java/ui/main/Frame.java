@@ -14,7 +14,7 @@ import ui.team.SingleTeam;
 import ui.team.TeamsSelect;
 
 @SuppressWarnings("serial")
-public class Frame extends JFrame{
+public class Frame extends JFrame implements UpdateService{
 
 	public static final int WIN_W = 1052;
 	public static final int WIN_H = 650;
@@ -27,6 +27,9 @@ public class Frame extends JFrame{
     public SinglePlayer singlePlayerPanel = new SinglePlayer(this);
     public Matches matchesPanel = new Matches(this);
     public SingleMatch singleMatchPanel = new SingleMatch(this);
+    
+    public static String currentPanel = "main";
+    
 	public Frame (){
 		super("NBA数据控");
 		this.getContentPane().add(mainFrame);
@@ -41,6 +44,27 @@ public class Frame extends JFrame{
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setVisible(true);
 	
+	}
+	
+	public void update(){
+		if(currentPanel.equals("ranking")){
+			rankingPanel.update();		
+		}
+		else if(currentPanel.equals("statistics")){
+			statisticsPanel.update();		
+		}
+		else if(currentPanel.equals("playersSelect")){
+			playersSelectPanel.update();		
+		}
+		else if(currentPanel.equals("singleTeam")){
+			singleTeamPanel.update();		
+		}
+		else if(currentPanel.equals("singlePlayer")){
+			singlePlayerPanel.update();		
+		}
+		else if(currentPanel.equals("matches")){
+			matchesPanel.update();		
+		}
 	}
 	
 	public void change(JPanel cur,JPanel next){

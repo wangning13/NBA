@@ -26,6 +26,14 @@ import vo.TeamVO;
 
 @SuppressWarnings("serial")
 public class Statistics extends MyPanel implements ActionListener{
+	int flag = 0;
+	String term2;
+  	String term3;
+  	String term4;
+  	String term5;	
+  	String term6;
+  	String key;
+  	String order;
 	PlayerRankService prs = new PlayerRank();
 	TeamRankService trs = new TeamRank();
 	Frame frame;
@@ -243,11 +251,51 @@ public class Statistics extends MyPanel implements ActionListener{
 	    }
 	    return data;
 	}
+	
+	public void update(){
+		if(flag == 0){
+			 Object[][] data = getData(prs.getAllPlayerdata("13-14","scoring", "DESC"));
+			 model.setDataVector(data, columnNames);
+		     table.setWidth();
+			 table.updateUI();
+		}
+	    else if(flag == 1){
+			 Object[][] data = getData(prs.getAllPlayerdata("13-14",term2, order));
+			 model.setDataVector(data, columnNames);
+		     table.setWidth();
+			 table.updateUI();
+		}
+		else if(flag == 2){
+			Object[][] data = getData(prs.getFirstFifty("13-14",term3,term4,term5));
+			 model.setDataVector(data, columnNames);
+		     table.setWidth();
+			 table.updateUI();
+		}
+		else if(flag == 3){
+			 Object[][] data = getData1(prs.getDayTop(term6));
+			 model.setDataVector(data, columnNames1);
+		     table.setWidth();
+			 table.updateUI();	
+		}
+		else if(flag == 4){
+			 Object[][] data = getData(prs.getSeasonTop("13-14",term6));
+			 model.setDataVector(data, columnNames);
+		     table.setWidth();
+			 table.updateUI();	
+		}
+		else if(flag == 5){
+			 Object[][] data = getData(prs.getMostImporvedPlayer("13-14",key));
+			 model.setDataVector(data, columnNames);
+		     table.setWidth();
+			 table.updateUI();
+		}
+	}
     
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("home")||e.getActionCommand().equals("back")){
 			frame.change(this, frame.mainFrame);
+			Frame.currentPanel = "main";
 		}
 		
 		else if(e.getActionCommand().equals("descending")){	
@@ -255,34 +303,45 @@ public class Statistics extends MyPanel implements ActionListener{
 			 model.setDataVector(data, columnNames);
 		     table.setWidth();
 			 table.updateUI();
+			 flag = 1;
+			 term2 = Translate.translate1(type.getSelectedItem().toString());
+			 order = "DESC";
 		}
 		else if(e.getActionCommand().equals("ascending")){
 			 Object[][] data = getData(prs.getAllPlayerdata("13-14",Translate.translate1(type.getSelectedItem().toString()), "ASC"));
 			 model.setDataVector(data, columnNames);
 		     table.setWidth();
 			 table.updateUI();
+			 flag = 1;
+			 term2 = Translate.translate1(type.getSelectedItem().toString());
+			 order = "ASC";
 		}
 		else if(e.getActionCommand().equals("filter")){
 			 Object[][] data = getData(prs.getFirstFifty("13-14",Translate.translate1(posision.getSelectedItem().toString()),Translate.translate1(area.getSelectedItem().toString()),Translate.translate1(term.getSelectedItem().toString())));
 			 model.setDataVector(data, columnNames);
 		     table.setWidth();
 			 table.updateUI();
+			 flag = 2;
+			 term3 = Translate.translate1(posision.getSelectedItem().toString());
+			 term4 = Translate.translate1(area.getSelectedItem().toString());
+			 term5 = Translate.translate1(term.getSelectedItem().toString());
 		}
 		else if(e.getActionCommand().equals("search")){
              if(hot.getSelectedIndex()==0){
     			 Object[][] data = getData1(prs.getDayTop(Translate.translate1(term1.getSelectedItem().toString())));
     			 model.setDataVector(data, columnNames1);
     		     table.setWidth();
-    			 table.updateUI();	 
+    			 table.updateUI();	
+    			 flag = 3;
              }
              else if(hot.getSelectedIndex()==1){
        			 Object[][] data = getData(prs.getSeasonTop("13-14", Translate.translate1(term1.getSelectedItem().toString())));
     			 model.setDataVector(data, columnNames);
     		     table.setWidth();
     			 table.updateUI();	
+    			 flag = 4;
              }
              else if(hot.getSelectedIndex()==2){
-            	 String key;
             	 if(term1.getSelectedIndex()==0)
             		 key = "nearlyFivePercentage";
             	 else if(term1.getSelectedIndex()==1)
@@ -294,7 +353,9 @@ public class Statistics extends MyPanel implements ActionListener{
     			 model.setDataVector(data, columnNames);
     		     table.setWidth();
     			 table.updateUI();
+    			 flag = 5;
              }
+             term6 = Translate.translate1(term1.getSelectedItem().toString());
 		}
 	}
 

@@ -29,6 +29,8 @@ import vo.PlayerinfoVO;
 
 @SuppressWarnings("serial")
 public class SinglePlayer extends MyPanel implements ActionListener{
+	boolean isRecent = true;
+	String date = "";
 	PlayerRankService prs = new PlayerRank();
 	TeamRankService trs = new TeamRank();
 	public boolean flag = false;
@@ -198,7 +200,14 @@ public class SinglePlayer extends MyPanel implements ActionListener{
 	    model1 = new DefaultTableModel(new Object[][]{},columnNames1);
 	    model1.setDataVector(data1, columnNames1);
 	    table1 = new MyTable(model1);
-
+	    table1.addMouseListener(new MouseAdapter() {    //这里使用MouseAdapter代替MouseListener，因为MouseListener要重写的方法太多
+			public void mouseClicked(MouseEvent e) {
+				int row = table1.getSelectedRow();
+				int column = table1.getSelectedColumn();
+				if(column==0)
+				  jump(row);
+			}
+		});
 	    //table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	    pane1 = new JScrollPane (table1);
 	    this.add(pane1);
@@ -239,14 +248,7 @@ public class SinglePlayer extends MyPanel implements ActionListener{
 		model1.setDataVector(data1, columnNames1);
 	    table1.setWidth();
 		table1.updateUI();
-	    table1.addMouseListener(new MouseAdapter() {    //这里使用MouseAdapter代替MouseListener，因为MouseListener要重写的方法太多
-			public void mouseClicked(MouseEvent e) {
-				int row = table1.getSelectedRow();
-				int column = table1.getSelectedColumn();
-				if(column==0)
-				  jump(row);
-			}
-		});
+
 		
 	/*    Object[][] data2 = new Object[1][];
 		
@@ -268,6 +270,7 @@ public class SinglePlayer extends MyPanel implements ActionListener{
 		  frame.change(this, frame.singleTeamPanel);
 		  frame.singleTeamPanel.update(team);
 		  frame.singleTeamPanel.flag = true;
+		  Frame.currentPanel = "singleTeam";
 		}
 	}
 	
@@ -281,30 +284,60 @@ public class SinglePlayer extends MyPanel implements ActionListener{
 	    return data;
 	}
 
+	public void update(){
+	    PlayerVO player = prs.getPlayerdata("13-14",playerName);
+	    Object[][] data1 = new Object[1][];
+		Object[] temp1 = {player.getTeam(),player.getAppearance(),player.getFirstPlay(),player.getBackboard(),player.getAssist(),player.getMinutes(),player.getFielfGoalShotPercentage(),player.getThreePointShotPercentage(),player.getFreeThrowPercentage(),player.getOffensiveRebound(),player.getDefensiveRebound(),player.getSteal(),player.getBlock(),player.getTurnOver(),player.getFoul(),player.getScoring(),player.getEfficiency(),player.getGmScEfficiency(),player.getTrueShootingPercentage(),player.getShootingEfficiency(),player.getBackboardPercentage(),player.getOffensiveReboundPercentage(),player.getDefensiveReboundPercentage(),player.getAssistPercentage(),player.getStealPercentage(),player.getBlockPercentage(),player.getTurnOverPercentage(),player.getUsage(),player.getAverageScoring(),player.getAverageMinute(),player.getAverageBackboard(),player.getAverageAssist(),player.getAverageFieldGoal(),player.getAverageFieldGoalAttempts(),player.getAverageThreePointFieldGoal(),player.getAverageThreePointFieldGoalAttempts(),player.getAverageFreeThrow(),player.getAverageFreeThrowAttempts(),player.getAverageOffensiveRebound(),player.getAverageDefensiveRebound(),player.getAverageSteal(),player.getAverageBlock(),player.getAverageTurn(),player.getAverageFoul()};
+		data1[0] = temp1;
+		model1.setDataVector(data1, columnNames1);
+	    table1.setWidth();
+		table1.updateUI();
+		
+		if(isRecent=true){
+		    matches =  prs.getPlayerRecentFiveMatch(playerName);
+			model2.setDataVector(getData2(matches), columnNames2);
+		    table2.setWidth();
+			table2.updateUI();
+		}
+		else{
+			matches = prs.getPlayerMonthMatch(season.getSelectedItem().toString().substring(2)+"-"+month.getSelectedItem().toString().substring(0,2),playerName);
+			model2.setDataVector(getData2(matches), columnNames2);
+		    table2.setWidth();
+			table2.updateUI();
+		}
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("home")){
 			frame.change(this, frame.mainFrame);
+			Frame.currentPanel = "main";
 		}
 		else if(e.getActionCommand().equals("back")){
 			if(flag){
 			    frame.change(this, frame.singleTeamPanel);
 			    frame.singleTeamPanel.flag = false;
+			    Frame.currentPanel = "singleTeam";
 			}
-			else
+			else{
 			    frame.change(this, frame.playersSelectPanel);
+			    Frame.currentPanel = "playerSelect";
+			}
 		}
 		else if(e.getActionCommand().equals("search")){
 			matches = prs.getPlayerMonthMatch(season.getSelectedItem().toString().substring(2)+"-"+month.getSelectedItem().toString().substring(0,2),playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 		    table2.setWidth();
 			table2.updateUI();
+			isRecent = false;
+			date = season.getSelectedItem().toString().substring(2)+"-"+month.getSelectedItem().toString().substring(0,2);
 		}
 		else if(e.getActionCommand().equals("recent")){
 		    matches =  prs.getPlayerRecentFiveMatch(playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 		    table2.setWidth();
 			table2.updateUI();
+			isRecent = true;
 		}
 	}
 }

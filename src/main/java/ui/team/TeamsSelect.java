@@ -1,11 +1,13 @@
 package ui.team;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,6 +27,15 @@ public class TeamsSelect extends MyPanel implements ActionListener{
 	MyTable table;
 	DefaultTableModel model;
 	String[] columnNames = {"西南区","西北区","太平洋区","东南区","中区","大西洋区"};
+	JLabel jl1 = new JLabel("西南区");
+	JLabel jl2 = new JLabel("西北区");
+	JLabel jl3 = new JLabel("太平洋区");
+	JLabel jl4 = new JLabel("东南区");
+	JLabel jl5 = new JLabel("中区");
+	JLabel jl6 = new JLabel("大西洋区");
+	ImageIcon icon = Img.loadTeam("SAS");
+	MyButton SAS = new MyButton(icon.getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT),icon.getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+
 	JLabel rankingBand = new JLabel(Img.RANKINGBAND);
     JLabel jl = new JLabel("NBA球队");
 
@@ -38,9 +49,12 @@ public class TeamsSelect extends MyPanel implements ActionListener{
 	    jl.setBounds(20, 170, 100, 30);
 	    jl.setFont(font1);
 		
+	    this.add(SAS);
+	    SAS.setBounds(20, 200, 100, 100);
+	    
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
-
+    
         Object[][] data = getData();
 	    model = new DefaultTableModel(data,columnNames);
 	    model.setDataVector(data, columnNames);
@@ -82,12 +96,14 @@ public class TeamsSelect extends MyPanel implements ActionListener{
 		frame.change(this, frame.singleTeamPanel);
 		frame.singleTeamPanel.update(team);
 		frame.singleTeamPanel.flag = false;
+		Frame.currentPanel = "singleTeam";
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("home")||e.getActionCommand().equals("back")){
 			frame.change(this, frame.mainFrame);
+			Frame.currentPanel = "main";
 		}	
 	}
 

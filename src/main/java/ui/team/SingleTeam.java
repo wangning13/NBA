@@ -1,7 +1,6 @@
 package ui.team;
 
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,14 +22,14 @@ import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.MyTable;
-import ui.tools.Translate;
 import vo.PlayerVO;
-import vo.TeamMatchVO;
 import vo.TeamMonthMatchVO;
 import vo.TeaminfoVO;
 
 @SuppressWarnings("serial")
 public class SingleTeam extends MyPanel implements ActionListener{
+	boolean isRecent = true;
+	String date ;
 	TeamRankService trs = new TeamRank();
 	PlayerRankService prs = new PlayerRank();
 	public boolean flag = false;
@@ -201,6 +200,14 @@ public class SingleTeam extends MyPanel implements ActionListener{
 	    pane2 = new JScrollPane (table2);
 	    this.add(pane2);
 	    pane2.setBounds(300, 220, 752, 215);
+	    table2.addMouseListener(new MouseAdapter() {    //这里使用MouseAdapter代替MouseListener，因为MouseListener要重写的方法太多
+			public void mouseClicked(MouseEvent e) {
+				int row = table2.getSelectedRow();
+				int column = table2.getSelectedColumn();
+				if(column==8)
+					jump(row);
+			}
+		});
 	   
 	}
 	
@@ -235,14 +242,6 @@ public class SingleTeam extends MyPanel implements ActionListener{
 		model2.setDataVector(data2, columnNames2);
 	    table2.setWidth();
 		table2.updateUI();
-	    table2.addMouseListener(new MouseAdapter() {    //这里使用MouseAdapter代替MouseListener，因为MouseListener要重写的方法太多
-			public void mouseClicked(MouseEvent e) {
-				int row = table2.getSelectedRow();
-				int column = table2.getSelectedColumn();
-				if(column==8)
-					jump(row);
-			}
-		});
        	
 	}
 	
@@ -251,6 +250,7 @@ public class SingleTeam extends MyPanel implements ActionListener{
     	TeamMonthMatchVO temp = matches.get(matches.size()-row-1);
     	frame.singleMatchPanel.update(temp);
     	frame.singleMatchPanel.flag = true;
+    	Frame.currentPanel = "singleMatch";
     }
 	
     public void jump1(int row){
@@ -260,6 +260,7 @@ public class SingleTeam extends MyPanel implements ActionListener{
     		  frame.change(this, frame.singlePlayerPanel);
               frame.singlePlayerPanel.update(name);
               frame.singlePlayerPanel.flag = true;
+              Frame.currentPanel = "singlePlayer";
     		}
     	}
     	
@@ -373,28 +374,61 @@ public class SingleTeam extends MyPanel implements ActionListener{
 		teamIcon.setIcon(icon);
 	}
 	
-	
+	public void update(){
+		 ArrayList<String> players = prs.getAllPlayer("13-14",name);
+		 int num = players.size();
+		 Object[][] data = new Object[num][];
+         for(int i = 0;i<num;i++){
+			//System.out.println(players.get(i));
+			PlayerVO player = prs.getPlayerdata("13-14",players.get(i));
+			Object[] temp = {player.getPlayerName(),player.getAppearance(),player.getFirstPlay(),player.getBackboard(),player.getAssist(),player.getMinutes(),player.getFielfGoalShotPercentage(),player.getThreePointShotPercentage(),player.getFreeThrowPercentage(),player.getOffensiveRebound(),player.getDefensiveRebound(),player.getSteal(),player.getBlock(),player.getTurnOver(),player.getFoul(),player.getScoring(),player.getEfficiency(),player.getGmScEfficiency(),player.getTrueShootingPercentage(),player.getShootingEfficiency(),player.getBackboardPercentage(),player.getOffensiveReboundPercentage(),player.getDefensiveReboundPercentage(),player.getAssistPercentage(),player.getStealPercentage(),player.getBlockPercentage(),player.getTurnOverPercentage(),player.getUsage()};
+			data[i] = temp;
+		};
+		model1.setDataVector(data, columnNames1);
+		table1.setWidth();
+		table1.updateUI();
+		
+		if(isRecent = true){
+			matches = trs.getTeamRecentFiveMatch(name);
+			Object[][] data2 = getData(matches);
+			model2.setDataVector(data2, columnNames2);
+		    table2.setWidth();
+			table2.updateUI();
+		}
+		else{
+			 matches = trs.getTeamMonthMatch(date,name);
+			 Object[][] data2 = getData(matches);
+			 model2.setDataVector(data2, columnNames2);
+			 table2.setWidth();
+		     table2.updateUI();
+		}
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("home")){
 			frame.change(this, frame.mainFrame);
+			Frame.currentPanel = "main";
 		}
 		else if(e.getActionCommand().equals("back")){
 			if(flag){
 				frame.change(this, frame.singlePlayerPanel);
 				frame.singlePlayerPanel.flag = false;
+				Frame.currentPanel = "singlePlayer";
 			}
-			else
+			else{
 			    frame.change(this, frame.teamsSelectPanel);
+			    Frame.currentPanel = "teamSelect";
+			}
 		}
-		else if(e.getActionCommand().equals("search")){
+		else if(e.getActionCommand().equals("search")){	
             matches = trs.getTeamMonthMatch(season.getSelectedItem().toString().substring(2)+"-"+month.getSelectedItem().toString().substring(0,2),name);
 			Object[][] data2 = getData(matches);
 			model2.setDataVector(data2, columnNames2);
 		    table2.setWidth();
 			table2.updateUI();
-			
+			isRecent = false;
+			date = season.getSelectedItem().toString().substring(2)+"-"+month.getSelectedItem().toString().substring(0,2);
 		}
 		else if(e.getActionCommand().equals("recent")){
 			matches = trs.getTeamRecentFiveMatch(name);
@@ -402,6 +436,7 @@ public class SingleTeam extends MyPanel implements ActionListener{
 			model2.setDataVector(data2, columnNames2);
 		    table2.setWidth();
 			table2.updateUI();
+			isRecent = true;
 		}
 		
 	}
