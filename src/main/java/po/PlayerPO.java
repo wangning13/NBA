@@ -64,6 +64,7 @@ public class PlayerPO{
 	double previousAverageAssist;//五场前的平均助攻
 	double nearlyFiveAverageAssist;//近五场的平均助攻
 	int doubleDouble=0;//两双次数
+	
 	public PlayerPO(String playerName, String team, int appearance,
 			int firstPlay, int backboard, int assist, double minutes,
 			int fieldGoal, int fieldGoalAttempts, int threePointFieldGoal,

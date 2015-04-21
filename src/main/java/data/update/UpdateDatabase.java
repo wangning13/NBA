@@ -64,11 +64,6 @@ public class UpdateDatabase extends TimerTask{
 					//insert into playerdata
 					String[] temp=newData[i].split("_");    //12-13
 					String season=temp[0];
-					for (int j = 0; j < Server.season.size(); j++) {
-						if (temp[0].equals(Server.season.get(j))) {
-							Server.seasonNum.set(j, Server.seasonNum.get(j)+1);
-						}
-					}
 					String[] year=temp[0].split("-");
 					String date=temp[1];
 					String[] team=temp[2].split("-");
@@ -157,55 +152,7 @@ public class UpdateDatabase extends TimerTask{
 				}
 			}
 		}else{
-			try {
-				ArrayList<String> tempSeason = new ArrayList<String>();
-				ArrayList<Integer> tempSeasonNum = new ArrayList<Integer>();
-				for (int j = 0; j < newData.length; j++) {
-					String[] item = newData[j].split("_");
-					if(!tempSeason.contains(item[0])) {
-						tempSeason.add(item[0]);
-						tempSeasonNum.add(0);
-					}
-					for (int k = 0; k < tempSeason.size(); k++) {
-						if (item[0].equals(tempSeason.get(k))) {
-							tempSeasonNum.set(k, tempSeasonNum.get(k)+1);
-						}
-					}
-				}
-				for (int j = 0; j < Server.season.size(); j++) {
-					if(!tempSeason.contains(Server.season.get(j))) {
-						String[] year = Server.season.get(j).split("-");
-						String sql = "DELETE FROM playerdata WHERE date like '"+year[0]+"-10-%' OR date like '"+year[0]+"-11-%' OR date like '"+year[0]+"-12-%' OR date like '"+year[1]+"-01-%' OR date like '"+year[1]+"-02-%' OR date like '"+year[1]+"-03-%' OR date like '"+year[1]+"-04-%'";
-						statement.addBatch(sql);
-						sql = "DELETE FROM matches WHERE date like '"+year[0]+"-10-%' OR date like '"+year[0]+"-11-%' OR date like '"+year[0]+"-12-%' OR date like '"+year[1]+"-01-%' OR date like '"+year[1]+"-02-%' OR date like '"+year[1]+"-03-%' OR date like '"+year[1]+"-04-%'";
-						statement.addBatch(sql);
-						sql = "DELETE FROM `playersum" + Server.season.get(j) + "`";
-						statement.addBatch(sql);
-						sql = "DELETE FROM `teamsum" + Server.season.get(j) + "`";
-						statement.addBatch(sql);
-					}
-				}
-				statement.executeBatch();
-				for (int j = 0; j < Server.season.size(); j++) {
-					if (Server.seasonNum.get(j) < tempSeasonNum.get(j) || j >= tempSeasonNum.size()) {
-						String[] year = Server.season.get(j).split("-");
-						String sql = "DELETE FROM playerdata WHERE date like '"+year[0]+"-10-%' OR date like '"+year[0]+"-11-%' OR date like '"+year[0]+"-12-%' OR date like '"+year[1]+"-01-%' OR date like '"+year[1]+"-02-%' OR date like '"+year[1]+"-03-%' OR date like '"+year[1]+"-04-%'";
-						statement.addBatch(sql);
-						sql = "DELETE FROM matches WHERE date like '"+year[0]+"-10-%' OR date like '"+year[0]+"-11-%' OR date like '"+year[0]+"-12-%' OR date like '"+year[1]+"-01-%' OR date like '"+year[1]+"-02-%' OR date like '"+year[1]+"-03-%' OR date like '"+year[1]+"-04-%'";
-						statement.addBatch(sql);
-						sql = "DELETE FROM `playersum" + Server.season.get(j) + "`";
-						statement.addBatch(sql);
-						sql = "DELETE FROM `teamsum" + Server.season.get(j) + "`";
-						statement.addBatch(sql);
-					}
-				}
-				statement.executeBatch();
-				Server.season = tempSeason;
-				conn.commit();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			///////////////////////////////////////////////////////////////////////////
 		}
 	}
 	
