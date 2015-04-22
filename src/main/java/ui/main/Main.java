@@ -4,7 +4,7 @@ import rmi.Server;
 import ui.main.Frame;
 
 public class Main {
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		new Server();
 		new Frame();
 	}

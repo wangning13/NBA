@@ -14,8 +14,6 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import sun.swing.SwingUtilities2;
 
 public class MyButtonUI extends BasicButtonUI {
-	
-	
 
 	@Override
 	protected void installDefaults(AbstractButton b) {
@@ -26,7 +24,7 @@ public class MyButtonUI extends BasicButtonUI {
 
 	@Override
 	public void paint(Graphics g, JComponent c) {
-		g.setColor(new Color(255,0,0,150));
+		g.setColor(new Color(255, 0, 0, 150));
 		g.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 10, 10);
 		super.paint(g, c);
 	}
@@ -42,28 +40,28 @@ public class MyButtonUI extends BasicButtonUI {
 	protected void paintText(Graphics g, JComponent c, Rectangle textRect,
 			String text) {
 		AbstractButton b = (AbstractButton) c;
-        ButtonModel model = b.getModel();
-        FontMetrics fm = SwingUtilities2.getFontMetrics(c, g);
-        int mnemonicIndex = b.getDisplayedMnemonicIndex();
+		ButtonModel model = b.getModel();
+		FontMetrics fm = SwingUtilities2.getFontMetrics(c, g);
+		int mnemonicIndex = b.getDisplayedMnemonicIndex();
 
-        /* Draw the Text */
-        if(model.isEnabled()) {
-            /*** paint the text normally */
-//            g.setColor(b.getForeground());
-        	g.setColor(Color.WHITE);
-            SwingUtilities2.drawStringUnderlineCharAt(c, g,text, mnemonicIndex,
-                                          textRect.x + getTextShiftOffset(),
-                                          textRect.y + fm.getAscent() + getTextShiftOffset());
-        }
-        else {
-            /*** paint the text disabled ***/
-            g.setColor(b.getBackground().brighter());
-            SwingUtilities2.drawStringUnderlineCharAt(c, g,text, mnemonicIndex,
-                                          textRect.x, textRect.y + fm.getAscent());
-            g.setColor(b.getBackground().darker());
-            SwingUtilities2.drawStringUnderlineCharAt(c, g,text, mnemonicIndex,
-                                          textRect.x - 1, textRect.y + fm.getAscent() - 1);
-        }
+		/* Draw the Text */
+		if (model.isEnabled()) {
+			/*** paint the text normally */
+			// g.setColor(b.getForeground());
+			g.setColor(Color.WHITE);
+			SwingUtilities2.drawStringUnderlineCharAt(c, g, text,
+					mnemonicIndex, textRect.x + getTextShiftOffset(),
+					textRect.y + fm.getAscent() + getTextShiftOffset());
+		} else {
+			/*** paint the text disabled ***/
+			g.setColor(b.getBackground().brighter());
+			SwingUtilities2.drawStringUnderlineCharAt(c, g, text,
+					mnemonicIndex, textRect.x, textRect.y + fm.getAscent());
+			g.setColor(b.getBackground().darker());
+			SwingUtilities2.drawStringUnderlineCharAt(c, g, text,
+					mnemonicIndex, textRect.x - 1, textRect.y + fm.getAscent()
+							- 1);
+		}
 	}
 
 	@Override
@@ -82,12 +80,9 @@ public class MyButtonUI extends BasicButtonUI {
 
 	@Override
 	protected void paintButtonPressed(Graphics g, AbstractButton b) {
-		g.setColor(new Color(255,200,0,150));
+		g.setColor(new Color(255, 200, 0, 150));
 		g.fillRoundRect(0, 0, b.getWidth(), b.getHeight(), 10, 10);
 		super.paintButtonPressed(g, b);
 	}
-
-	
-	
 
 }
