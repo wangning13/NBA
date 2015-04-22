@@ -14,10 +14,11 @@ import po.PlayerinfoPO;
 import data.initial.InitialDatabase;
 import dataservice.getdatadataservice.GetPlayerdataDataService;
 
-public class GetPlayerdata implements GetPlayerdataDataService{
+public class GetPlayerdata implements GetPlayerdataDataService {
 
 	Connection conn;
 	Statement statement;
+
 	public GetPlayerdata() {
 		try {
 			Class.forName(InitialDatabase.driver);
@@ -26,315 +27,364 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 	}
-	
-	public PlayerPO getPlayerdata(String season,String playerName){
-		if(playerName.contains("'"))
-			playerName=playerName.substring(0,playerName.indexOf("'"))+"'"+playerName.substring(playerName.indexOf("'"), playerName.length());
-		String team="";//球员队伍
-		int appearance=0;//参赛场数
-		int firstPlay=0;//先发场数
-		int fieldGoal=0;//投篮命中数
-		int fieldGoalAttempts=0;//投篮出手次数
-		int threePointFieldGoal=0;//三分命中数
-		int threePointFieldGoalAttempts=0;//三分出手数
-		int freeThrow=0;//罚球命中数
-		int freeThrowAttempts=0;//罚球出手数
-		int offensiveRebound=0;//进攻数
-		int defensiveRebound=0;//防守数
-		int backboard=0;//篮板数
-		int assist=0;//助攻数
-		double minutes=0;//在场时间
-		int steal=0;//抢断数
-		int block=0;//盖帽数
-		int turnOver=0;//失误数
-		int foul=0;//犯规数 
-		int scoring=0;//比赛得分
-		int teamFieldGoal=0;
-		int teamFieldGoalAttempts=0;
-		int teamBackboard=0;//球队总篮板
-		int teamFreeThrow=0;
-		int teamOffensiveRebound=0;
-		int teamDefensiveRebound=0;
-		double teamMinutes=0;//球队上场总时间
-		int teamFreeThrowAttempts=0;//球队罚球次数
-		int teamTurnOver=0;//球队失误数
-		int opponentBackBoard=0;//对手总篮板
-		int opponentOffensiveRebound=0;//对手总进攻篮板
-		int opponentDefensiveRebound=0;//对手总防守篮板
-		int opponentFieldGoalAttempts=0;//对手投篮出手次数
-		int opponentThreePointFieldGoalAttempts=0;//对手三分出手数
-		
-		double fieldGoalShotPercentage=0;//投篮命中率
-		double threePointShotPercentage=0;//三分命中率
-		double freeThrowPercentage=0;//罚球命中率
-		double efficiency=0;//效率
-		double GmScEfficiency=0;//GmSc效率
-		double nearlyFivePercentage=0;//近五场提升率
-		double trueShootingPercentage=0;//真实命中率
-		double shootingEfficiency=0;//投篮效率
-		double backboardPercentage=0;//篮板率
-		double offensiveReboundPercentage=0;//进攻篮板率
-		double defensiveReboundPercentage=0;//防守篮板率
-		double assistPercentage=0;//助攻率
-		double stealPercentage=0;//抢断率
-		double blockPercentage=0;//盖帽率
-		double turnOverPercentage=0;//失误率
-		double usage=0;//使用率
-		double nearlyFiveBackboardPercentage=0;//近五场篮板提升率
-		double nearlyFiveAssistPercentage=0;//近五场助攻提升率
-		
-		double previousAverageScoring=0;//五场前的平均得分
-		double nearlyFiveAverageScoring=0;//近五场的平均得分
-		double previousAverageBackboard=0;//五场前的平均篮板
-		double nearlyFiveAverageBackboard=0;//近五场的平均篮板
-		double previousAverageAssist=0;//五场前的平均助攻
-		double nearlyFiveAverageAssist=0;//近五场的平均助攻
-		int doubleDouble=0;
-		String sql="SELECT * FROM `playersum"+season+"` WHERE playerName='"+playerName+"'";
+
+	public PlayerPO getPlayerdata(String season, String playerName) {
+		if (playerName.contains("'"))
+			playerName = playerName.substring(0, playerName.indexOf("'"))
+					+ "'"
+					+ playerName.substring(playerName.indexOf("'"),
+							playerName.length());
+		String team = "";// 球员队伍
+		int appearance = 0;// 参赛场数
+		int firstPlay = 0;// 先发场数
+		int fieldGoal = 0;// 投篮命中数
+		int fieldGoalAttempts = 0;// 投篮出手次数
+		int threePointFieldGoal = 0;// 三分命中数
+		int threePointFieldGoalAttempts = 0;// 三分出手数
+		int freeThrow = 0;// 罚球命中数
+		int freeThrowAttempts = 0;// 罚球出手数
+		int offensiveRebound = 0;// 进攻数
+		int defensiveRebound = 0;// 防守数
+		int backboard = 0;// 篮板数
+		int assist = 0;// 助攻数
+		double minutes = 0;// 在场时间
+		int steal = 0;// 抢断数
+		int block = 0;// 盖帽数
+		int turnOver = 0;// 失误数
+		int foul = 0;// 犯规数
+		int scoring = 0;// 比赛得分
+		int teamFieldGoal = 0;
+		int teamFieldGoalAttempts = 0;
+		int teamBackboard = 0;// 球队总篮板
+		int teamFreeThrow = 0;
+		int teamOffensiveRebound = 0;
+		int teamDefensiveRebound = 0;
+		double teamMinutes = 0;// 球队上场总时间
+		int teamFreeThrowAttempts = 0;// 球队罚球次数
+		int teamTurnOver = 0;// 球队失误数
+		int opponentBackBoard = 0;// 对手总篮板
+		int opponentOffensiveRebound = 0;// 对手总进攻篮板
+		int opponentDefensiveRebound = 0;// 对手总防守篮板
+		int opponentFieldGoalAttempts = 0;// 对手投篮出手次数
+		int opponentThreePointFieldGoalAttempts = 0;// 对手三分出手数
+
+		double fieldGoalShotPercentage = 0;// 投篮命中率
+		double threePointShotPercentage = 0;// 三分命中率
+		double freeThrowPercentage = 0;// 罚球命中率
+		double efficiency = 0;// 效率
+		double GmScEfficiency = 0;// GmSc效率
+		double nearlyFivePercentage = 0;// 近五场提升率
+		double trueShootingPercentage = 0;// 真实命中率
+		double shootingEfficiency = 0;// 投篮效率
+		double backboardPercentage = 0;// 篮板率
+		double offensiveReboundPercentage = 0;// 进攻篮板率
+		double defensiveReboundPercentage = 0;// 防守篮板率
+		double assistPercentage = 0;// 助攻率
+		double stealPercentage = 0;// 抢断率
+		double blockPercentage = 0;// 盖帽率
+		double turnOverPercentage = 0;// 失误率
+		double usage = 0;// 使用率
+		double nearlyFiveBackboardPercentage = 0;// 近五场篮板提升率
+		double nearlyFiveAssistPercentage = 0;// 近五场助攻提升率
+
+		double previousAverageScoring = 0;// 五场前的平均得分
+		double nearlyFiveAverageScoring = 0;// 近五场的平均得分
+		double previousAverageBackboard = 0;// 五场前的平均篮板
+		double nearlyFiveAverageBackboard = 0;// 近五场的平均篮板
+		double previousAverageAssist = 0;// 五场前的平均助攻
+		double nearlyFiveAverageAssist = 0;// 近五场的平均助攻
+		int doubleDouble = 0;
+		String sql = "SELECT * FROM `playersum" + season
+				+ "` WHERE playerName='" + playerName + "'";
 		try {
-			ResultSet rs=statement.executeQuery(sql);
-			while(rs.next()){
-			    team=rs.getString(2);
-			    appearance=rs.getInt(3);
-			    firstPlay=rs.getInt(4);
-			    backboard=rs.getInt(5);
-			    assist=rs.getInt(6);
-			    minutes=rs.getDouble(7);
-			    fieldGoal=rs.getInt(8);
-			    fieldGoalAttempts=rs.getInt(9);
-			    threePointFieldGoal=rs.getInt(10);
-			    threePointFieldGoalAttempts=rs.getInt(11);
-			    freeThrow=rs.getInt(12);
-			    freeThrowAttempts=rs.getInt(13);
-			    offensiveRebound=rs.getInt(14);
-			    defensiveRebound=rs.getInt(15);
-			    steal=rs.getInt(16);
-			    block=rs.getInt(17);
-			    turnOver=rs.getInt(18);
-			    foul=rs.getInt(19);
-			    scoring=rs.getInt(20);
-			    previousAverageScoring=rs.getDouble(21);
-			    nearlyFiveAverageScoring=rs.getDouble(22);
-			    previousAverageBackboard = rs.getDouble(23);
-			    nearlyFiveAverageBackboard = rs.getDouble(24);
-			    previousAverageAssist = rs.getDouble(25);
-			    nearlyFiveAverageAssist = rs.getDouble(26);
-			    doubleDouble=rs.getInt(27);
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				team = rs.getString(2);
+				appearance = rs.getInt(3);
+				firstPlay = rs.getInt(4);
+				backboard = rs.getInt(5);
+				assist = rs.getInt(6);
+				minutes = rs.getDouble(7);
+				fieldGoal = rs.getInt(8);
+				fieldGoalAttempts = rs.getInt(9);
+				threePointFieldGoal = rs.getInt(10);
+				threePointFieldGoalAttempts = rs.getInt(11);
+				freeThrow = rs.getInt(12);
+				freeThrowAttempts = rs.getInt(13);
+				offensiveRebound = rs.getInt(14);
+				defensiveRebound = rs.getInt(15);
+				steal = rs.getInt(16);
+				block = rs.getInt(17);
+				turnOver = rs.getInt(18);
+				foul = rs.getInt(19);
+				scoring = rs.getInt(20);
+				previousAverageScoring = rs.getDouble(21);
+				nearlyFiveAverageScoring = rs.getDouble(22);
+				previousAverageBackboard = rs.getDouble(23);
+				nearlyFiveAverageBackboard = rs.getDouble(24);
+				previousAverageAssist = rs.getDouble(25);
+				nearlyFiveAverageAssist = rs.getDouble(26);
+				doubleDouble = rs.getInt(27);
 			}
-			sql="SELECT fieldGoal,fieldGoalAttempts,backboard,freeThrow,offensiveRebound,defensiveRebound,minutes,freeThrowAttempts,turnOver,opponentBackBoard,opponentOffensiveRebound,opponentDefensiveRebound,opponentFieldGoalAttempts,opponentThreePointFieldGoalAttempts FROM `teamsum"+season+"` WHERE teamName='"+team+"'";
-			rs=statement.executeQuery(sql);
-			while(rs.next()){
-				teamFieldGoal=rs.getInt(1);
-				teamFieldGoalAttempts=rs.getInt(2);
-				teamBackboard=rs.getInt(3);
-				teamFreeThrow=rs.getInt(4);
-				teamOffensiveRebound=rs.getInt(5);
-				teamDefensiveRebound=rs.getInt(6);
-				teamMinutes=rs.getDouble(7);
-				teamFreeThrowAttempts=rs.getInt(8);
-				teamTurnOver=rs.getInt(9);
-				opponentBackBoard=rs.getInt(10);
-				opponentOffensiveRebound=rs.getInt(11);
-				opponentDefensiveRebound=rs.getInt(12);
-				opponentFieldGoalAttempts=rs.getInt(13);
-				opponentThreePointFieldGoalAttempts=rs.getInt(14);
+			sql = "SELECT fieldGoal,fieldGoalAttempts,backboard,freeThrow,offensiveRebound,defensiveRebound,minutes,freeThrowAttempts,turnOver,opponentBackBoard,opponentOffensiveRebound,opponentDefensiveRebound,opponentFieldGoalAttempts,opponentThreePointFieldGoalAttempts FROM `teamsum"
+					+ season + "` WHERE teamName='" + team + "'";
+			rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				teamFieldGoal = rs.getInt(1);
+				teamFieldGoalAttempts = rs.getInt(2);
+				teamBackboard = rs.getInt(3);
+				teamFreeThrow = rs.getInt(4);
+				teamOffensiveRebound = rs.getInt(5);
+				teamDefensiveRebound = rs.getInt(6);
+				teamMinutes = rs.getDouble(7);
+				teamFreeThrowAttempts = rs.getInt(8);
+				teamTurnOver = rs.getInt(9);
+				opponentBackBoard = rs.getInt(10);
+				opponentOffensiveRebound = rs.getInt(11);
+				opponentDefensiveRebound = rs.getInt(12);
+				opponentFieldGoalAttempts = rs.getInt(13);
+				opponentThreePointFieldGoalAttempts = rs.getInt(14);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (playerName.contains("'")) {
-			playerName=playerName.substring(0,playerName.indexOf("''"))+playerName.substring(playerName.indexOf("'")+1, playerName.length());
+			playerName = playerName.substring(0, playerName.indexOf("''"))
+					+ playerName.substring(playerName.indexOf("'") + 1,
+							playerName.length());
 		}
-		PlayerPO po = new PlayerPO( playerName,  team,  appearance,
-				 firstPlay,  backboard,  assist,  minutes,
-				 fieldGoal,  fieldGoalAttempts,  threePointFieldGoal,
-				 threePointFieldGoalAttempts,  freeThrow,
-				 freeThrowAttempts,  offensiveRebound,  defensiveRebound,
-				 steal,  block,  turnOver,  foul,  scoring,
-				 teamFieldGoalAttempts,  teamBackboard,  teamFieldGoal,
-				 teamFreeThrow,  teamOffensiveRebound,
-				 teamDefensiveRebound,  teamMinutes,
-				 teamFreeThrowAttempts,  teamTurnOver,  opponentBackBoard,
-				 opponentOffensiveRebound,  opponentDefensiveRebound,
-				 opponentFieldGoalAttempts,
-				 opponentThreePointFieldGoalAttempts,
-				 fieldGoalShotPercentage,threePointShotPercentage,
-				 freeThrowPercentage,efficiency,GmScEfficiency,nearlyFivePercentage,trueShootingPercentage,shootingEfficiency,backboardPercentage,offensiveReboundPercentage,defensiveReboundPercentage,assistPercentage,stealPercentage,blockPercentage,turnOverPercentage,usage,nearlyFiveBackboardPercentage,nearlyFiveAssistPercentage,previousAverageScoring,nearlyFiveAverageScoring,previousAverageBackboard,nearlyFiveAverageBackboard,previousAverageAssist,nearlyFiveAverageAssist,doubleDouble);
+		PlayerPO po = new PlayerPO(playerName, team, appearance, firstPlay,
+				backboard, assist, minutes, fieldGoal, fieldGoalAttempts,
+				threePointFieldGoal, threePointFieldGoalAttempts, freeThrow,
+				freeThrowAttempts, offensiveRebound, defensiveRebound, steal,
+				block, turnOver, foul, scoring, teamFieldGoalAttempts,
+				teamBackboard, teamFieldGoal, teamFreeThrow,
+				teamOffensiveRebound, teamDefensiveRebound, teamMinutes,
+				teamFreeThrowAttempts, teamTurnOver, opponentBackBoard,
+				opponentOffensiveRebound, opponentDefensiveRebound,
+				opponentFieldGoalAttempts, opponentThreePointFieldGoalAttempts,
+				fieldGoalShotPercentage, threePointShotPercentage,
+				freeThrowPercentage, efficiency, GmScEfficiency,
+				nearlyFivePercentage, trueShootingPercentage,
+				shootingEfficiency, backboardPercentage,
+				offensiveReboundPercentage, defensiveReboundPercentage,
+				assistPercentage, stealPercentage, blockPercentage,
+				turnOverPercentage, usage, nearlyFiveBackboardPercentage,
+				nearlyFiveAssistPercentage, previousAverageScoring,
+				nearlyFiveAverageScoring, previousAverageBackboard,
+				nearlyFiveAverageBackboard, previousAverageAssist,
+				nearlyFiveAverageAssist, doubleDouble);
 		return po;
 	}
-	
-	public PlayerinfoPO getPlayerinfo(String playerName){
-		PlayerinfoPO po =null;
+
+	public PlayerinfoPO getPlayerinfo(String playerName) {
+		PlayerinfoPO po = null;
 		try {
-			ResultSet rs=statement.executeQuery(SqlStatement.getPlayerinfo(playerName));
-			while(rs.next())
-				po=new PlayerinfoPO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9));
+			ResultSet rs = statement.executeQuery(SqlStatement
+					.getPlayerinfo(playerName));
+			while (rs.next())
+				po = new PlayerinfoPO(rs.getString(1), rs.getString(2),
+						rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6), rs.getInt(7), rs.getString(8),
+						rs.getString(9));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return po;
 	}
-	
-	public ArrayList<PlayerPO> getAllPlayerdata(String season,String key,String order){
-		String playerName="";
-		String team="";//球员队伍
-		int appearance=0;//参赛场数
-		int firstPlay=0;//先发场数
-		int fieldGoal=0;//投篮命中数
-		int fieldGoalAttempts=0;//投篮出手次数
-		int threePointFieldGoal=0;//三分命中数
-		int threePointFieldGoalAttempts=0;//三分出手数
-		int freeThrow=0;//罚球命中数
-		int freeThrowAttempts=0;//罚球出手数
-		int offensiveRebound=0;//进攻数
-		int defensiveRebound=0;//防守数
-		int backboard=0;//篮板数
-		int assist=0;//助攻数
-		double minutes=0;//在场时间
-		int steal=0;//抢断数
-		int block=0;//盖帽数
-		int turnOver=0;//失误数
-		int foul=0;//犯规数 
-		int scoring=0;//比赛得分
-		int teamFieldGoal=0;
-		int teamFieldGoalAttempts=0;
-		int teamBackboard=0;//球队总篮板
-		int teamFreeThrow=0;
-		int teamOffensiveRebound=0;
-		int teamDefensiveRebound=0;
-		double teamMinutes=0;//球队上场总时间
-		int teamFreeThrowAttempts=0;//球队罚球次数
-		int teamTurnOver=0;//球队失误数
-		int opponentBackBoard=0;//对手总篮板
-		int opponentOffensiveRebound=0;//对手总进攻篮板
-		int opponentDefensiveRebound=0;//对手总防守篮板
-		int opponentFieldGoalAttempts=0;//对手投篮出手次数
-		int opponentThreePointFieldGoalAttempts=0;//对手三分出手数
-		
-		double fieldGoalShotPercentage=0;//投篮命中率
-		double threePointShotPercentage=0;//三分命中率
-		double freeThrowPercentage=0;//罚球命中率
-		double efficiency=0;//效率
-		double GmScEfficiency=0;//GmSc效率
-		double nearlyFivePercentage=0;//近五场提升率
-		double trueShootingPercentage=0;//真实命中率
-		double shootingEfficiency=0;//投篮效率
-		double backboardPercentage=0;//篮板率
-		double offensiveReboundPercentage=0;//进攻篮板率
-		double defensiveReboundPercentage=0;//防守篮板率
-		double assistPercentage=0;//助攻率
-		double stealPercentage=0;//抢断率
-		double blockPercentage=0;//盖帽率
-		double turnOverPercentage=0;//失误率
-		double usage=0;//使用率
-		double nearlyFiveBackboardPercentage=0;//近五场篮板提升率
-		double nearlyFiveAssistPercentage=0;//近五场助攻提升率
-		
-		double previousAverageScoring=0;//五场前的平均得分
-		double nearlyFiveAverageScoring=0;//近五场的平均得分
-		double previousAverageBackboard=0;//五场前的平均篮板
-		double nearlyFiveAverageBackboard=0;//近五场的平均篮板
-		double previousAverageAssist=0;//五场前的平均助攻
-		double nearlyFiveAverageAssist=0;//近五场的平均助攻
-		int doubleDouble=0;
-		ArrayList<PlayerPO> po=new ArrayList<PlayerPO>();
+
+	public ArrayList<PlayerPO> getAllPlayerdata(String season, String key,
+			String order) {
+		String playerName = "";
+		String team = "";// 球员队伍
+		int appearance = 0;// 参赛场数
+		int firstPlay = 0;// 先发场数
+		int fieldGoal = 0;// 投篮命中数
+		int fieldGoalAttempts = 0;// 投篮出手次数
+		int threePointFieldGoal = 0;// 三分命中数
+		int threePointFieldGoalAttempts = 0;// 三分出手数
+		int freeThrow = 0;// 罚球命中数
+		int freeThrowAttempts = 0;// 罚球出手数
+		int offensiveRebound = 0;// 进攻数
+		int defensiveRebound = 0;// 防守数
+		int backboard = 0;// 篮板数
+		int assist = 0;// 助攻数
+		double minutes = 0;// 在场时间
+		int steal = 0;// 抢断数
+		int block = 0;// 盖帽数
+		int turnOver = 0;// 失误数
+		int foul = 0;// 犯规数
+		int scoring = 0;// 比赛得分
+		int teamFieldGoal = 0;
+		int teamFieldGoalAttempts = 0;
+		int teamBackboard = 0;// 球队总篮板
+		int teamFreeThrow = 0;
+		int teamOffensiveRebound = 0;
+		int teamDefensiveRebound = 0;
+		double teamMinutes = 0;// 球队上场总时间
+		int teamFreeThrowAttempts = 0;// 球队罚球次数
+		int teamTurnOver = 0;// 球队失误数
+		int opponentBackBoard = 0;// 对手总篮板
+		int opponentOffensiveRebound = 0;// 对手总进攻篮板
+		int opponentDefensiveRebound = 0;// 对手总防守篮板
+		int opponentFieldGoalAttempts = 0;// 对手投篮出手次数
+		int opponentThreePointFieldGoalAttempts = 0;// 对手三分出手数
+
+		double fieldGoalShotPercentage = 0;// 投篮命中率
+		double threePointShotPercentage = 0;// 三分命中率
+		double freeThrowPercentage = 0;// 罚球命中率
+		double efficiency = 0;// 效率
+		double GmScEfficiency = 0;// GmSc效率
+		double nearlyFivePercentage = 0;// 近五场提升率
+		double trueShootingPercentage = 0;// 真实命中率
+		double shootingEfficiency = 0;// 投篮效率
+		double backboardPercentage = 0;// 篮板率
+		double offensiveReboundPercentage = 0;// 进攻篮板率
+		double defensiveReboundPercentage = 0;// 防守篮板率
+		double assistPercentage = 0;// 助攻率
+		double stealPercentage = 0;// 抢断率
+		double blockPercentage = 0;// 盖帽率
+		double turnOverPercentage = 0;// 失误率
+		double usage = 0;// 使用率
+		double nearlyFiveBackboardPercentage = 0;// 近五场篮板提升率
+		double nearlyFiveAssistPercentage = 0;// 近五场助攻提升率
+
+		double previousAverageScoring = 0;// 五场前的平均得分
+		double nearlyFiveAverageScoring = 0;// 近五场的平均得分
+		double previousAverageBackboard = 0;// 五场前的平均篮板
+		double nearlyFiveAverageBackboard = 0;// 近五场的平均篮板
+		double previousAverageAssist = 0;// 五场前的平均助攻
+		double nearlyFiveAverageAssist = 0;// 近五场的平均助攻
+		int doubleDouble = 0;
+		ArrayList<PlayerPO> po = new ArrayList<PlayerPO>();
 		try {
-			String sql="";
-			ResultSet rs=null;
-			if(order.equals("ASC")){
-				sql="SELECT playerName FROM `playersum"+season+"` WHERE team=''";
-				rs=statement.executeQuery(sql);
-				while(rs.next()){
-					playerName=rs.getString(1);
-					PlayerPO temp = new PlayerPO( playerName,  team,  appearance,
-							 firstPlay,  backboard,  assist,  minutes,
-							 fieldGoal,  fieldGoalAttempts,  threePointFieldGoal,
-							 threePointFieldGoalAttempts,  freeThrow,
-							 freeThrowAttempts,  offensiveRebound,  defensiveRebound,
-							 steal,  block,  turnOver,  foul,  scoring,
-							 teamFieldGoalAttempts,  teamBackboard,  teamFieldGoal,
-							 teamFreeThrow,  teamOffensiveRebound,
-							 teamDefensiveRebound,  teamMinutes,
-							 teamFreeThrowAttempts,  teamTurnOver,  opponentBackBoard,
-							 opponentOffensiveRebound,  opponentDefensiveRebound,
-							 opponentFieldGoalAttempts,
-							 opponentThreePointFieldGoalAttempts,
-							 fieldGoalShotPercentage,threePointShotPercentage,
-							 freeThrowPercentage,efficiency,GmScEfficiency,nearlyFivePercentage,trueShootingPercentage,shootingEfficiency,backboardPercentage,offensiveReboundPercentage,defensiveReboundPercentage,assistPercentage,stealPercentage,blockPercentage,turnOverPercentage,usage,nearlyFiveBackboardPercentage,nearlyFiveAssistPercentage,previousAverageScoring,nearlyFiveAverageScoring,previousAverageBackboard,nearlyFiveAverageBackboard,previousAverageAssist,nearlyFiveAverageAssist,doubleDouble);
+			String sql = "";
+			ResultSet rs = null;
+			if (order.equals("ASC")) {
+				sql = "SELECT playerName FROM `playersum" + season
+						+ "` WHERE team=''";
+				rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					playerName = rs.getString(1);
+					PlayerPO temp = new PlayerPO(playerName, team, appearance,
+							firstPlay, backboard, assist, minutes, fieldGoal,
+							fieldGoalAttempts, threePointFieldGoal,
+							threePointFieldGoalAttempts, freeThrow,
+							freeThrowAttempts, offensiveRebound,
+							defensiveRebound, steal, block, turnOver, foul,
+							scoring, teamFieldGoalAttempts, teamBackboard,
+							teamFieldGoal, teamFreeThrow, teamOffensiveRebound,
+							teamDefensiveRebound, teamMinutes,
+							teamFreeThrowAttempts, teamTurnOver,
+							opponentBackBoard, opponentOffensiveRebound,
+							opponentDefensiveRebound,
+							opponentFieldGoalAttempts,
+							opponentThreePointFieldGoalAttempts,
+							fieldGoalShotPercentage, threePointShotPercentage,
+							freeThrowPercentage, efficiency, GmScEfficiency,
+							nearlyFivePercentage, trueShootingPercentage,
+							shootingEfficiency, backboardPercentage,
+							offensiveReboundPercentage,
+							defensiveReboundPercentage, assistPercentage,
+							stealPercentage, blockPercentage,
+							turnOverPercentage, usage,
+							nearlyFiveBackboardPercentage,
+							nearlyFiveAssistPercentage, previousAverageScoring,
+							nearlyFiveAverageScoring, previousAverageBackboard,
+							nearlyFiveAverageBackboard, previousAverageAssist,
+							nearlyFiveAverageAssist, doubleDouble);
 					po.add(temp);
 				}
 			}
-			sql="SELECT * FROM `playersum"+season+"`,`teamsum"+season+"` WHERE `playersum"+season+"`.team=`teamsum"+season+"`.teamName ORDER BY `playersum"+season+"`."+key+" "+order;
-			rs=statement.executeQuery(sql);
-			while(rs.next()){
-				playerName=rs.getString(1);
-				team=rs.getString(2);
-				appearance=rs.getInt(3);
-				firstPlay=rs.getInt(4);
-				backboard=rs.getInt(5);
-				assist=rs.getInt(6);
-				minutes=rs.getDouble(7);
-				fieldGoal=rs.getInt(8);
-				fieldGoalAttempts =rs.getInt(9);
-				threePointFieldGoal =rs.getInt(10);
-				threePointFieldGoalAttempts=rs.getInt(11);
-				freeThrow =rs.getInt(12);
-				freeThrowAttempts =rs.getInt(13);
-				offensiveRebound =rs.getInt(14);
-				defensiveRebound=rs.getInt(15);
-				steal=rs.getInt(16);
-				block=rs.getInt(17);
-				turnOver =rs.getInt(18);
-				foul=rs.getInt(19);
-				scoring=rs.getInt(20);
-				previousAverageScoring	=rs.getDouble(21);
-				nearlyFiveAverageScoring =rs.getDouble(22);
+			sql = "SELECT * FROM `playersum" + season + "`,`teamsum" + season
+					+ "` WHERE `playersum" + season + "`.team=`teamsum"
+					+ season + "`.teamName ORDER BY `playersum" + season + "`."
+					+ key + " " + order;
+			rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				playerName = rs.getString(1);
+				team = rs.getString(2);
+				appearance = rs.getInt(3);
+				firstPlay = rs.getInt(4);
+				backboard = rs.getInt(5);
+				assist = rs.getInt(6);
+				minutes = rs.getDouble(7);
+				fieldGoal = rs.getInt(8);
+				fieldGoalAttempts = rs.getInt(9);
+				threePointFieldGoal = rs.getInt(10);
+				threePointFieldGoalAttempts = rs.getInt(11);
+				freeThrow = rs.getInt(12);
+				freeThrowAttempts = rs.getInt(13);
+				offensiveRebound = rs.getInt(14);
+				defensiveRebound = rs.getInt(15);
+				steal = rs.getInt(16);
+				block = rs.getInt(17);
+				turnOver = rs.getInt(18);
+				foul = rs.getInt(19);
+				scoring = rs.getInt(20);
+				previousAverageScoring = rs.getDouble(21);
+				nearlyFiveAverageScoring = rs.getDouble(22);
 				previousAverageBackboard = rs.getDouble(23);
 				nearlyFiveAverageBackboard = rs.getDouble(24);
 				previousAverageAssist = rs.getDouble(25);
 				nearlyFiveAverageAssist = rs.getDouble(26);
-				doubleDouble=rs.getInt(27);
-				teamFieldGoal=rs.getInt(36);
-				teamFieldGoalAttempts=rs.getInt(37);
-				teamBackboard=rs.getInt(46);
-				teamFreeThrow=rs.getInt(40);
-				teamOffensiveRebound=rs.getInt(42);
-				teamDefensiveRebound=rs.getInt(43);
-				teamMinutes=rs.getDouble(53);
-				teamFreeThrowAttempts=rs.getInt(41);
-				teamTurnOver=rs.getInt(50);
-				opponentBackBoard=rs.getInt(54);
-				opponentOffensiveRebound=rs.getInt(44);
-				opponentDefensiveRebound=rs.getInt(45);
-				opponentFieldGoalAttempts=rs.getInt(29);
-				opponentThreePointFieldGoalAttempts=rs.getInt(55);
-				PlayerPO temp=  new PlayerPO( playerName,  team,  appearance,
-						 firstPlay,  backboard,  assist,  minutes,
-						 fieldGoal,  fieldGoalAttempts,  threePointFieldGoal,
-						 threePointFieldGoalAttempts,  freeThrow,
-						 freeThrowAttempts,  offensiveRebound,  defensiveRebound,
-						 steal,  block,  turnOver,  foul,  scoring,
-						 teamFieldGoalAttempts,  teamBackboard,  teamFieldGoal,
-						 teamFreeThrow,  teamOffensiveRebound,
-						 teamDefensiveRebound,  teamMinutes,
-						 teamFreeThrowAttempts,  teamTurnOver,  opponentBackBoard,
-						 opponentOffensiveRebound,  opponentDefensiveRebound,
-						 opponentFieldGoalAttempts,
-						 opponentThreePointFieldGoalAttempts,
-						 fieldGoalShotPercentage,threePointShotPercentage,
-						 freeThrowPercentage,efficiency,GmScEfficiency,nearlyFivePercentage,trueShootingPercentage,shootingEfficiency,backboardPercentage,offensiveReboundPercentage,defensiveReboundPercentage,assistPercentage,stealPercentage,blockPercentage,turnOverPercentage,usage,nearlyFiveBackboardPercentage,nearlyFiveAssistPercentage,previousAverageScoring,nearlyFiveAverageScoring,previousAverageBackboard,nearlyFiveAverageBackboard,previousAverageAssist,nearlyFiveAverageAssist,doubleDouble);
+				doubleDouble = rs.getInt(27);
+				teamFieldGoal = rs.getInt(36);
+				teamFieldGoalAttempts = rs.getInt(37);
+				teamBackboard = rs.getInt(46);
+				teamFreeThrow = rs.getInt(40);
+				teamOffensiveRebound = rs.getInt(42);
+				teamDefensiveRebound = rs.getInt(43);
+				teamMinutes = rs.getDouble(53);
+				teamFreeThrowAttempts = rs.getInt(41);
+				teamTurnOver = rs.getInt(50);
+				opponentBackBoard = rs.getInt(54);
+				opponentOffensiveRebound = rs.getInt(44);
+				opponentDefensiveRebound = rs.getInt(45);
+				opponentFieldGoalAttempts = rs.getInt(29);
+				opponentThreePointFieldGoalAttempts = rs.getInt(55);
+				PlayerPO temp = new PlayerPO(playerName, team, appearance,
+						firstPlay, backboard, assist, minutes, fieldGoal,
+						fieldGoalAttempts, threePointFieldGoal,
+						threePointFieldGoalAttempts, freeThrow,
+						freeThrowAttempts, offensiveRebound, defensiveRebound,
+						steal, block, turnOver, foul, scoring,
+						teamFieldGoalAttempts, teamBackboard, teamFieldGoal,
+						teamFreeThrow, teamOffensiveRebound,
+						teamDefensiveRebound, teamMinutes,
+						teamFreeThrowAttempts, teamTurnOver, opponentBackBoard,
+						opponentOffensiveRebound, opponentDefensiveRebound,
+						opponentFieldGoalAttempts,
+						opponentThreePointFieldGoalAttempts,
+						fieldGoalShotPercentage, threePointShotPercentage,
+						freeThrowPercentage, efficiency, GmScEfficiency,
+						nearlyFivePercentage, trueShootingPercentage,
+						shootingEfficiency, backboardPercentage,
+						offensiveReboundPercentage, defensiveReboundPercentage,
+						assistPercentage, stealPercentage, blockPercentage,
+						turnOverPercentage, usage,
+						nearlyFiveBackboardPercentage,
+						nearlyFiveAssistPercentage, previousAverageScoring,
+						nearlyFiveAverageScoring, previousAverageBackboard,
+						nearlyFiveAverageBackboard, previousAverageAssist,
+						nearlyFiveAverageAssist, doubleDouble);
 				po.add(temp);
 			}
-			if(order.equals("DESC")){
-				sql="SELECT playerName FROM `playersum"+season+"` WHERE team=''";
-				rs=statement.executeQuery(sql);
-				while(rs.next()){
-					playerName=rs.getString(1);
-					PlayerPO temp=new PlayerPO(playerName, "", 0,0,0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			if (order.equals("DESC")) {
+				sql = "SELECT playerName FROM `playersum" + season
+						+ "` WHERE team=''";
+				rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					playerName = rs.getString(1);
+					PlayerPO temp = new PlayerPO(playerName, "", 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+							0);
 					po.add(temp);
 				}
 			}
@@ -344,269 +394,327 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 		}
 		return po;
 	}
-	//W/E
-	public ArrayList<PlayerPO> getSomePlayerdata(String season,String position,String partition,String key,String order){
-		String playerName="";
-		String team="";//球员队伍
-		int appearance=0;//参赛场数
-		int firstPlay=0;//先发场数
-		int fieldGoal=0;//投篮命中数
-		int fieldGoalAttempts=0;//投篮出手次数
-		int threePointFieldGoal=0;//三分命中数
-		int threePointFieldGoalAttempts=0;//三分出手数
-		int freeThrow=0;//罚球命中数
-		int freeThrowAttempts=0;//罚球出手数
-		int offensiveRebound=0;//进攻数
-		int defensiveRebound=0;//防守数
-		int backboard=0;//篮板数
-		int assist=0;//助攻数
-		double minutes=0;//在场时间
-		int steal=0;//抢断数
-		int block=0;//盖帽数
-		int turnOver=0;//失误数
-		int foul=0;//犯规数 
-		int scoring=0;//比赛得分
-		int teamFieldGoal=0;
-		int teamFieldGoalAttempts=0;
-		int teamBackboard=0;//球队总篮板
-		int teamFreeThrow=0;
-		int teamOffensiveRebound=0;
-		int teamDefensiveRebound=0;
-		double teamMinutes=0;//球队上场总时间
-		int teamFreeThrowAttempts=0;//球队罚球次数
-		int teamTurnOver=0;//球队失误数
-		int opponentBackBoard=0;//对手总篮板
-		int opponentOffensiveRebound=0;//对手总进攻篮板
-		int opponentDefensiveRebound=0;//对手总防守篮板
-		int opponentFieldGoalAttempts=0;//对手投篮出手次数
-		int opponentThreePointFieldGoalAttempts=0;//对手三分出手数
-		
-		double fieldGoalShotPercentage=0;//投篮命中率
-		double threePointShotPercentage=0;//三分命中率
-		double freeThrowPercentage=0;//罚球命中率
-		double efficiency=0;//效率
-		double GmScEfficiency=0;//GmSc效率
-		double nearlyFivePercentage=0;//近五场提升率
-		double trueShootingPercentage=0;//真实命中率
-		double shootingEfficiency=0;//投篮效率
-		double backboardPercentage=0;//篮板率
-		double offensiveReboundPercentage=0;//进攻篮板率
-		double defensiveReboundPercentage=0;//防守篮板率
-		double assistPercentage=0;//助攻率
-		double stealPercentage=0;//抢断率
-		double blockPercentage=0;//盖帽率
-		double turnOverPercentage=0;//失误率
-		double usage=0;//使用率
-		double nearlyFiveBackboardPercentage=0;//近五场篮板提升率
-		double nearlyFiveAssistPercentage=0;//近五场助攻提升率
-		
-		double previousAverageScoring=0;//五场前的平均得分
-		double nearlyFiveAverageScoring=0;//近五场的平均得分
-		double previousAverageBackboard=0;//五场前的平均篮板
-		double nearlyFiveAverageBackboard=0;//近五场的平均篮板
-		double previousAverageAssist=0;//五场前的平均助攻
-		double nearlyFiveAverageAssist=0;//近五场的平均助攻
-		int doubleDouble=0;
-		ArrayList<PlayerPO> po=new ArrayList<PlayerPO>();
-		String sql="";
-		ResultSet rs=null;
+
+	// W/E
+	public ArrayList<PlayerPO> getSomePlayerdata(String season,
+			String position, String partition, String key, String order) {
+		String playerName = "";
+		String team = "";// 球员队伍
+		int appearance = 0;// 参赛场数
+		int firstPlay = 0;// 先发场数
+		int fieldGoal = 0;// 投篮命中数
+		int fieldGoalAttempts = 0;// 投篮出手次数
+		int threePointFieldGoal = 0;// 三分命中数
+		int threePointFieldGoalAttempts = 0;// 三分出手数
+		int freeThrow = 0;// 罚球命中数
+		int freeThrowAttempts = 0;// 罚球出手数
+		int offensiveRebound = 0;// 进攻数
+		int defensiveRebound = 0;// 防守数
+		int backboard = 0;// 篮板数
+		int assist = 0;// 助攻数
+		double minutes = 0;// 在场时间
+		int steal = 0;// 抢断数
+		int block = 0;// 盖帽数
+		int turnOver = 0;// 失误数
+		int foul = 0;// 犯规数
+		int scoring = 0;// 比赛得分
+		int teamFieldGoal = 0;
+		int teamFieldGoalAttempts = 0;
+		int teamBackboard = 0;// 球队总篮板
+		int teamFreeThrow = 0;
+		int teamOffensiveRebound = 0;
+		int teamDefensiveRebound = 0;
+		double teamMinutes = 0;// 球队上场总时间
+		int teamFreeThrowAttempts = 0;// 球队罚球次数
+		int teamTurnOver = 0;// 球队失误数
+		int opponentBackBoard = 0;// 对手总篮板
+		int opponentOffensiveRebound = 0;// 对手总进攻篮板
+		int opponentDefensiveRebound = 0;// 对手总防守篮板
+		int opponentFieldGoalAttempts = 0;// 对手投篮出手次数
+		int opponentThreePointFieldGoalAttempts = 0;// 对手三分出手数
+
+		double fieldGoalShotPercentage = 0;// 投篮命中率
+		double threePointShotPercentage = 0;// 三分命中率
+		double freeThrowPercentage = 0;// 罚球命中率
+		double efficiency = 0;// 效率
+		double GmScEfficiency = 0;// GmSc效率
+		double nearlyFivePercentage = 0;// 近五场提升率
+		double trueShootingPercentage = 0;// 真实命中率
+		double shootingEfficiency = 0;// 投篮效率
+		double backboardPercentage = 0;// 篮板率
+		double offensiveReboundPercentage = 0;// 进攻篮板率
+		double defensiveReboundPercentage = 0;// 防守篮板率
+		double assistPercentage = 0;// 助攻率
+		double stealPercentage = 0;// 抢断率
+		double blockPercentage = 0;// 盖帽率
+		double turnOverPercentage = 0;// 失误率
+		double usage = 0;// 使用率
+		double nearlyFiveBackboardPercentage = 0;// 近五场篮板提升率
+		double nearlyFiveAssistPercentage = 0;// 近五场助攻提升率
+
+		double previousAverageScoring = 0;// 五场前的平均得分
+		double nearlyFiveAverageScoring = 0;// 近五场的平均得分
+		double previousAverageBackboard = 0;// 五场前的平均篮板
+		double nearlyFiveAverageBackboard = 0;// 近五场的平均篮板
+		double previousAverageAssist = 0;// 五场前的平均助攻
+		double nearlyFiveAverageAssist = 0;// 近五场的平均助攻
+		int doubleDouble = 0;
+		ArrayList<PlayerPO> po = new ArrayList<PlayerPO>();
+		String sql = "";
+		ResultSet rs = null;
 		try {
-			if(partition.startsWith("league:")){
-				partition =partition.substring(partition.indexOf(":")+1, partition.length());
-				sql="SELECT * FROM `playersum"+season+"`,`teamsum"+season+"`,(SELECT playerName,team FROM `playersum"+season+"`,teaminfo,playerinfo WHERE `playersum"+season+"`.team=teaminfo.abbr AND `playersum"+season+"`.playerName=playerinfo.name AND teaminfo.`east/west` = '"+partition+"' AND playerinfo.position LIKE '%"+position+"%') AS a WHERE `playersum"+season+"`.playerName=a.playerName AND `playersum"+season+"`.team=`teamsum"+season+"`.teamName ORDER BY `playersum"+season+"`."+key+" "+order+" LIMIT 50";
-			}else{
-				partition =partition.substring(partition.indexOf(":")+1, partition.length());
-				sql="SELECT * FROM `playersum"+season+"`,`teamsum"+season+"`,(SELECT playerName,team FROM `playersum"+season+"`,teaminfo,playerinfo WHERE `playersum"+season+"`.team=teaminfo.abbr AND `playersum"+season+"`.playerName=playerinfo.name AND teaminfo.partition = '"+partition+"' AND playerinfo.position LIKE '%"+position+"%') AS a WHERE `playersum"+season+"`.playerName=a.playerName AND `playersum"+season+"`.team=`teamsum"+season+"`.teamName ORDER BY `playersum"+season+"`."+key+" "+order+" LIMIT 50";
+			if (partition.startsWith("league:")) {
+				partition = partition.substring(partition.indexOf(":") + 1,
+						partition.length());
+				sql = "SELECT * FROM `playersum"
+						+ season
+						+ "`,`teamsum"
+						+ season
+						+ "`,(SELECT playerName,team FROM `playersum"
+						+ season
+						+ "`,teaminfo,playerinfo WHERE `playersum"
+						+ season
+						+ "`.team=teaminfo.abbr AND `playersum"
+						+ season
+						+ "`.playerName=playerinfo.name AND teaminfo.`east/west` = '"
+						+ partition + "' AND playerinfo.position LIKE '%"
+						+ position + "%') AS a WHERE `playersum" + season
+						+ "`.playerName=a.playerName AND `playersum" + season
+						+ "`.team=`teamsum" + season
+						+ "`.teamName ORDER BY `playersum" + season + "`."
+						+ key + " " + order + " LIMIT 50";
+			} else {
+				partition = partition.substring(partition.indexOf(":") + 1,
+						partition.length());
+				sql = "SELECT * FROM `playersum"
+						+ season
+						+ "`,`teamsum"
+						+ season
+						+ "`,(SELECT playerName,team FROM `playersum"
+						+ season
+						+ "`,teaminfo,playerinfo WHERE `playersum"
+						+ season
+						+ "`.team=teaminfo.abbr AND `playersum"
+						+ season
+						+ "`.playerName=playerinfo.name AND teaminfo.partition = '"
+						+ partition + "' AND playerinfo.position LIKE '%"
+						+ position + "%') AS a WHERE `playersum" + season
+						+ "`.playerName=a.playerName AND `playersum" + season
+						+ "`.team=`teamsum" + season
+						+ "`.teamName ORDER BY `playersum" + season + "`."
+						+ key + " " + order + " LIMIT 50";
 			}
-		    rs=statement.executeQuery(sql);
-		    while(rs.next()){
-		    	playerName=rs.getString(1);
-		    	team=rs.getString(2);
-		    	appearance=rs.getInt(3);
-		    	firstPlay=rs.getInt(4);
-		    	backboard=rs.getInt(5);
-		    	assist=rs.getInt(6);
-		    	minutes=rs.getDouble(7);
-		    	fieldGoal=rs.getInt(8);
-		    	fieldGoalAttempts =rs.getInt(9);
-		    	threePointFieldGoal =rs.getInt(10);
-		    	threePointFieldGoalAttempts=rs.getInt(11);
-		    	freeThrow =rs.getInt(12);
-		    	freeThrowAttempts =rs.getInt(13);
-		    	offensiveRebound =rs.getInt(14);
-		    	defensiveRebound=rs.getInt(15);
-		    	steal=rs.getInt(16);
-		    	block=rs.getInt(17);
-		    	turnOver =rs.getInt(18);
-		    	foul=rs.getInt(19);
-		    	scoring=rs.getInt(20);
-		    	previousAverageScoring	=rs.getDouble(21);
-		    	nearlyFiveAverageScoring =rs.getDouble(22);
-		    	previousAverageBackboard = rs.getDouble(23);
-		    	nearlyFiveAverageBackboard = rs.getDouble(24);
-		    	previousAverageAssist = rs.getDouble(25);
-		    	nearlyFiveAverageAssist = rs.getDouble(26);
-		    	doubleDouble=rs.getInt(27);
-		    	teamFieldGoal=rs.getInt(36);
-		    	teamFieldGoalAttempts=rs.getInt(37);
-		    	teamBackboard=rs.getInt(46);
-		    	teamFreeThrow=rs.getInt(40);
-		    	teamOffensiveRebound=rs.getInt(42);
-		    	teamDefensiveRebound=rs.getInt(43);
-		    	teamMinutes=rs.getDouble(53);
-		    	teamFreeThrowAttempts=rs.getInt(41);
-		    	teamTurnOver=rs.getInt(50);
-		    	opponentBackBoard=rs.getInt(54);
-		    	opponentOffensiveRebound=rs.getInt(44);
-		    	opponentDefensiveRebound=rs.getInt(45);
-		    	opponentFieldGoalAttempts=rs.getInt(29);
-		    	opponentThreePointFieldGoalAttempts=rs.getInt(55);
-		    	PlayerPO temp=   new PlayerPO( playerName,  team,  appearance,
-						 firstPlay,  backboard,  assist,  minutes,
-						 fieldGoal,  fieldGoalAttempts,  threePointFieldGoal,
-						 threePointFieldGoalAttempts,  freeThrow,
-						 freeThrowAttempts,  offensiveRebound,  defensiveRebound,
-						 steal,  block,  turnOver,  foul,  scoring,
-						 teamFieldGoalAttempts,  teamBackboard,  teamFieldGoal,
-						 teamFreeThrow,  teamOffensiveRebound,
-						 teamDefensiveRebound,  teamMinutes,
-						 teamFreeThrowAttempts,  teamTurnOver,  opponentBackBoard,
-						 opponentOffensiveRebound,  opponentDefensiveRebound,
-						 opponentFieldGoalAttempts,
-						 opponentThreePointFieldGoalAttempts,
-						 fieldGoalShotPercentage,threePointShotPercentage,
-						 freeThrowPercentage,efficiency,GmScEfficiency,nearlyFivePercentage,trueShootingPercentage,shootingEfficiency,backboardPercentage,offensiveReboundPercentage,defensiveReboundPercentage,assistPercentage,stealPercentage,blockPercentage,turnOverPercentage,usage,nearlyFiveBackboardPercentage,nearlyFiveAssistPercentage,previousAverageScoring,nearlyFiveAverageScoring,previousAverageBackboard,nearlyFiveAverageBackboard,previousAverageAssist,nearlyFiveAverageAssist,doubleDouble);
-		    	po.add(temp);
-		    }
+			rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				playerName = rs.getString(1);
+				team = rs.getString(2);
+				appearance = rs.getInt(3);
+				firstPlay = rs.getInt(4);
+				backboard = rs.getInt(5);
+				assist = rs.getInt(6);
+				minutes = rs.getDouble(7);
+				fieldGoal = rs.getInt(8);
+				fieldGoalAttempts = rs.getInt(9);
+				threePointFieldGoal = rs.getInt(10);
+				threePointFieldGoalAttempts = rs.getInt(11);
+				freeThrow = rs.getInt(12);
+				freeThrowAttempts = rs.getInt(13);
+				offensiveRebound = rs.getInt(14);
+				defensiveRebound = rs.getInt(15);
+				steal = rs.getInt(16);
+				block = rs.getInt(17);
+				turnOver = rs.getInt(18);
+				foul = rs.getInt(19);
+				scoring = rs.getInt(20);
+				previousAverageScoring = rs.getDouble(21);
+				nearlyFiveAverageScoring = rs.getDouble(22);
+				previousAverageBackboard = rs.getDouble(23);
+				nearlyFiveAverageBackboard = rs.getDouble(24);
+				previousAverageAssist = rs.getDouble(25);
+				nearlyFiveAverageAssist = rs.getDouble(26);
+				doubleDouble = rs.getInt(27);
+				teamFieldGoal = rs.getInt(36);
+				teamFieldGoalAttempts = rs.getInt(37);
+				teamBackboard = rs.getInt(46);
+				teamFreeThrow = rs.getInt(40);
+				teamOffensiveRebound = rs.getInt(42);
+				teamDefensiveRebound = rs.getInt(43);
+				teamMinutes = rs.getDouble(53);
+				teamFreeThrowAttempts = rs.getInt(41);
+				teamTurnOver = rs.getInt(50);
+				opponentBackBoard = rs.getInt(54);
+				opponentOffensiveRebound = rs.getInt(44);
+				opponentDefensiveRebound = rs.getInt(45);
+				opponentFieldGoalAttempts = rs.getInt(29);
+				opponentThreePointFieldGoalAttempts = rs.getInt(55);
+				PlayerPO temp = new PlayerPO(playerName, team, appearance,
+						firstPlay, backboard, assist, minutes, fieldGoal,
+						fieldGoalAttempts, threePointFieldGoal,
+						threePointFieldGoalAttempts, freeThrow,
+						freeThrowAttempts, offensiveRebound, defensiveRebound,
+						steal, block, turnOver, foul, scoring,
+						teamFieldGoalAttempts, teamBackboard, teamFieldGoal,
+						teamFreeThrow, teamOffensiveRebound,
+						teamDefensiveRebound, teamMinutes,
+						teamFreeThrowAttempts, teamTurnOver, opponentBackBoard,
+						opponentOffensiveRebound, opponentDefensiveRebound,
+						opponentFieldGoalAttempts,
+						opponentThreePointFieldGoalAttempts,
+						fieldGoalShotPercentage, threePointShotPercentage,
+						freeThrowPercentage, efficiency, GmScEfficiency,
+						nearlyFivePercentage, trueShootingPercentage,
+						shootingEfficiency, backboardPercentage,
+						offensiveReboundPercentage, defensiveReboundPercentage,
+						assistPercentage, stealPercentage, blockPercentage,
+						turnOverPercentage, usage,
+						nearlyFiveBackboardPercentage,
+						nearlyFiveAssistPercentage, previousAverageScoring,
+						nearlyFiveAverageScoring, previousAverageBackboard,
+						nearlyFiveAverageBackboard, previousAverageAssist,
+						nearlyFiveAverageAssist, doubleDouble);
+				po.add(temp);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return po;
 	}
-	
-	public ArrayList<PlayerPO> getByEfficiency(ArrayList<PlayerPO> po,String key,String order){
-		ArrayList<PlayerPO> r=new ArrayList<PlayerPO>();
-		String sql="CREATE TABLE IF NOT EXISTS tempplayerdata (	 playerName varchar(255),fieldGoalShotPercentage double,threePointShotPercentage double, freeThrowPercentage double, efficiency double, GmScEfficiency double, nearlyFivePercentage double, trueShootingPercentage double, shootingEfficiency double, backboardPercentage double, offensiveReboundPercentage double, defensiveReboundPercentage double, assistPercentage double, stealPercentage double, blockPercentage double, turnOverPercentage double, `usage` double,	"
-				+ "nearlyFiveBackboardPercentage double, nearlyFiveAssistPercentage double)";
+
+	public ArrayList<PlayerPO> getByEfficiency(ArrayList<PlayerPO> po,
+			String key, String order) {
+		ArrayList<PlayerPO> r = new ArrayList<PlayerPO>();
+		String sql = "CREATE TABLE IF NOT EXISTS tempplayerdata (	 playerName varchar(255), team varchar(255),appearance int,firstPlay int,backboard int,assist int,minutes double,fieldGoal int,fieldGoalAttempts int,threePointFieldGoal int,threePointFieldGoalAttempts int,freeThrow int,freeThrowAttempts int,offensiveRebound int,defensiveRebound int,steal int,block int,turnOver int, foul int,scoring int,teamFieldGoalAttempts int,teamBackboard int,teamFieldGoal int,teamFreeThrow int, teamOffensiveRebound int, teamDefensiveRebound int,teamMinutes double,teamFreeThrowAttempts int,teamTurnOver int,opponentBackBoard int, opponentOffensiveRebound int, opponentDefensiveRebound int,opponentFieldGoalAttempts int,opponentThreePointFieldGoalAttempts int,fieldGoalShotPercentage double,threePointShotPercentage double, freeThrowPercentage double, efficiency double, GmScEfficiency double, nearlyFivePercentage double, trueShootingPercentage double, shootingEfficiency double, backboardPercentage double, offensiveReboundPercentage double, defensiveReboundPercentage double, assistPercentage double, stealPercentage double, blockPercentage double, turnOverPercentage double, `usage` double,	"
+				+ "nearlyFiveBackboardPercentage double, nearlyFiveAssistPercentage double,previousAverageScoring double, nearlyFiveAverageScoring double,previousAverageBackboard double, nearlyFiveAverageBackboard double, previousAverageAssist double, nearlyFiveAverageAssist double,doubleDouble int)";
 		try {
 			statement.execute(sql);
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO tempplayerdata values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = conn
+					.prepareStatement("INSERT INTO tempplayerdata values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			for (int i = 0; i < po.size(); i++) {
-				PlayerPO pp=po.get(i);
-				if(pp.getPlayerName().contains("'"))
-					pp.setPlayerName(pp.getPlayerName().substring(0,pp.getPlayerName().indexOf("'"))+"'"+pp.getPlayerName().substring(pp.getPlayerName().indexOf("'"), pp.getPlayerName().length()));
+				PlayerPO pp = po.get(i);
+				if (pp.getPlayerName().contains("'"))
+					pp.setPlayerName(pp.getPlayerName().substring(0,
+							pp.getPlayerName().indexOf("'"))
+							+ "'"
+							+ pp.getPlayerName().substring(
+									pp.getPlayerName().indexOf("'"),
+									pp.getPlayerName().length()));
 				ps.setString(1, pp.getPlayerName());
-				ps.setDouble(2, pp.getFieldGoalShotPercentage());
-				ps.setDouble(3, pp.getThreePointShotPercentage());
-				ps.setDouble(4, pp.getFreeThrowPercentage());
-				ps.setDouble(5, pp.getEfficiency());
-				ps.setDouble(6, pp.getGmScEfficiency());
-				ps.setDouble(7, pp.getNearlyFivePercentage());
-				ps.setDouble(8, pp.getTrueShootingPercentage());
-				ps.setDouble(9, pp.getShootingEfficiency());
-				ps.setDouble(10, pp.getBackboardPercentage());
-				ps.setDouble(11, pp.getOffensiveReboundPercentage());
-				ps.setDouble(12, pp.getDefensiveReboundPercentage());
-				ps.setDouble(13, pp.getAssistPercentage());
-				ps.setDouble(14, pp.getStealPercentage());
-				ps.setDouble(15, pp.getBlockPercentage());
-				ps.setDouble(16, pp.getTurnOverPercentage());
-				ps.setDouble(17, pp.getUsage());
-				ps.setDouble(18, pp.getNearlyFiveBackboardPercentage());
-				ps.setDouble(19, pp.getNearlyFiveAssistPercentage());
+				ps.setString(2, pp.getTeam());
+				ps.setInt(3, pp.getAppearance());
+				ps.setInt(4, pp.getFirstPlay());
+				ps.setInt(5, pp.getBackboard());
+				ps.setInt(6, pp.getAssist());
+				ps.setDouble(7, pp.getMinutes());
+				ps.setInt(8, pp.getFieldGoal());
+				ps.setInt(9, pp.getFieldGoalAttempts());
+				ps.setInt(10, pp.getThreePointFieldGoal());
+				ps.setInt(11, pp.getThreePointFieldGoalAttempts());
+				ps.setInt(12, pp.getFreeThrow());
+				ps.setInt(13, pp.getFreeThrowAttempts());
+				ps.setInt(14, pp.getOffensiveRebound());
+				ps.setInt(15, pp.getDefensiveRebound());
+				ps.setInt(16, pp.getSteal());
+				ps.setInt(17, pp.getBlock());
+				ps.setInt(18, pp.getTurnOver());
+				ps.setInt(19, pp.getFoul());
+				ps.setInt(20, pp.getScoring());
+				ps.setInt(21, pp.getTeamFieldGoalAttempts());
+				ps.setInt(22, pp.getTeamBackboard());
+				ps.setInt(23, pp.getTeamFieldGoal());
+				ps.setInt(24, pp.getTeamFreeThrow());
+				ps.setInt(25, pp.getTeamOffensiveRebound());
+				ps.setInt(26, pp.getTeamDefensiveRebound());
+				ps.setDouble(27, pp.getTeamMinutes());
+				ps.setInt(28, pp.getTeamFreeThrowAttempts());
+				ps.setInt(29, pp.getTeamTurnOver());
+				ps.setInt(30, pp.getOpponentBackBoard());
+				ps.setInt(31, pp.getOpponentOffensiveRebound());
+				ps.setInt(32, pp.getOpponentDefensiveRebound());
+				ps.setInt(33, pp.getOpponentFieldGoalAttempts());
+				ps.setInt(34, pp.getOpponentThreePointFieldGoalAttempts());
+				ps.setDouble(35, pp.getFieldGoalShotPercentage());
+				ps.setDouble(36, pp.getThreePointShotPercentage());
+				ps.setDouble(37, pp.getFreeThrowPercentage());
+				ps.setDouble(38, pp.getEfficiency());
+				ps.setDouble(39, pp.getGmScEfficiency());
+				ps.setDouble(40, pp.getNearlyFivePercentage());
+				ps.setDouble(41, pp.getTrueShootingPercentage());
+				ps.setDouble(42, pp.getShootingEfficiency());
+				ps.setDouble(43, pp.getBackboardPercentage());
+				ps.setDouble(44, pp.getOffensiveReboundPercentage());
+				ps.setDouble(45, pp.getDefensiveReboundPercentage());
+				ps.setDouble(46, pp.getAssistPercentage());
+				ps.setDouble(47, pp.getStealPercentage());
+				ps.setDouble(48, pp.getBlockPercentage());
+				ps.setDouble(49, pp.getTurnOverPercentage());
+				ps.setDouble(50, pp.getUsage());
+				ps.setDouble(51, pp.getNearlyFiveBackboardPercentage());
+				ps.setDouble(52, pp.getNearlyFiveAssistPercentage());
+				ps.setDouble(53, pp.getPreviousAverageScoring());
+				ps.setDouble(54, pp.getNearlyFiveAverageScoring());
+				ps.setDouble(55, pp.getPreviousAverageBackboard());
+				ps.setDouble(56, pp.getNearlyFiveAverageBackboard());
+				ps.setDouble(57, pp.getPreviousAverageAssist());
+				ps.setDouble(58, pp.getNearlyFiveAverageAssist());
+				ps.setDouble(59, pp.getDoubleDouble());
 				ps.addBatch();
-				if(i%50 == 0)
+				if (i % 50 == 0)
 					ps.executeBatch();
 			}
 			ps.executeBatch();
-			sql="SELECT * FROM tempplayerdata ORDER BY `"+key+"` "+order;
-			ResultSet rs=statement.executeQuery(sql);
-			while(rs.next()){
-				PlayerPO pp=new PlayerPO();
-				pp.setPlayerName(rs.getString(1));
-				pp.setFieldGoalShotPercentage(rs.getDouble(2));
-				pp.setThreePointShotPercentage(rs.getDouble(3));
-				pp.setFreeThrowPercentage(rs.getDouble(4));
-				pp.setEfficiency(rs.getDouble(5));
-				pp.setGmScEfficiency(rs.getDouble(6));
-				pp.setNearlyFivePercentage(rs.getDouble(7));
-				pp.setTrueShootingPercentage(rs.getDouble(8));
-				pp.setShootingEfficiency(rs.getDouble(9));
-				pp.setBackboardPercentage(rs.getDouble(10));
-				pp.setOffensiveReboundPercentage(rs.getDouble(11));
-				pp.setDefensiveReboundPercentage(rs.getDouble(12));
-				pp.setAssistPercentage(rs.getDouble(13));
-				pp.setStealPercentage(rs.getDouble(14));
-				pp.setBackboardPercentage(rs.getDouble(15));
-				pp.setTurnOverPercentage(rs.getDouble(16));
-				pp.setUsage(rs.getDouble(17));
-				pp.setNearlyFiveBackboardPercentage(rs.getDouble(18));
-				pp.setNearlyFiveAssistPercentage(rs.getDouble(19));
+			sql = "SELECT * FROM tempplayerdata ORDER BY `" + key + "` "
+					+ order;
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				PlayerPO pp = new PlayerPO(rs.getString(1), rs.getString(2),
+						rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6),
+						rs.getDouble(7), rs.getInt(8), rs.getInt(9),
+						rs.getInt(10), rs.getInt(11), rs.getInt(12),
+						rs.getInt(13), rs.getInt(14), rs.getInt(15),
+						rs.getInt(16), rs.getInt(17), rs.getInt(18),
+						rs.getInt(19), rs.getInt(20), rs.getInt(21),
+						rs.getInt(22), rs.getInt(23), rs.getInt(24),
+						rs.getInt(25), rs.getInt(26), rs.getDouble(27),
+						rs.getInt(28), rs.getInt(29), rs.getInt(30),
+						rs.getInt(31), rs.getInt(32), rs.getInt(33),
+						rs.getInt(34), rs.getDouble(35), rs.getDouble(36),
+						rs.getDouble(37), rs.getDouble(38), rs.getDouble(39),
+						rs.getDouble(40), rs.getDouble(41), rs.getDouble(42),
+						rs.getDouble(43), rs.getDouble(44), rs.getDouble(45),
+						rs.getDouble(46), rs.getDouble(47), rs.getDouble(48),
+						rs.getDouble(49), rs.getDouble(50), rs.getDouble(51),
+						rs.getDouble(52), rs.getDouble(53), rs.getDouble(54),
+						rs.getDouble(55), rs.getDouble(56), rs.getDouble(57),
+						rs.getDouble(58), rs.getInt(59));
 				r.add(pp);
 			}
-			sql="DROP TABLE tempplayerdata";
+			sql = "DROP TABLE tempplayerdata";
+			statement.executeBatch();
 			statement.execute(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (int i = 0; i < r.size(); i++) {
-			for (int j = 0; j < po.size(); j++) {
-				if (r.get(i).getPlayerName().equals(po.get(j).getPlayerName())) {
-					r.get(i).setTeam(po.get(j).getTeam());
-					r.get(i).setAppearance(po.get(j).getAppearance());
-					r.get(i).setFirstPlay(po.get(j).getFirstPlay());
-					r.get(i).setBackboard(po.get(j).getBackboard());
-					r.get(i).setAssist(po.get(j).getAssist());
-					r.get(i).setMinutes(po.get(j).getMinutes());
-					r.get(i).setFieldGoal(po.get(j).getFieldGoal());
-					r.get(i).setFieldGoalAttempts(po.get(j).getFieldGoalAttempts());
-					r.get(i).setThreePointFieldGoal(po.get(j).getThreePointFieldGoal());
-					r.get(i).setThreePointFieldGoalAttempts(po.get(j).getThreePointFieldGoalAttempts());
-					r.get(i).setFreeThrow(po.get(j).getFreeThrow());
-					r.get(i).setFreeThrowAttempts(po.get(j).getFreeThrowAttempts());
-					r.get(i).setOffensiveRebound(po.get(j).getOffensiveRebound()); 
-					r.get(i).setDefensiveRebound(po.get(j).getDefensiveRebound());
-					r.get(i).setSteal(po.get(j).getSteal());
-					r.get(i).setBlock(po.get(j).getBlock());
-					r.get(i).setTurnOver(po.get(j).getTurnOver());
-					r.get(i).setFoul(po.get(j).getFoul());
-					r.get(i).setScoring(po.get(j).getScoring());
-	/*				int teamFieldGoalAttempts;//球队总出手次数
-					int teamBackboard;//球队总篮板
-					int teamFieldGoal;//球队投篮命中数
-					int teamFreeThrow;//球队的罚球命中数
-					int teamOffensiveRebound;//球队总进攻篮板
-					int teamDefensiveRebound;//球队总防守篮板
-					double teamMinutes;//球队所有球员上场时间
-					int teamFreeThrowAttempts;//球队罚球次数
-					int teamTurnOver;//球队失误数
-					int opponentBackBoard;//对手总篮板
-					int opponentOffensiveRebound;//对手总进攻篮板
-					int opponentDefensiveRebound;//对手总防守篮板
-					int opponentFieldGoalAttempts;//对手投篮出手次数
-					int opponentThreePointFieldGoalAttempts;//对手三分出手数
-					double previousAverageScoring;//五场前的平均得分
-					double nearlyFiveAverageScoring;//近五场的平均得分
-					double previousAverageBackboard;//五场前的平均篮板
-					double nearlyFiveAverageBackboard;//近五场的平均篮板
-					double previousAverageAssist;//五场前的平均助攻
-					double nearlyFiveAverageAssist;//近五场的平均助攻              */
-					r.get(i).setDoubleDouble(po.get(j).getDoubleDouble());
-				}
-			}
-		}
 		return r;
 	}
-	//一场比赛一个球队所有球员数据
-	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String date,String team){
-		ArrayList<PlayerMatchPO> po=new ArrayList<PlayerMatchPO>();
-		String sql="SELECT * FROM playerdata WHERE date='"+date+"' AND team='"+team+"'";
+
+	// 一场比赛一个球队所有球员数据
+	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String date, String team) {
+		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
+		String sql = "SELECT * FROM playerdata WHERE date='" + date
+				+ "' AND team='" + team + "'";
 		try {
-			ResultSet rs=statement.executeQuery(sql);
-			while(rs.next()){
-				PlayerMatchPO temp=new PlayerMatchPO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15), rs.getInt(16), rs.getInt(17), rs.getInt(18), rs.getInt(19), rs.getInt(20));
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				PlayerMatchPO temp = new PlayerMatchPO(rs.getString(1),
+						rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getDouble(5), rs.getInt(6), rs.getInt(7),
+						rs.getInt(8), rs.getInt(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13),
+						rs.getInt(14), rs.getInt(15), rs.getInt(16),
+						rs.getInt(17), rs.getInt(18), rs.getInt(19),
+						rs.getInt(20));
 				po.add(temp);
 			}
 		} catch (SQLException e) {
@@ -615,14 +723,23 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 		}
 		return po;
 	}
-	
-	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String month,String player){
-		ArrayList<PlayerMatchPO> po=new ArrayList<PlayerMatchPO>();
-		String sql="SELECT * FROM playerdata WHERE date LIKE '"+month+"%' AND playername='"+player+"' ORDER BY date DESC";
+
+	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String month,
+			String player) {
+		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
+		String sql = "SELECT * FROM playerdata WHERE date LIKE '" + month
+				+ "%' AND playername='" + player + "' ORDER BY date DESC";
 		try {
-			ResultSet rs=statement.executeQuery(sql);
-			while(rs.next()){
-				PlayerMatchPO temp=new PlayerMatchPO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getInt(6),  rs.getInt(7),  rs.getInt(8),  rs.getInt(9),  rs.getInt(10),  rs.getInt(11),  rs.getInt(12),  rs.getInt(13),  rs.getInt(14),  rs.getInt(15),  rs.getInt(16),  rs.getInt(17),  rs.getInt(18),  rs.getInt(19),  rs.getInt(20));
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				PlayerMatchPO temp = new PlayerMatchPO(rs.getString(1),
+						rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getDouble(5), rs.getInt(6), rs.getInt(7),
+						rs.getInt(8), rs.getInt(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13),
+						rs.getInt(14), rs.getInt(15), rs.getInt(16),
+						rs.getInt(17), rs.getInt(18), rs.getInt(19),
+						rs.getInt(20));
 				po.add(temp);
 			}
 		} catch (SQLException e) {
@@ -631,14 +748,22 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 		}
 		return po;
 	}
-	
-	public ArrayList<PlayerMatchPO> getPlayerRecentFiveMatch(String player){
-		ArrayList<PlayerMatchPO> po=new ArrayList<PlayerMatchPO>();
-		String sql="SELECT * FROM playerdata WHERE playername='"+player+"' ORDER BY date DESC LIMIT 5";
+
+	public ArrayList<PlayerMatchPO> getPlayerRecentFiveMatch(String player) {
+		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
+		String sql = "SELECT * FROM playerdata WHERE playername='" + player
+				+ "' ORDER BY date DESC LIMIT 5";
 		try {
-			ResultSet rs=statement.executeQuery(sql);
-			while(rs.next()){
-				PlayerMatchPO temp=new PlayerMatchPO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getInt(6),  rs.getInt(7),  rs.getInt(8),  rs.getInt(9),  rs.getInt(10),  rs.getInt(11),  rs.getInt(12),  rs.getInt(13),  rs.getInt(14),  rs.getInt(15),  rs.getInt(16),  rs.getInt(17),  rs.getInt(18),  rs.getInt(19),  rs.getInt(20));
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				PlayerMatchPO temp = new PlayerMatchPO(rs.getString(1),
+						rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getDouble(5), rs.getInt(6), rs.getInt(7),
+						rs.getInt(8), rs.getInt(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13),
+						rs.getInt(14), rs.getInt(15), rs.getInt(16),
+						rs.getInt(17), rs.getInt(18), rs.getInt(19),
+						rs.getInt(20));
 				po.add(temp);
 			}
 		} catch (SQLException e) {
@@ -647,19 +772,27 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 		}
 		return po;
 	}
-	
-	public ArrayList<PlayerMatchPO> getDayTop(String condition){
-		ArrayList<PlayerMatchPO> po=new ArrayList<PlayerMatchPO>();
+
+	public ArrayList<PlayerMatchPO> getDayTop(String condition) {
+		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
 		String sql = "SELECT date FROM playerdata ORDER BY date DESC LIMIT 1";
 		try {
-			ResultSet rs=statement.executeQuery(sql);
+			ResultSet rs = statement.executeQuery(sql);
 			String date = "";
-			while(rs.next())
+			while (rs.next())
 				date = rs.getString(1);
-			sql="SELECT * FROM playerdata WHERE date='"+date+"' ORDER BY "+condition+" DESC LIMIT 5";
-			rs=statement.executeQuery(sql);
-			while(rs.next()){
-				PlayerMatchPO temp=new PlayerMatchPO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15), rs.getInt(16), rs.getInt(17), rs.getInt(18), rs.getInt(19), rs.getInt(20));
+			sql = "SELECT * FROM playerdata WHERE date='" + date
+					+ "' ORDER BY " + condition + " DESC LIMIT 5";
+			rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				PlayerMatchPO temp = new PlayerMatchPO(rs.getString(1),
+						rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getDouble(5), rs.getInt(6), rs.getInt(7),
+						rs.getInt(8), rs.getInt(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13),
+						rs.getInt(14), rs.getInt(15), rs.getInt(16),
+						rs.getInt(17), rs.getInt(18), rs.getInt(19),
+						rs.getInt(20));
 				po.add(temp);
 			}
 		} catch (SQLException e) {
@@ -668,14 +801,28 @@ public class GetPlayerdata implements GetPlayerdataDataService{
 		}
 		return po;
 	}
-	//仅适用于场均
-	public ArrayList<PlayerPO> getSeasonTop(String season,String condition){
-		ArrayList<PlayerPO> po=new ArrayList<PlayerPO>();
-		String sql="SELECT playerName,team,appearance,firstPlay,backboard/appearance,assist/appearance,minutes/appearance,`fieldGoal`/appearance,`fieldGoalAttempts`/appearance,`threePointFieldGoal`/appearance,`threePointFieldGoalAttempts`/appearance,`freeThrow`/appearance,`freeThrowAttempts`/appearance, `offensiveRebound`/appearance, `defensiveRebound`	/appearance,	`steal`/appearance, `block`/appearance,	`turnOver`/appearance, `foul`/appearance, `scoring`/appearance, `previousAverageScoring`, `nearlyFiveAverageScoring`,`doubleDouble`/appearance FROM `playersum"+season+"` ORDER BY "+condition+"/appearance DESC LIMIT 5";
+
+	// 仅适用于场均
+	public ArrayList<PlayerPO> getSeasonTop(String season, String condition) {
+		ArrayList<PlayerPO> po = new ArrayList<PlayerPO>();
+		String sql = "SELECT playerName,team,appearance,firstPlay,backboard/appearance,assist/appearance,minutes/appearance,`fieldGoal`/appearance,`fieldGoalAttempts`/appearance,`threePointFieldGoal`/appearance,`threePointFieldGoalAttempts`/appearance,`freeThrow`/appearance,`freeThrowAttempts`/appearance, `offensiveRebound`/appearance, `defensiveRebound`	/appearance,	`steal`/appearance, `block`/appearance,	`turnOver`/appearance, `foul`/appearance, `scoring`/appearance, `previousAverageScoring`, `nearlyFiveAverageScoring`,`doubleDouble`/appearance FROM `playersum"
+				+ season
+				+ "` ORDER BY "
+				+ condition
+				+ "/appearance DESC LIMIT 5";
 		try {
-			ResultSet rs=statement.executeQuery(sql);
-			while(rs.next()){
-				PlayerPO temp=new PlayerPO(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getDouble(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), rs.getInt(13), rs.getInt(14), rs.getInt(15), rs.getInt(16), rs.getInt(17), rs.getInt(18), rs.getInt(19), rs.getInt(20),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,rs.getDouble(21),rs.getDouble(22),0,0,0,0,rs.getInt(23));
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				PlayerPO temp = new PlayerPO(rs.getString(1), rs.getString(2),
+						rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6),
+						rs.getDouble(7), rs.getInt(8), rs.getInt(9),
+						rs.getInt(10), rs.getInt(11), rs.getInt(12),
+						rs.getInt(13), rs.getInt(14), rs.getInt(15),
+						rs.getInt(16), rs.getInt(17), rs.getInt(18),
+						rs.getInt(19), rs.getInt(20), 0, 0, 0, 0, 0, 0, 0, 0,
+						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+						0, 0, 0, 0, 0, 0, rs.getDouble(21), rs.getDouble(22),
+						0, 0, 0, 0, rs.getInt(23));
 				po.add(temp);
 			}
 		} catch (SQLException e) {

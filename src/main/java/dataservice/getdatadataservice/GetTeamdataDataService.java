@@ -8,24 +8,27 @@ import po.TeaminfoPO;
 
 public interface GetTeamdataDataService {
 
-	public TeamPO getTeamdata(String season,String teamName);
-	
+	public TeamPO getTeamdata(String season, String teamName);
+
 	public TeaminfoPO getTeaminfo(String teamName);
-	
-	public ArrayList<String> getTeamPlayer(String season,String teamName);
-	
-	public ArrayList<TeamPO> getAllTeamdata(String season,String key,String order);
-	
-	public ArrayList<TeamPO> getSomeTeamdata(String season,String condition,String key,String order);
-	
-	public ArrayList<TeamPO> getByEfficiency(ArrayList<TeamPO> po,String key,String order);
-	
-	public ArrayList<TeamMatchPO> getTeamMonthMatch(String month,String team);
-	
-	public TeamMatchPO getTeamMatch(String date,String team);
-	
+
+	public ArrayList<String> getTeamPlayer(String season, String teamName);
+
+	public ArrayList<TeamPO> getAllTeamdata(String season, String key,
+			String order);
+
+	public ArrayList<TeamPO> getSomeTeamdata(String season, String condition,
+			String key, String order);
+
+	public ArrayList<TeamPO> getByEfficiency(ArrayList<TeamPO> po, String key,
+			String order);
+
+	public ArrayList<TeamMatchPO> getTeamMonthMatch(String month, String team);
+
+	public TeamMatchPO getTeamMatch(String date, String team);
+
 	public ArrayList<TeamMatchPO> getTeamRecentFiveMatch(String team);
-	
-	public ArrayList<TeamPO> getSeasonTop(String season,String condition);
-	
+
+	public ArrayList<TeamPO> getSeasonTop(String season, String condition);
+
 }
