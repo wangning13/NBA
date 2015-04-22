@@ -14,6 +14,7 @@ import dataservice.getdatadataservice.GetTeamdataDataService;
 
 public class Server {
 
+	public static ArrayList<String> initial_season;
 	public static String[] matches;
 	public static ArrayList<String> season;
 	Timer timer;
@@ -29,9 +30,10 @@ public class Server {
 					season.add(temp[0]);
 				}
 			}
+			initial_season = season;
 
 			timer = new Timer();
-			timer.schedule(new UpdateDatabase(), 0, 5000);
+			timer.schedule(new UpdateDatabase(), 0, 3000);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

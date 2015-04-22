@@ -3,6 +3,7 @@ package data.update;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -176,51 +177,45 @@ public class UpdateDatabase extends TimerTask {
 				}
 			}
 		} else {
+			String sql = "select name from sqlite_master where type='table'";
 			try {
+				ResultSet rs = statement.executeQuery(sql);
+				ArrayList<String> tables = new ArrayList<String>();
 				ArrayList<String> tempSeason = new ArrayList<String>();
-				ArrayList<Integer> tempSeasonNum = new ArrayList<Integer>();
-				for (int j = 0; j < newData.length; j++) {
-					String[] item = newData[j].split("_");
-					if (!tempSeason.contains(item[0])) {
-						tempSeason.add(item[0]);
-						tempSeasonNum.add(0);
-					}
-					for (int k = 0; k < tempSeason.size(); k++) {
-						if (item[0].equals(tempSeason.get(k))) {
-							tempSeasonNum.set(k, tempSeasonNum.get(k) + 1);
+				while(rs.next())
+					tables.add(rs.getString(1));
+				for (int i = 0; i < tables.size(); i++) {
+					if (tables.get(i).startsWith("playersum")) {
+						if (!Server.initial_season.contains(tables.get(i).substring(9, tables.get(i).length()))) {
+							tempSeason.add(tables.get(i).substring(9, tables.get(i).length()));
 						}
 					}
 				}
-				for (int j = 0; j < Server.season.size(); j++) {
-					if (!tempSeason.contains(Server.season.get(j))) {
-						String[] year = Server.season.get(j).split("-");
-						String sql = "DELETE FROM playerdata WHERE date like '"
-								+ year[0] + "-10-%' OR date like '" + year[0]
-								+ "-11-%' OR date like '" + year[0]
-								+ "-12-%' OR date like '" + year[1]
-								+ "-01-%' OR date like '" + year[1]
-								+ "-02-%' OR date like '" + year[1]
-								+ "-03-%' OR date like '" + year[1] + "-04-%'";
-						statement.addBatch(sql);
-						sql = "DELETE FROM matches WHERE date like '" + year[0]
-								+ "-10-%' OR date like '" + year[0]
-								+ "-11-%' OR date like '" + year[0]
-								+ "-12-%' OR date like '" + year[1]
-								+ "-01-%' OR date like '" + year[1]
-								+ "-02-%' OR date like '" + year[1]
-								+ "-03-%' OR date like '" + year[1] + "-04-%'";
-						statement.addBatch(sql);
-						sql = "DELETE FROM `playersum" + Server.season.get(j)
-								+ "`";
-						statement.addBatch(sql);
-						sql = "DELETE FROM `teamsum" + Server.season.get(j)
-								+ "`";
-						statement.addBatch(sql);
-					}
+				for (int i = 0; i < tempSeason.size(); i++) {
+					String season_to_delete = tempSeason.get(i);
+					String[] year = season_to_delete.split("-");
+					sql = "DROP TABLE `playersum" + season_to_delete + "`";
+					statement.addBatch(sql);
+					sql = "DROP TABLE `teamsum" + season_to_delete + "`";
+					statement.addBatch(sql);
+					sql = "DELETE FROM matches WHERE date like '" + year[0]
+							+ "-10-%' OR date like '" + year[0]
+							+ "-11-%' OR date like '" + year[0]
+							+ "-12-%' OR date like '" + year[1]
+							+ "-01-%' OR date like '" + year[1]
+							+ "-02-%' OR date like '" + year[1]
+							+ "-03-%' OR date like '" + year[1] + "-04-%'";
+					statement.addBatch(sql);
+					sql = "DELETE FROM playerdata WHERE date like '" + year[0]
+							+ "-10-%' OR date like '" + year[0]
+							+ "-11-%' OR date like '" + year[0]
+							+ "-12-%' OR date like '" + year[1]
+							+ "-01-%' OR date like '" + year[1]
+							+ "-02-%' OR date like '" + year[1]
+							+ "-03-%' OR date like '" + year[1] + "-04-%'";
+					statement.addBatch(sql);
+					statement.executeBatch();
 				}
-				statement.executeBatch();
-				Server.season = tempSeason;
-				conn.commit();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
