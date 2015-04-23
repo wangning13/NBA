@@ -94,7 +94,7 @@ public class TeamRank implements TeamRankService{
 			for (int i = 0; i < teamMatchPOs.size(); i++) {
 				ArrayList<TeamMatchPO> teamMatchPOs2 = g.getTeamMonthMatch(month, teamMatchPOs.get(i).getOpponent());
 				for (int j = 0; j < teamMatchPOs2.size(); j++) {
-					if (teamMatchPOs2.get(j).getOpponent().equals(team)) {
+					if (teamMatchPOs2.get(j).getOpponent().equals(team) && teamMatchPOs2.get(j).getDate().equals(teamMatchPOs.get(i).getDate())) {
 						String data = teamMatchPOs.get(i).getDate();
 						String host = "";
 						String guest = "";
