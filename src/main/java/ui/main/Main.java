@@ -12,7 +12,8 @@ public class Main {
 		new Server();
 		frame = new Frame();
 		
-		Timer timer = new Timer();
-		timer.schedule(new Update(frame), 0, 5000);
+	/*	Timer timer = new Timer();
+		timer.schedule(new Update(frame), 0, 10000);
+		*/
 	}
 }

@@ -14,7 +14,7 @@ import ui.team.SingleTeam;
 import ui.team.TeamsSelect;
 
 @SuppressWarnings("serial")
-public class Frame extends JFrame implements UpdateService {
+public class Frame extends JFrame {
 
 	public static final int WIN_W = 1052;
 	public static final int WIN_H = 650;
