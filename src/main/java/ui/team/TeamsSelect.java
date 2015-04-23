@@ -135,8 +135,8 @@ public class TeamsSelect extends MyPanel implements ActionListener {
 		PHX.setActionCommand("PHX");
 		this.add(LAL);
 		LAL.setBounds(350, 371 - 3, 175, 93);
-		SAS.addActionListener(this);
-		SAS.setActionCommand("SAS");
+		LAL.addActionListener(this);
+		LAL.setActionCommand("LAL");
 		this.add(LAC);
 		LAC.setBounds(350, 464 - 3, 175, 93);
 		LAC.addActionListener(this);
