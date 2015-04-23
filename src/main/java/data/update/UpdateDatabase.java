@@ -3,7 +3,6 @@ package data.update;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,11 +16,13 @@ import java.util.Map;
 import java.util.TimerTask;
 
 import rmi.Server;
+import ui.main.Main;
 import data.initial.InitialDatabase;
 
 public class UpdateDatabase extends TimerTask {
 
 	public void run() {
+		long time = System.currentTimeMillis();
 		File f = new File("data/matches");
 		String[] matches = f.list();
 		for (int i = 0; i < matches.length; i++) {
@@ -32,14 +33,11 @@ public class UpdateDatabase extends TimerTask {
 			}
 		}
 		if (matches.length != Server.matches.length) {
-			System.out.println(matches.length
-					+ "''''''''''''''''''''''''''''''''''''''''");
-			long time = System.currentTimeMillis();
 			updateData(matches, Server.matches);
+			//Main.frame.update();
 			Server.matches = matches;
-			System.out.println(System.currentTimeMillis() - time
-					+ "=================================================");
 		}
+		System.out.println(System.currentTimeMillis() - time);
 	}
 
 	public void updateData(String[] newData, String[] oldData) {
@@ -194,9 +192,9 @@ public class UpdateDatabase extends TimerTask {
 				for (int i = 0; i < tempSeason.size(); i++) {
 					String season_to_delete = tempSeason.get(i);
 					String[] year = season_to_delete.split("-");
-					sql = "DROP TABLE `playersum" + season_to_delete + "`";
+					sql = "DELETE FROM `playersum" + season_to_delete + "`";
 					statement.addBatch(sql);
-					sql = "DROP TABLE `teamsum" + season_to_delete + "`";
+					sql = "DELETE FROM `teamsum" + season_to_delete + "`";
 					statement.addBatch(sql);
 					sql = "DELETE FROM matches WHERE date like '" + year[0]
 							+ "-10-%' OR date like '" + year[0]
@@ -215,6 +213,7 @@ public class UpdateDatabase extends TimerTask {
 							+ "-03-%' OR date like '" + year[1] + "-04-%'";
 					statement.addBatch(sql);
 					statement.executeBatch();
+					conn.commit();
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

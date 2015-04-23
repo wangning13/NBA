@@ -14,7 +14,7 @@ import dataservice.getdatadataservice.GetTeamdataDataService;
 
 public class Server {
 
-	public static ArrayList<String> initial_season;
+	public static String initial_season;
 	public static String[] matches;
 	public static ArrayList<String> season;
 	Timer timer;
@@ -24,16 +24,16 @@ public class Server {
 		try {
 			File f = new File("data/matches");
 			matches = f.list();
+			initial_season = matches[matches.length/2].substring(0, matches[matches.length/2].indexOf("_"));
 			for (int i = 0; i < matches.length; i++) {
 				String[] temp = matches[i].split("_");
 				if (!season.contains(temp[0])) {
 					season.add(temp[0]);
 				}
 			}
-			initial_season = season;
 
 			timer = new Timer();
-			timer.schedule(new UpdateDatabase(), 0, 3000);
+			timer.schedule(new UpdateDatabase(), 0, 5000);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
