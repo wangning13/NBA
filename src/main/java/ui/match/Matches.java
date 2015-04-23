@@ -167,7 +167,7 @@ public class Matches extends MyPanel implements ActionListener {
 
 	public void update() {
 		if (isStart) {
-			matches = trs.getTeamMonthMatch(date, teamName);
+			matches = trs.getTeamMonthMatch(date, Translate.translate(teamName));
 			Object[][] data = getData(matches);
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();
