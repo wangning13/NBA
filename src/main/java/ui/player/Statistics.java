@@ -344,7 +344,7 @@ public class Statistics extends MyPanel implements ActionListener {
 			table.setWidth();
 			table.updateUI();
 		} else if (flag == 5) {
-			Object[][] data = getData(prs.getMostImporvedPlayer("13-14", key));
+			Object[][] data = getData(prs.getMostImporvedPlayer("13-14", term6));
 			model.setDataVector(data, columnNames);
 			table.setWidth();
 			table.updateUI();
@@ -409,15 +409,15 @@ public class Statistics extends MyPanel implements ActionListener {
 				table.updateUI();
 				flag = 4;
 			} else if (hot.getSelectedIndex() == 2) {
-				if (term1.getSelectedIndex() == 0)
+		/*		if (term1.getSelectedIndex() == 0)
 					key = "nearlyFivePercentage";
 				else if (term1.getSelectedIndex() == 1)
 					key = "nearlyFiveBackboardPercentage";
 				else
 					key = "nearlyFiveAssistPercentage";
-
+*/
 				Object[][] data = getData(prs.getMostImporvedPlayer("13-14",
-						key));
+						Translate.translate1(term1.getSelectedItem().toString())));
 				model.setDataVector(data, columnNames);
 				table.setWidth();
 				table.updateUI();
