@@ -1,4 +1,4 @@
-package ui.tools;
+﻿package ui.tools;
 
 public class Translate {
 
@@ -107,7 +107,7 @@ public class Translate {
 		else if (type.equals("比赛得分"))
 			result = "scoring";
 		else if (type.equals("投篮命中率"))
-			result = "fieldGoalPercentage";
+			result = "fieldGoalShotPercentage";
 		else if (type.equals("三分命中率"))
 			result = "threePointShotPercentage";
 		else if (type.equals("罚球命中率"))
