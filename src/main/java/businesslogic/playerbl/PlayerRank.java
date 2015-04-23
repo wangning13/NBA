@@ -220,31 +220,19 @@ public class PlayerRank implements PlayerRankService{
 		GetPlayerdataDataService g;
 			g = new GetPlayerdata();
 			playerPOs = g.getAllPlayerdata(season, "backboard", "DESC");
-			System.out.println(playerPOs.size()+"===s1");
-			System.out.println(playerPOs.get(0).getTeamBackboard());
-			System.out.println(playerPOs.get(0).getTeamMinutes());
-			System.out.println(playerPOs.get(0).getOpponentBackBoard());
-			System.out.println(playerPOs.get(0).getTeamFieldGoal());
-			System.out.println(playerPOs.get(0).getOpponentFieldGoalAttempts());
-			System.out.println(playerPOs.get(0).getFieldGoalShotPercentage());
-			System.out.println(playerPOs.get(0).getFieldGoalAttempts());
-			System.out.println(playerPOs.get(0).getFieldGoal());
 			for (int i = 0; i < playerPOs.size(); i++) {
 				Calculate calculate = new Calculate();
 				playerPOs.set(i, calculate.Calculate(playerPOs.get(i)));
 			}
-			System.out.println(playerPOs.get(0).getFieldGoalShotPercentage());
 			Sort sort = new Sort();
 			
 			playerPOs2 = sort.Sort(playerPOs, condition, "DESC");
-			System.out.println(playerPOs2.size()+"===s2");
 			for (int i = 0; i < 5; i++) {
 				GetPlayerVO getPlayerVO = new GetPlayerVO();
 				PlayerVO playerVO = getPlayerVO.getPlayerVO(playerPOs2.get(i));
 				playerVOs.add(playerVO);
 				
 			}
-			System.out.println(playerVOs.size()+"===vos");
 		return playerVOs;
 	}
 	

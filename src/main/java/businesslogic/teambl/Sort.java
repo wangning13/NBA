@@ -458,7 +458,7 @@ public class Sort {
 				}
 			}
 			break;
-		case "fieldGoalPercentage":
+		case "fieldGoalShotPercentage":
 			if (order.equals("DESC")) {
 				for (int i = 0; i < teamPOs.size()-1; i++) {
 					for (int j = 0; j < teamPOs.size()-i-1; j++) {
