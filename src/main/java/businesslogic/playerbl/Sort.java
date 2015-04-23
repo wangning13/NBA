@@ -736,6 +736,81 @@ public class Sort {
 				}
 			}
 			break;
+		case "nearlyFivePercentage":
+			if (order.equals("DESC")) {
+				for (int i = 0; i < playerPOs.size()-1; i++) {
+					for (int j = 0; j < playerPOs.size()-i-1; j++) {
+						if (playerPOs.get(j).getNearlyFivePercentage()<=playerPOs.get(j+1).getNearlyFivePercentage()) {
+							PlayerPO temp = playerPOs.get(j);
+							playerPOs.set(j, playerPOs.get(j+1));
+							playerPOs.set(j+1, temp);
+							
+						}
+					}
+				}
+			}else if (order.equals("ASC")) {
+				for (int i = 0; i < playerPOs.size()-1; i++) {
+					for (int j = 0; j < playerPOs.size()-i-1; j++) {
+						if (playerPOs.get(j).getNearlyFivePercentage()>playerPOs.get(j+1).getNearlyFivePercentage()) {
+							PlayerPO temp = playerPOs.get(j);
+							playerPOs.set(j, playerPOs.get(j+1));
+							playerPOs.set(j+1, temp);
+							
+						}
+					}
+				}
+			}
+			break;
+		case "nearlyFiveBackboardPercentage":
+			if (order.equals("DESC")) {
+				for (int i = 0; i < playerPOs.size()-1; i++) {
+					for (int j = 0; j < playerPOs.size()-i-1; j++) {
+						if (playerPOs.get(j).getNearlyFiveBackboardPercentage()<=playerPOs.get(j+1).getNearlyFiveBackboardPercentage()) {
+							PlayerPO temp = playerPOs.get(j);
+							playerPOs.set(j, playerPOs.get(j+1));
+							playerPOs.set(j+1, temp);
+							
+						}
+					}
+				}
+			}else if (order.equals("ASC")) {
+				for (int i = 0; i < playerPOs.size()-1; i++) {
+					for (int j = 0; j < playerPOs.size()-i-1; j++) {
+						if (playerPOs.get(j).getNearlyFiveBackboardPercentage()>playerPOs.get(j+1).getNearlyFiveBackboardPercentage()) {
+							PlayerPO temp = playerPOs.get(j);
+							playerPOs.set(j, playerPOs.get(j+1));
+							playerPOs.set(j+1, temp);
+							
+						}
+					}
+				}
+			}
+			break;
+		case "nearlyFiveAssistPercentage":
+			if (order.equals("DESC")) {
+				for (int i = 0; i < playerPOs.size()-1; i++) {
+					for (int j = 0; j < playerPOs.size()-i-1; j++) {
+						if (playerPOs.get(j).getNearlyFiveAssistPercentage()<=playerPOs.get(j+1).getNearlyFiveAssistPercentage()) {
+							PlayerPO temp = playerPOs.get(j);
+							playerPOs.set(j, playerPOs.get(j+1));
+							playerPOs.set(j+1, temp);
+							
+						}
+					}
+				}
+			}else if (order.equals("ASC")) {
+				for (int i = 0; i < playerPOs.size()-1; i++) {
+					for (int j = 0; j < playerPOs.size()-i-1; j++) {
+						if (playerPOs.get(j).getNearlyFiveAssistPercentage()>playerPOs.get(j+1).getNearlyFiveAssistPercentage()) {
+							PlayerPO temp = playerPOs.get(j);
+							playerPOs.set(j, playerPOs.get(j+1));
+							playerPOs.set(j+1, temp);
+							
+						}
+					}
+				}
+			}
+			break;
 		default:
 			System.err.println("You input error in player!");
 			break;

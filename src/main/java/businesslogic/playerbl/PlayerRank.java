@@ -212,7 +212,7 @@ public class PlayerRank implements PlayerRankService{
 	}
 	
 	
-	//仅适用于场均
+	
 	public ArrayList<PlayerVO> getSeasonTop(String season,String condition){
 		ArrayList<PlayerPO> playerPOs = new ArrayList<PlayerPO>();
 		ArrayList<PlayerPO> playerPOs2 = new ArrayList<PlayerPO>();
