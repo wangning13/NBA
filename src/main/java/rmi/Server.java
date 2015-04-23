@@ -1,16 +1,10 @@
 package rmi;
 
 import java.io.File;
-import java.rmi.Naming;
-import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
 import java.util.Timer;
 
-import data.getdata.GetPlayerdata;
-import data.getdata.GetTeamdata;
 import data.update.UpdateDatabase;
-import dataservice.getdatadataservice.GetPlayerdataDataService;
-import dataservice.getdatadataservice.GetTeamdataDataService;
 
 public class Server {
 

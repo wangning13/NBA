@@ -22,7 +22,6 @@ import data.initial.InitialDatabase;
 public class UpdateDatabase extends TimerTask {
 
 	public void run() {
-		long time = System.currentTimeMillis();
 		File f = new File("data/matches");
 		String[] matches = f.list();
 		for (int i = 0; i < matches.length; i++) {
@@ -34,10 +33,9 @@ public class UpdateDatabase extends TimerTask {
 		}
 		if (matches.length != Server.matches.length) {
 			updateData(matches, Server.matches);
-			//Main.frame.update();
+			Main.frame.update();
 			Server.matches = matches;
 		}
-		System.out.println(System.currentTimeMillis() - time);
 	}
 
 	public void updateData(String[] newData, String[] oldData) {
