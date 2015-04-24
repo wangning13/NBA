@@ -31,4 +31,6 @@ public interface GetTeamdataDataService {
 
 	public ArrayList<TeamPO> getSeasonTop(String season, String condition);
 
+	public ArrayList<TeamMatchPO> getRecentFifteen();
+	
 }

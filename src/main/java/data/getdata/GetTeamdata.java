@@ -490,4 +490,20 @@ public class GetTeamdata implements GetTeamdataDataService {
 		return po;
 	}
 
+	public ArrayList<TeamMatchPO> getRecentFifteen() {
+		ArrayList<TeamMatchPO> po = new ArrayList<TeamMatchPO>();
+		String sql = "SELECT * FROM matches ORDER BY date DESC LIMIT 30";
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				TeamMatchPO temp = new TeamMatchPO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10));
+				po.add(temp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return po;
+	}
+	
 }
