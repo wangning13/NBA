@@ -30,5 +30,7 @@ public interface TeamRankService {
 	public ArrayList<TeamMonthMatchVO> getTeamRecentFiveMatch(String team);
 
 	public ArrayList<TeamVO> getSeasonTop(String season, String condition);
+	
+	public ArrayList<TeamMatchVO> getRecentFifteen();
 
 }
