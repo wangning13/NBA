@@ -28,7 +28,7 @@ public class Calculate {
 			playerPO.setFreeThrowPercentage(Double.parseDouble(df3.format(((double)playerPO.getFreeThrow())/playerPO.getFreeThrowAttempts())));
 
 		}
-		playerPO.setEfficiency(Double.parseDouble(df3.format((playerPO.getScoring()+playerPO.getBackboard()+playerPO.getAssist()+playerPO.getSteal()+playerPO.getBlock())-(playerPO.getFieldGoalAttempts()-playerPO.getFieldGoal())-(playerPO.getFreeThrowAttempts()-playerPO.getFreeThrow())-playerPO.getTurnOver())));
+		playerPO.setEfficiency(Double.parseDouble(df3.format((double)(playerPO.getScoring()/playerPO.getAppearance()+(double)playerPO.getBackboard()/playerPO.getAppearance()+(double)playerPO.getAssist()/playerPO.getAppearance()+playerPO.getSteal()+playerPO.getBlock())-(playerPO.getFieldGoalAttempts()-playerPO.getFieldGoal())-(playerPO.getFreeThrowAttempts()-playerPO.getFreeThrow())-playerPO.getTurnOver())));
 		playerPO.setGmScEfficiency(Double.parseDouble(df3.format(playerPO.getScoring()+0.4*playerPO.getFieldGoal()-0.7*playerPO.getFieldGoalAttempts()-0.4*(playerPO.getFreeThrowAttempts()-playerPO.getFreeThrow())+0.7*playerPO.getOffensiveRebound()+0.3*playerPO.getDefensiveRebound()+playerPO.getSteal()+0.7*playerPO.getAssist()+0.7*playerPO.getBlock()-0.4*playerPO.getFoul()-playerPO.getTurnOver())));
 		if (playerPO.getPreviousAverageScoring()==0) {
 			playerPO.setNearlyFivePercentage(0);
@@ -44,7 +44,7 @@ public class Calculate {
 		if (playerPO.getFieldGoalAttempts()==0) {
 			playerPO.setShootingEfficiency(0);
 		}else {
-			playerPO.setShootingEfficiency(Double.parseDouble(df1.format((((double)playerPO.getFieldGoal()+0.5*playerPO.getThreePointFieldGoal())/playerPO.getFieldGoalAttempts()))));
+			playerPO.setShootingEfficiency(Double.parseDouble(df3.format((((double)playerPO.getFieldGoal()+0.5*playerPO.getThreePointFieldGoal())/playerPO.getFieldGoalAttempts()))));
 		}
 		if (playerPO.getMinutes()==0) {
 			playerPO.setBackboardPercentage(0);
