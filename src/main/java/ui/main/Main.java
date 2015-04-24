@@ -1,8 +1,5 @@
 package ui.main;
 
-import java.util.Timer;
-
-import data.update.UpdateDatabase;
 import rmi.Server;
 import ui.main.Frame;
 

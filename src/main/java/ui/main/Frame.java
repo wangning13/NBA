@@ -18,20 +18,31 @@ public class Frame extends JFrame {
 
 	public static final int WIN_W = 1052;
 	public static final int WIN_H = 650;
-	public Ranking rankingPanel = new Ranking(this);
-	public Statistics statisticsPanel = new Statistics(this);
-	public MainFrame mainFrame = new MainFrame(this);
-	public TeamsSelect teamsSelectPanel = new TeamsSelect(this);
-	public PlayersSelect playersSelectPanel = new PlayersSelect(this);
-	public SingleTeam singleTeamPanel = new SingleTeam(this);
-	public SinglePlayer singlePlayerPanel = new SinglePlayer(this);
-	public Matches matchesPanel = new Matches(this);
-	public SingleMatch singleMatchPanel = new SingleMatch(this);
+	public static Ranking rankingPanel;
+	public static Statistics statisticsPanel ;
+	public static MainFrame mainFrame ;
+	public static TeamsSelect teamsSelectPanel ;
+	public static PlayersSelect playersSelectPanel;
+	public static SingleTeam singleTeamPanel ;
+	public static SinglePlayer singlePlayerPanel;
+	public static Matches matchesPanel ;
+	public static SingleMatch singleMatchPanel;
 
 	public static String currentPanel = "main";
 
 	public Frame() {
 		super("NBA数据控");
+		
+		rankingPanel = new Ranking(this);
+	    statisticsPanel = new Statistics(this);
+		mainFrame = new MainFrame(this);
+		teamsSelectPanel = new TeamsSelect(this);
+		playersSelectPanel = new PlayersSelect(this);
+		singleTeamPanel = new SingleTeam(this);
+		singlePlayerPanel = new SinglePlayer(this);
+		matchesPanel = new Matches(this);
+		singleMatchPanel = new SingleMatch(this);
+		
 		this.getContentPane().add(mainFrame);
 		CardLayout cl = new CardLayout();
 		this.setLayout(cl);
@@ -43,9 +54,12 @@ public class Frame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
+		
+		
+		
 	}
 
-	public void update() {
+	public static void update() {
 		if (currentPanel.equals("ranking")) {
 			rankingPanel.update();
 		} else if (currentPanel.equals("statistics")) {
