@@ -205,6 +205,28 @@ public class TeamRank implements TeamRankService{
 			}
     	return teamVOs;
     }
+    
+    public ArrayList<TeamMatchVO> getRecentFifteen(){
+    	ArrayList<TeamMatchPO> teamMatchPOs = new ArrayList<TeamMatchPO>();
+    	ArrayList<TeamMatchVO> teamMatchVOs = new ArrayList<TeamMatchVO>();
+    	GetTeamdataDataService g;
+    	g = new GetTeamdata();
+    	teamMatchPOs = g.getRecentFifteen();
+    	for (int i = 0; i < teamMatchPOs.size(); i++) {
+    		TeamMatchVO teamMatchVO = new TeamMatchVO(teamMatchPOs.get(i).getDate(),
+					teamMatchPOs.get(i).getHostGuest(), 
+					teamMatchPOs.get(i).getName(),
+					teamMatchPOs.get(i).getOpponent(),
+					teamMatchPOs.get(i).getWinLose(), 
+					teamMatchPOs.get(i).getTotal(),
+					teamMatchPOs.get(i).getFirst(), 
+					teamMatchPOs.get(i).getSecond(), 
+					teamMatchPOs.get(i).getThird(), 
+					teamMatchPOs.get(i).getFourth());
+    		teamMatchVOs.set(i, teamMatchVO);
+		}
+    	return teamMatchVOs;
+    }
 
 }
 
