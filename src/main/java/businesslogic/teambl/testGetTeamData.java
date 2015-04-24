@@ -2,6 +2,7 @@ package businesslogic.teambl;
 
 import java.util.ArrayList;
 
+import businesslogic.playerbl.PlayerRank;
 import vo.PlayerMatchVO;
 import vo.TeamMatchVO;
 import vo.TeamMonthMatchVO;
@@ -27,16 +28,16 @@ public class testGetTeamData {
 //			System.out.println(teamMonthMatchVOs.get(i).getFourth());
 //		}
 		
-		ArrayList<TeamVO> teamVOs = teamRank.getSeasonTop("13-14", "backboard");
-		for (int i = 0; i < teamVOs.size(); i++) {
-			System.out.println(teamVOs.get(i).getBackboard());
-			System.out.println(teamVOs.get(i).getAssist());
-			System.out.println(teamVOs.get(i).getAssistEfficiency());
-			System.out.println(teamVOs.get(i).getOppenentScoring());
-			System.out.println(teamVOs.get(i).getDefensiveEfficiency());
-			System.out.println(teamVOs.get(i).getDefensivebackboardEfficiency());
-			System.out.println(teamVOs.get(i).getAverageAsist());
-		}
+//		ArrayList<TeamVO> teamVOs = teamRank.getSeasonTop("13-14", "backboard");
+//		for (int i = 0; i < teamVOs.size(); i++) {
+//			System.out.println(teamVOs.get(i).getBackboard());
+//			System.out.println(teamVOs.get(i).getAssist());
+//			System.out.println(teamVOs.get(i).getAssistEfficiency());
+//			System.out.println(teamVOs.get(i).getOppenentScoring());
+//			System.out.println(teamVOs.get(i).getDefensiveEfficiency());
+//			System.out.println(teamVOs.get(i).getDefensivebackboardEfficiency());
+//			System.out.println(teamVOs.get(i).getAverageAsist());
+//		}
 		
 		
 		
@@ -56,6 +57,8 @@ public class testGetTeamData {
 //			System.out.println(teamMonthMatchVOs.get(i).getThird());
 //			System.out.println(teamMonthMatchVOs.get(i).getFourth());
 //		}
+		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getRecentFifteen();
+		
 		
 	}
 

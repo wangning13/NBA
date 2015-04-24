@@ -61,8 +61,8 @@ public class GetTeamVO {
 				Double.parseDouble(df1.format(teamPO.getPossessions())),
 				Double.parseDouble(df1.format(teamPO.getOffensiveEfficiency())),
 				Double.parseDouble(df1.format(teamPO.getDefensiveEfficiency())),
-				Double.parseDouble(df1.format(teamPO.getOffensivebackboardEfficiency())),
-				Double.parseDouble(df1.format(teamPO.getDefensivebackboardEfficiency())),
+				Double.parseDouble(df3.format(teamPO.getOffensivebackboardEfficiency())),
+				Double.parseDouble(df3.format(teamPO.getDefensivebackboardEfficiency())),
 				Double.parseDouble(df1.format(teamPO.getStealEfficiency())),
 				Double.parseDouble(df1.format(teamPO.getAssistEfficiency())));
 		return teamVO;

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import po.TeamMatchPO;
 import po.TeamPO;
 import po.TeaminfoPO;
+import vo.PlayerMatchVO;
 import vo.TeamMatchVO;
 import vo.TeamMonthMatchVO;
 import vo.TeamVO;
@@ -98,18 +99,29 @@ public class TeamRank implements TeamRankService{
 						String data = teamMatchPOs.get(i).getDate();
 						String host = "";
 						String guest = "";
+						String score = "";
+						String first = "";
+						String second = "";
+						String third = "";
+						String fourth = "";
 						if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
 							host = team;
 							guest = teamMatchPOs2.get(j).getName();
+							score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs2.get(j).getTotal();
+							first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs2.get(j).getFirst();
+							second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs2.get(j).getSecond();
+							third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs2.get(j).getThird();
+							fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs2.get(j).getFourth();
 						}else {
 							host = teamMatchPOs2.get(j).getName();
 							guest = team;
+							score = teamMatchPOs.get(j).getTotal() + "-" + teamMatchPOs2.get(i).getTotal();
+							first = teamMatchPOs.get(j).getFirst() + "-" + teamMatchPOs2.get(i).getFirst();
+							second = teamMatchPOs.get(j).getSecond() + "-" + teamMatchPOs2.get(i).getSecond();
+							third = teamMatchPOs.get(j).getThird() + "-" + teamMatchPOs2.get(i).getThird();
+							fourth = teamMatchPOs.get(j).getFourth() + "-" + teamMatchPOs2.get(i).getFourth();
 						}
-						String score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs2.get(j).getTotal();
-						String first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs2.get(j).getFirst();
-						String second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs2.get(j).getSecond();
-						String third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs2.get(j).getThird();
-						String fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs2.get(j).getFourth();
+						
 						TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(data, host, guest, score, first, second, third, fourth);
 						teamMonthMatchVOs.add(teamMonthMatchVO);
 					}
@@ -206,13 +218,35 @@ public class TeamRank implements TeamRankService{
     	return teamVOs;
     }
     
-    public ArrayList<TeamMatchVO> getRecentFifteen(){
+    public ArrayList<TeamMonthMatchVO> getRecentFifteen(){
     	ArrayList<TeamMatchPO> teamMatchPOs = new ArrayList<TeamMatchPO>();
-    	ArrayList<TeamMatchVO> teamMatchVOs = new ArrayList<TeamMatchVO>();
+    	ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = new ArrayList<TeamMonthMatchVO>();
     	GetTeamdataDataService g;
     	g = new GetTeamdata();
     	teamMatchPOs = g.getRecentFifteen();
-    	for (int i = 0; i < teamMatchPOs.size(); i++) {
+    	for (int i = 0; i < teamMatchPOs.size(); ) {
+    		String opponent = teamMatchPOs.get(i).getOpponent();
+    		for (int j = 1; j < teamMatchPOs.size(); j++) {
+				if (teamMatchPOs.get(j).getName().equals(opponent) && teamMatchPOs.get(j).getDate().equals(teamMatchPOs.get(i).getDate())) {
+					String date = teamMatchPOs.get(j).getDate();
+					String host = "";
+					String guest = "";
+					if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
+						host = teamMatchPOs.get(i).getName();
+						guest = teamMatchPOs.get(j).getName();
+					}else {
+						host = teamMatchPOs.get(j).getName();
+						guest = teamMatchPOs.get(i).getName();
+					}	
+					
+				}
+			}
+    		System.out.println("*********************");
+    		System.out.println(i+1);
+    		System.out.println(teamMatchPOs.get(i).getName());
+    		System.out.println(teamMatchPOs.get(i).getDate());
+    		System.out.println(teamMatchPOs.get(i).getOpponent());
+    		System.out.println(teamMatchPOs.get(i).getFirst());
     		TeamMatchVO teamMatchVO = new TeamMatchVO(teamMatchPOs.get(i).getDate(),
 					teamMatchPOs.get(i).getHostGuest(), 
 					teamMatchPOs.get(i).getName(),
@@ -223,9 +257,9 @@ public class TeamRank implements TeamRankService{
 					teamMatchPOs.get(i).getSecond(), 
 					teamMatchPOs.get(i).getThird(), 
 					teamMatchPOs.get(i).getFourth());
-    		teamMatchVOs.set(i, teamMatchVO);
+//    		teamMatchVOs.set(i, teamMatchVO);
 		}
-    	return teamMatchVOs;
+    	return teamMonthMatchVOs;
     }
 
 }

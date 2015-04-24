@@ -7,6 +7,7 @@ import po.PlayerinfoPO;
 import vo.PlayerMatchVO;
 import vo.PlayerVO;
 import vo.PlayerinfoVO;
+import vo.TeamMonthMatchVO;
 
 public class testPlayerRank {
 	public static void main(String[] args){
@@ -56,8 +57,6 @@ public class testPlayerRank {
 //		for (int i = 0; i < playerVOs.size(); i++) {
 //			System.out.println(playerVOs.get(i).getMinutes());
 //		}
-
-		
 		
 	}
 
