@@ -115,11 +115,11 @@ public class TeamRank implements TeamRankService{
 						}else {
 							host = teamMatchPOs2.get(j).getName();
 							guest = team;
-							score = teamMatchPOs.get(j).getTotal() + "-" + teamMatchPOs2.get(i).getTotal();
-							first = teamMatchPOs.get(j).getFirst() + "-" + teamMatchPOs2.get(i).getFirst();
-							second = teamMatchPOs.get(j).getSecond() + "-" + teamMatchPOs2.get(i).getSecond();
-							third = teamMatchPOs.get(j).getThird() + "-" + teamMatchPOs2.get(i).getThird();
-							fourth = teamMatchPOs.get(j).getFourth() + "-" + teamMatchPOs2.get(i).getFourth();
+							score = teamMatchPOs2.get(j).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
+							first = teamMatchPOs2.get(j).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
+							second = teamMatchPOs2.get(j).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
+							third = teamMatchPOs2.get(j).getThird() + "-" + teamMatchPOs.get(i).getThird();
+							fourth = teamMatchPOs2.get(j).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
 						}
 						
 						TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(data, host, guest, score, first, second, third, fourth);
