@@ -240,6 +240,10 @@ public class TeamRank implements TeamRankService{
 						host = teamMatchPOs.get(i).getName();
 						guest = teamMatchPOs.get(j).getName();
 						score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(j).getTotal();
+						first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(j).getFirst();
+						second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(j).getSecond();
+						third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(j).getThird();
+						fourth = teamMatchPOs.get
 					}else {
 						host = teamMatchPOs.get(j).getName();
 						guest = teamMatchPOs.get(i).getName();
