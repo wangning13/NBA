@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.playerbl.PlayerRank;
@@ -19,6 +20,7 @@ import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.MyTable;
+import ui.tools.MyTable1;
 import vo.PlayerMatchVO;
 import vo.TeamMonthMatchVO;
 
@@ -28,17 +30,17 @@ public class SingleMatch extends MyPanel implements ActionListener {
 	public boolean flag = false;
 	Frame frame;
 	JScrollPane pane1;
-	MyTable table1;
+	MyTable1 table1;
 	DefaultTableModel model1;
-	String[] columnNames1 = { "主队", "上场时间", "得分", "投篮命中数", "投篮出手数", "三分命中数",
-			"三分出手数", "罚球命中数", "罚球出手数", "进攻篮板数", "防守篮板数", "篮板数", "助攻数", "盖帽数",
-			"犯规数", "抢断数", "失误数" };
+	String[] columnNames1 = { "主队", "上场时间", "得分", "投篮", "三分",
+			 "罚球", "前篮板", "后篮板", "篮板", "助攻", "盖帽",
+			"犯规", "抢断", "失误" };
 	JScrollPane pane2;
-	MyTable table2;
+	MyTable1 table2;
 	DefaultTableModel model2;
-	String[] columnNames2 = { "客队", "位置", "上场时间", "得分", "投篮命中数", "投篮出手数",
-			"三分命中数", "三分出手数", "罚球命中数", "罚球出手数", "进攻篮板数", "防守篮板数", "篮板数", "助攻数",
-			"盖帽数", "犯规数", "抢断数", "失误数" };
+	String[] columnNames2 = { "客队", "上场时间", "得分", "投篮", "三分",
+			 "罚球", "前篮板", "后篮板", "篮板", "助攻", "盖帽",
+			"犯规", "抢断", "失误" };
 
 	JLabel rankingBand = new JLabel(Img.MATCHBAND);
 
@@ -142,9 +144,9 @@ public class SingleMatch extends MyPanel implements ActionListener {
 		Object[][] data1 = null;
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
 		model1.setDataVector(data1, columnNames1);
-		table1 = new MyTable(model1);
+		table1 = new MyTable1(model1);
 
-		// table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		pane1 = new JScrollPane(table1);
 		this.add(pane1);
 		pane1.setBounds(0, 250, 1052, 200);
@@ -152,9 +154,9 @@ public class SingleMatch extends MyPanel implements ActionListener {
 		Object[][] data2 = null;
 		model2 = new DefaultTableModel(new Object[][] {}, columnNames2);
 		model2.setDataVector(data2, columnNames2);
-		table2 = new MyTable(model2);
+		table2 = new MyTable1(model2);
 
-		// table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table2.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		pane2 = new JScrollPane(table2);
 		this.add(pane2);
 		pane2.setBounds(0, 450, 1052, 200);
@@ -211,11 +213,11 @@ public class SingleMatch extends MyPanel implements ActionListener {
 		for (int i = 0; i < num; i++) {
 			Object[] temp = { matches.get(i).getPlayername(),
 					matches.get(i).getMinutes(), matches.get(i).getScoring(),
-					matches.get(i).getFieldGoal(),
+					matches.get(i).getFieldGoal()+"-"+
 					matches.get(i).getFieldGoalAttempts(),
-					matches.get(i).getThreepointFieldGoal(),
+					matches.get(i).getThreepointFieldGoal()+"-"+
 					matches.get(i).getThreepointFieldGoalAttempts(),
-					matches.get(i).getFreeThrow(),
+					matches.get(i).getFreeThrow()+"-"+
 					matches.get(i).getFreeThrowAttempts(),
 					matches.get(i).getOffensiveRebound(),
 					matches.get(i).getDefensiveRebound(),

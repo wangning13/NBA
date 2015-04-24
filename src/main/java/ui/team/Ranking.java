@@ -25,6 +25,7 @@ import vo.TeamVO;
 @SuppressWarnings("serial")
 public class Ranking extends MyPanel implements ActionListener {
 	int flag = 0;
+	ArrayList<TeamVO> teams;
 	String area = "";
 	String term1 = "win";
 	String term2 = "";
@@ -34,20 +35,24 @@ public class Ranking extends MyPanel implements ActionListener {
 	JScrollPane pane1;
 	MyTable table1;
 	DefaultTableModel model1;
-	String[] columnNames1 = { "球队名称", "场次", "投篮命中数", "投篮出手数", "三分命中数", "三分出手数",
-			"罚球命中数", "罚球出手数", "进攻篮板数", "防守篮板数", "篮板数", "助攻数", "抢断数", "盖帽数",
-			"失误数", "犯规数", "比赛得分", "投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
-			"进攻效率", "防守效率", "进攻篮板效率", "防守篮板效率", "抢断效率", "助攻效率", "场均投篮命中数",
-			"场均投篮出手数", "场均三分命中数", "场均三分出手数", "场均罚球命中数", "场均罚球出手数", "场均进攻篮板数",
-			"场均防守篮板数", "场均篮板数", "场均助攻数", "场均抢断数", "场均盖帽数", "场均失误数", "场均犯规数",
-			"场均得分" };
-	String[] columnNames2 = { "球队名称", "场次", "投篮命中数", "投篮出手数", "三分命中数", "三分出手数",
-			"罚球命中数", "罚球出手数", "进攻篮板数", "防守篮板数", "篮板数", "助攻数", "抢断数", "盖帽数",
-			"失误数", "犯规数", "比赛得分", "投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
-			"进攻效率", "助攻效率", "场均投篮命中数", "场均投篮出手数", "场均三分命中数", "场均三分出手数",
-			"场均罚球命中数", "场均罚球出手数", "场均进攻篮板数", "场均防守篮板数", "场均篮板数", "场均助攻数",
-			"场均抢断数", "场均盖帽数", "场均失误数", "场均犯规数", "场均得分" };
-
+	String[] columnNames1 = { "球队名称", "场次", "投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
+			"进攻效率", "防守效率", "进攻篮板效率", "防守篮板效率", "抢断效率", "助攻效率", "投篮命中",
+			"投篮出手", "三分命中", "三分出数", "罚球命中", "罚球出手", "进攻篮板",
+			"防守篮板", "篮板", "助攻", "抢断", "盖帽", "失误", "犯规",
+			"得分" };
+	String[] columnNames1_1 = { "球队名称", "场次", "投篮命中","投篮出手", "三分命中", "三分出数", "罚球命中", "罚球出手", "进攻篮板",
+			"防守篮板", "篮板", "助攻", "抢断", "盖帽", "失误", "犯规",
+			"得分" };
+	String[] columnNames1_2 = { "球队名称", "场次", "投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
+			"进攻效率", "防守效率", "进攻篮板效率", "防守篮板效率", "抢断效率", "助攻效率" };
+	String[] columnNames2 = { "球队名称", "场次","投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
+			"进攻效率", "助攻效率", "投篮命中", "投篮出手", "三分命中", "三分出手",
+			"罚球命中", "罚球出手", "进攻篮板", "防守篮板", "篮板", "助攻",
+			"抢断", "盖帽", "失误", "犯规", "得分" };
+	String[] columnNames2_1 = { "球队名称", "场次", "投篮命中", "投篮出手", "三分命中", "三分出手","罚球命中", "罚球出手", "进攻篮板", "防守篮板", "篮板", "助攻",
+			"抢断", "盖帽", "失误", "犯规", "得分" };
+	String[] columnNames2_2 = { "球队名称", "场次","投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
+			"进攻效率", "助攻效率"};
 	JLabel rankingBand = new JLabel(Img.RANKINGBAND);
 	JRadioButton jrb1 = new JRadioButton("西部");
 	JRadioButton jrb2 = new JRadioButton("东部");
@@ -61,11 +66,12 @@ public class Ranking extends MyPanel implements ActionListener {
 	ButtonGroup group = new ButtonGroup();
 	JComboBox<String> type = new JComboBox<String>();
 	JComboBox<String> term = new JComboBox<String>();
+	JComboBox<String> option = new JComboBox<String>();
 	JButton descending = new JButton("降序");
 	JButton ascending = new JButton("升序");
 	JButton search = new JButton("查询");
 	Font font1 = new Font("黑体", Font.BOLD, 16);
-
+	Font font2 = new Font("黑体", Font.BOLD, 18);
 	public Ranking(Frame frame) {
 		super(frame);
 		// TODO Auto-generated constructor stub
@@ -152,6 +158,22 @@ public class Ranking extends MyPanel implements ActionListener {
 		type.setBounds(750, 160, 110, 20);
 		type.setFont(font1);
 
+		option.addItem("场均数据");
+		option.addItem("效率评估");
+		this.add(option);
+		option.setBounds(540, 164, 110, 40);
+		option.setFont(font2);
+		option.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent e) {
+				Object[][] data = getData(teams);
+				model1.setDataVector(data, getColumnNames1());
+				table1.setWidth();
+				table1.updateUI();
+			}
+		});
+		
+
+		
 		this.add(descending);
 		descending.setBounds(880, 157, 60, 25);
 		descending.addActionListener(this);
@@ -189,10 +211,10 @@ public class Ranking extends MyPanel implements ActionListener {
 
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
-
-		Object[][] data = getData(trs.getAllTeamdata("13-14", "wins", "DESC"));
+		teams = trs.getAllTeamdata("13-14", "wins", "DESC");
+		Object[][] data = getData(teams);
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
-		model1.setDataVector(data, columnNames1);
+		model1.setDataVector(data, columnNames1_1);
 		table1 = new MyTable(model1);
 
 		// table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -201,24 +223,13 @@ public class Ranking extends MyPanel implements ActionListener {
 		pane1.setBounds(0, 220, 1052, 430);
 
 	}
-
+/*
 	public Object[][] getData(ArrayList<TeamVO> teams) {
 		int num = teams.size();
 		Object[][] data = new Object[num][];
 		for (int i = 0; i < num; i++) {
 			Object[] temp = { teams.get(i).getTeamName(),
-					teams.get(i).getMatches(), teams.get(i).getFieldGoal(),
-					teams.get(i).getFieldGoalAttempts(),
-					teams.get(i).getThreePointFieldGoal(),
-					teams.get(i).getThreePointFieldGoalAttempts(),
-					teams.get(i).getFreeThrow(),
-					teams.get(i).getFreeThrowAttempts(),
-					teams.get(i).getOffensiveRebound(),
-					teams.get(i).getDefensiveRebound(),
-					teams.get(i).getBackboard(), teams.get(i).getAssist(),
-					teams.get(i).getSteal(), teams.get(i).getBlock(),
-					teams.get(i).getTurnOver(), teams.get(i).getFoul(),
-					teams.get(i).getScoring(),
+					teams.get(i).getMatches(),
 					teams.get(i).getFieldGoalPercentage(),
 					teams.get(i).getThreePointShotPercentage(),
 					teams.get(i).getFreeThrowPercentage(),
@@ -249,31 +260,39 @@ public class Ranking extends MyPanel implements ActionListener {
 		}
 		return data;
 	}
-
-	public Object[][] getData1(ArrayList<TeamVO> teams) {
+*/
+	public Object[][] getData(ArrayList<TeamVO> teams){
+		if(option.getSelectedIndex()==1){
+			if(flag==3)
+				return getData1_2(teams);
+			else
+			    return getData_2(teams);
+		}
+		else {
+				return getData_1(teams);
+		}
+	}
+	
+	public String[] getColumnNames1(){
+		if(flag==3){
+			if(option.getSelectedIndex()==0)
+				return columnNames2_1;
+			else return columnNames2_2;
+		}
+		else{
+		    if(option.getSelectedIndex()==0)
+		    	return columnNames1_1;
+	    	else return columnNames1_2;
+		}
+	
+	}
+	
+	public Object[][] getData_1(ArrayList<TeamVO> teams) {
 		int num = teams.size();
 		Object[][] data = new Object[num][];
 		for (int i = 0; i < num; i++) {
 			Object[] temp = { teams.get(i).getTeamName(),
-					teams.get(i).getMatches(), teams.get(i).getFieldGoal(),
-					teams.get(i).getFieldGoalAttempts(),
-					teams.get(i).getThreePointFieldGoal(),
-					teams.get(i).getThreePointFieldGoalAttempts(),
-					teams.get(i).getFreeThrow(),
-					teams.get(i).getFreeThrowAttempts(),
-					teams.get(i).getOffensiveRebound(),
-					teams.get(i).getDefensiveRebound(),
-					teams.get(i).getBackboard(), teams.get(i).getAssist(),
-					teams.get(i).getSteal(), teams.get(i).getBlock(),
-					teams.get(i).getTurnOver(), teams.get(i).getFoul(),
-					teams.get(i).getScoring(),
-					teams.get(i).getFieldGoalPercentage(),
-					teams.get(i).getThreePointShotPercentage(),
-					teams.get(i).getFreeThrowPercentage(),
-					teams.get(i).getWinningPercentage(),
-					teams.get(i).getPossessions(),
-					teams.get(i).getOffensiveEfficiency(),
-					teams.get(i).getAssistEfficiency(),
+					teams.get(i).getMatches(),
 					teams.get(i).getAverageFieldGoal(),
 					teams.get(i).getAverageFieldGoalAttempts(),
 					teams.get(i).getAverageThreePointFieldGoal(),
@@ -289,6 +308,48 @@ public class Ranking extends MyPanel implements ActionListener {
 					teams.get(i).getAverageTurnOver(),
 					teams.get(i).getAverageFoul(),
 					teams.get(i).getAverageScoring() };
+			data[i] = temp;
+		}
+		return data;
+	}
+	
+	public Object[][] getData_2(ArrayList<TeamVO> teams) {
+		int num = teams.size();
+		Object[][] data = new Object[num][];
+		for (int i = 0; i < num; i++) {
+			Object[] temp = { teams.get(i).getTeamName(),
+					teams.get(i).getMatches(),
+					teams.get(i).getFieldGoalPercentage(),
+					teams.get(i).getThreePointShotPercentage(),
+					teams.get(i).getFreeThrowPercentage(),
+					teams.get(i).getWinningPercentage(),
+					teams.get(i).getPossessions(),
+					teams.get(i).getOffensiveEfficiency(),
+					teams.get(i).getDefensiveEfficiency(),
+					teams.get(i).getOffensivebackboardEfficiency(),
+					teams.get(i).getDefensivebackboardEfficiency(),
+					teams.get(i).getStealEfficiency(),
+					teams.get(i).getAssistEfficiency(),
+					};
+			data[i] = temp;
+		}
+		return data;
+	}
+	
+	public Object[][] getData1_2(ArrayList<TeamVO> teams) {
+		int num = teams.size();
+		Object[][] data = new Object[num][];
+		for (int i = 0; i < num; i++) {
+			Object[] temp = { teams.get(i).getTeamName(),
+					teams.get(i).getMatches(),
+					teams.get(i).getFieldGoalPercentage(),
+					teams.get(i).getThreePointShotPercentage(),
+					teams.get(i).getFreeThrowPercentage(),
+					teams.get(i).getWinningPercentage(),
+					teams.get(i).getPossessions(),
+					teams.get(i).getOffensiveEfficiency(),
+					teams.get(i).getAssistEfficiency(),
+ };
 			data[i] = temp;
 		}
 		return data;
@@ -322,7 +383,7 @@ public class Ranking extends MyPanel implements ActionListener {
 			table1.setWidth();
 			table1.updateUI();
 		} else if (flag == 3) {
-			Object[][] data = getData1(trs.getSeasonTop("13-14", term2));
+			Object[][] data = getData(trs.getSeasonTop("13-14", term2));
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();
 			table1.updateUI();
@@ -337,9 +398,10 @@ public class Ranking extends MyPanel implements ActionListener {
 			 */
 			flag = 1;
 			area = "W";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`east/west`='W'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames1);
+            teams = trs.getTeamData("13-14",
+					"`east/west`='W'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("east")) {
@@ -351,57 +413,64 @@ public class Ranking extends MyPanel implements ActionListener {
 			 */
 			flag = 1;
 			area = "E";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`east/west`='E'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames1);
+			teams = trs.getTeamData("13-14",
+					"`east/west`='E'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("southwest")) {
 			flag = 1;
 			area = "Southwest";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`partition`='Southwest'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames1);
+			teams = trs.getTeamData("13-14",
+					"`partition`='Southwest'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("northwest")) {
 			flag = 1;
 			area = "Northwest";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`partition`='Northwest'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames1);
+			teams = trs.getTeamData("13-14",
+					"`partition`='Northwest'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("pacific")) {
 			flag = 1;
 			area = "Pacific";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`partition`='Pacific'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames1);
+			teams = trs.getTeamData("13-14",
+					"`partition`='Pacific'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("southeast")) {
 			flag = 1;
 			area = "Southeast";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`partition`='Southeast'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames1);
+			teams = trs.getTeamData("13-14",
+					"`partition`='Southeast'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("central")) {
 			flag = 1;
 			area = "Central";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`partition`='Central'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames1);
+			teams = trs.getTeamData("13-14",
+					"`partition`='Central'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("atlantic")) {
 			flag = 1;
 			area = "Atlantic";
-			Object[][] data = getData(trs.getTeamData("13-14",
-					"`partition`='Atlantic'", "wins", "DESC"));
-			model1.setDataVector(data, columnNames2);
+			teams = trs.getTeamData("13-14",
+					"`partition`='Atlantic'", "wins", "DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("home")
@@ -419,10 +488,11 @@ public class Ranking extends MyPanel implements ActionListener {
 			flag = 2;
 			order = "DESC";
 			term1 = Translate.translate1(type.getSelectedItem().toString());
-			Object[][] data = getData(trs.getAllTeamdata("13-14",
+			teams = trs.getAllTeamdata("13-14",
 					Translate.translate1(type.getSelectedItem().toString()),
-					"DESC"));
-			model1.setDataVector(data, columnNames1);
+					"DESC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("ascending")) {
@@ -436,18 +506,20 @@ public class Ranking extends MyPanel implements ActionListener {
 			flag = 2;
 			order = "ASC";
 			term1 = Translate.translate1(type.getSelectedItem().toString());
-			Object[][] data = getData(trs.getAllTeamdata("13-14",
+			teams = trs.getAllTeamdata("13-14",
 					Translate.translate1(type.getSelectedItem().toString()),
-					"ASC"));
-			model1.setDataVector(data, columnNames1);
+					"ASC");
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("search")) {
 			flag = 3;
 			term2 = Translate.translate1(term.getSelectedItem().toString());
-			Object[][] data = getData1(trs.getSeasonTop("13-14",
-					Translate.translate1(term.getSelectedItem().toString())));
-			model1.setDataVector(data, columnNames2);
+			teams = trs.getSeasonTop("13-14",
+					Translate.translate1(term.getSelectedItem().toString()));
+			Object[][] data = getData(teams);
+			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
 		}

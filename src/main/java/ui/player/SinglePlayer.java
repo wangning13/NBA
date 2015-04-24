@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.playerbl.PlayerRank;
@@ -22,6 +23,7 @@ import ui.main.MyButton;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.MyTable;
+import ui.tools.MyTable1;
 import ui.tools.Translate;
 import vo.PlayerMatchVO;
 import vo.PlayerVO;
@@ -47,11 +49,11 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 			"场均助攻", "场均投篮命中数", "场均投篮出手数", "场均三分命中数", "场均三分出手数", "场均罚球命中数",
 			"场均罚球出手数", "场均进攻数", "场均防守数", "场均抢断数", "场均盖帽数", "场均失误数", "场均犯规数" };
 	JScrollPane pane2;
-	MyTable table2;
+	MyTable1 table2;
 	DefaultTableModel model2;
-	String[] columnNames2 = { "日期", "对手", "上场时间", "得分", "投篮命中数", "投篮出手数",
-			"三分命中数", "三分出手数", "罚球命中数", "罚球出手数", "进攻篮板数", "防守篮板数", "篮板数", "助攻数",
-			"盖帽数", "犯规数", "抢断数", "失误数" };
+	String[] columnNames2 = { "日期", "对手", "时间", "得分", "投篮", 
+			"三分", "罚球", "前篮板", "后篮板", "篮板", "助攻",
+			"盖帽", "犯规", "抢断", "失误" };
 	JLabel rankingBand = new JLabel(Img.RANKINGBAND);
 	JComboBox<String> month = new JComboBox<String>();
 	JComboBox<String> season = new JComboBox<String>();
@@ -165,11 +167,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		this.add(jl9);
 		jl9.setBounds(8, 610, 100, 30);
 		jl9.setFont(font1);
-		/*
-		 * this.add(enterTeam); enterTeam.setBounds(55, 607, 130, 30);
-		 * enterTeam.addActionListener(this);
-		 * enterTeam.setActionCommand("enterTeam"); enterTeam.setFont(font2);
-		 */
+
 		this.add(name);
 		name.setBounds(80, 330, 200, 30);
 		name.setFont(font1);
@@ -221,9 +219,9 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		Object[][] data2 = null;
 		model2 = new DefaultTableModel(new Object[][] {}, columnNames2);
 		model2.setDataVector(data2, columnNames2);
-		table2 = new MyTable(model2);
+		table2 = new MyTable1(model2);
 
-		// table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+	    table2.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		pane2 = new JScrollPane(table2);
 		this.add(pane2);
 		pane2.setBounds(250, 220, 802, 290);
@@ -327,12 +325,12 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 					trs.getTeamMatch(matches.get(i).getDate(),
 							matches.get(i).getTeam()).getOpponent(),
 					matches.get(i).getMinutes(), matches.get(i).getScoring(),
-					matches.get(i).getFieldGoal(),
-					matches.get(i).getFieldGoalAttempts(),
-					matches.get(i).getThreepointFieldGoal(),
-					matches.get(i).getThreepointFieldGoalAttempts(),
-					matches.get(i).getFreeThrow(),
-					matches.get(i).getFreeThrowAttempts(),
+					matches.get(i).getFieldGoal()+"-"+matches.get(i).getFieldGoalAttempts(),
+					
+					matches.get(i).getThreepointFieldGoal()+"-"+matches.get(i).getThreepointFieldGoalAttempts(),
+					
+					matches.get(i).getFreeThrow()+"-"+matches.get(i).getFreeThrowAttempts(),
+					
 					matches.get(i).getOffensiveRebound(),
 					matches.get(i).getDefensiveRebound(),
 					matches.get(i).getBackboard(), matches.get(i).getAssist(),
@@ -379,15 +377,13 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		table1.setWidth();
 		table1.updateUI();
 
-		if (isRecent = true) {
+		if (isRecent) {
 			matches = prs.getPlayerRecentFiveMatch(playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 			table2.setWidth();
 			table2.updateUI();
 		} else {
-			matches = prs.getPlayerMonthMatch(season.getSelectedItem()
-					.toString().substring(2)
-					+ "-" + month.getSelectedItem().toString().substring(0, 2),
+			matches = prs.getPlayerMonthMatch(date,
 					playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 			table2.setWidth();

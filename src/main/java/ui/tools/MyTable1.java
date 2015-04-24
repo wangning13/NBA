@@ -14,7 +14,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 @SuppressWarnings("serial")
-public class MyTable extends JTable {
+public class MyTable1 extends JTable {
 	// int myRow=-1,myCol=-1;//
 	// TableCellEditor myEditor;//
 
@@ -22,7 +22,7 @@ public class MyTable extends JTable {
 	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 
 	// DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-	public MyTable(Object[][] rowData, Object[] columnNames) {
+	public MyTable1(Object[][] rowData, Object[] columnNames) {
 		super(rowData, columnNames);
 
 		this.setDragEnabled(false); // 关闭自动拖动处理
@@ -57,7 +57,7 @@ public class MyTable extends JTable {
 		}
 	}
 
-	public MyTable() {
+	public MyTable1() {
 		super();
 
 		this.setDragEnabled(false); // 关闭自动拖动处理
@@ -92,7 +92,7 @@ public class MyTable extends JTable {
 		}
 	}
 
-	public MyTable(DefaultTableModel model) {
+	public MyTable1(DefaultTableModel model) {
 		super(model);
 
 		this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);// 设置滚动条
@@ -167,7 +167,7 @@ public class MyTable extends JTable {
 	public void setWidth() {
 		for (int i = 0; i < this.getColumnCount(); i++) {
 			int with = this.getPreferredWidthForCloumn(this, i) + 1;
-			with = 100 > with ? 100 : with;
+			with = 52 > with ? 52 : with;
 			this.getColumnModel().getColumn(i).setPreferredWidth(with);
 		}
 	}

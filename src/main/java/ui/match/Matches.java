@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.teambl.TeamRank;
@@ -128,7 +129,7 @@ public class Matches extends MyPanel implements ActionListener {
 		model1.setDataVector(data, columnNames1);
 		table1 = new MyTable(model1);
 
-		// table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		 table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		pane1 = new JScrollPane(table1);
 		this.add(pane1);
 		pane1.setBounds(0, 220, 1052, 430);
