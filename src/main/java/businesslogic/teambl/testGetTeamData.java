@@ -58,6 +58,18 @@ public class testGetTeamData {
 //			System.out.println(teamMonthMatchVOs.get(i).getFourth());
 //		}
 		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getRecentFifteen();
+		for (int i = 0; i < teamMonthMatchVOs.size(); i++) {
+			System.out.println("*************");
+			System.out.println(i+1);
+			System.out.println(teamMonthMatchVOs.get(i).getDate());
+			System.out.println(teamMonthMatchVOs.get(i).getHost());
+			System.out.println(teamMonthMatchVOs.get(i).getGuest());
+			System.out.println(teamMonthMatchVOs.get(i).getScore());
+			System.out.println(teamMonthMatchVOs.get(i).getFirst());
+			System.out.println(teamMonthMatchVOs.get(i).getSecond());
+			System.out.println(teamMonthMatchVOs.get(i).getThird());
+			System.out.println(teamMonthMatchVOs.get(i).getFourth());
+		}
 		
 		
 	}

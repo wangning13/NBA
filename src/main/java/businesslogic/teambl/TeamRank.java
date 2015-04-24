@@ -253,25 +253,20 @@ public class TeamRank implements TeamRankService{
 						third = teamMatchPOs.get(j).getThird() + "-" + teamMatchPOs.get(i).getThird();
 						fourth = teamMatchPOs.get(j).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
 					}	
-					
+					TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(date,
+							host, 
+							guest,
+							score,
+							first, 
+							second,
+							third, 
+							fourth);
+					teamMonthMatchVOs.add(teamMonthMatchVO);
+					teamMatchPOs.remove(j);
+					teamMatchPOs.remove(i);
 				}
 			}
-    		System.out.println("*********************");
-    		System.out.println(i+1);
-    		System.out.println(teamMatchPOs.get(i).getName());
-    		System.out.println(teamMatchPOs.get(i).getDate());
-    		System.out.println(teamMatchPOs.get(i).getOpponent());
-    		System.out.println(teamMatchPOs.get(i).getFirst());
-    		TeamMatchVO teamMatchVO = new TeamMatchVO(teamMatchPOs.get(i).getDate(),
-					teamMatchPOs.get(i).getHostGuest(), 
-					teamMatchPOs.get(i).getName(),
-					teamMatchPOs.get(i).getOpponent(),
-					teamMatchPOs.get(i).getWinLose(), 
-					teamMatchPOs.get(i).getTotal(),
-					teamMatchPOs.get(i).getFirst(), 
-					teamMatchPOs.get(i).getSecond(), 
-					teamMatchPOs.get(i).getThird(), 
-					teamMatchPOs.get(i).getFourth());
+    		
 //    		teamMatchVOs.set(i, teamMatchVO);
 		}
     	return teamMonthMatchVOs;
