@@ -231,9 +231,15 @@ public class TeamRank implements TeamRankService{
 					String date = teamMatchPOs.get(j).getDate();
 					String host = "";
 					String guest = "";
+					String score = "";
+					String first = "";
+					String second = "";
+					String third = "";
+					String fourth = "";
 					if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
 						host = teamMatchPOs.get(i).getName();
 						guest = teamMatchPOs.get(j).getName();
+						score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(j).getTotal();
 					}else {
 						host = teamMatchPOs.get(j).getName();
 						guest = teamMatchPOs.get(i).getName();

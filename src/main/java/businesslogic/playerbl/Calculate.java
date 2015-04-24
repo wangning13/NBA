@@ -44,7 +44,7 @@ public class Calculate {
 		if (playerPO.getFieldGoalAttempts()==0) {
 			playerPO.setShootingEfficiency(0);
 		}else {
-			playerPO.setShootingEfficiency(Double.parseDouble(df1.format(((double)playerPO.getFieldGoal()+0.5*playerPO.getThreePointFieldGoal()/playerPO.getFieldGoalAttempts()))));
+			playerPO.setShootingEfficiency(Double.parseDouble(df1.format((((double)playerPO.getFieldGoal()+0.5*playerPO.getThreePointFieldGoal())/playerPO.getFieldGoalAttempts()))));
 		}
 		if (playerPO.getMinutes()==0) {
 			playerPO.setBackboardPercentage(0);
