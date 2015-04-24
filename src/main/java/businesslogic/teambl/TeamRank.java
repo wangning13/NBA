@@ -243,10 +243,15 @@ public class TeamRank implements TeamRankService{
 						first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(j).getFirst();
 						second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(j).getSecond();
 						third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(j).getThird();
-						fourth = teamMatchPOs.get
+						fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs.get(j).getFourth();
 					}else {
 						host = teamMatchPOs.get(j).getName();
 						guest = teamMatchPOs.get(i).getName();
+						score = teamMatchPOs.get(j).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
+						first = teamMatchPOs.get(j).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
+						second = teamMatchPOs.get(j).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
+						third = teamMatchPOs.get(j).getThird() + "-" + teamMatchPOs.get(i).getThird();
+						fourth = teamMatchPOs.get(j).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
 					}	
 					
 				}

@@ -97,7 +97,7 @@ public class Calculate {
 			playerPO.setUsage(0);
 			
 		}else {
-			playerPO.setUsage(Double.parseDouble(df1.format((playerPO.getFieldGoalAttempts()+0.44*playerPO.getFreeThrowAttempts()+playerPO.getTurnOver())*(playerPO.getTeamMinutes()/5)/playerPO.getMinutes()/(playerPO.getTeamFieldGoalAttempts()+0.44*playerPO.getTeamFreeThrowAttempts()+playerPO.getTeamTurnOver()))));
+			playerPO.setUsage(Double.parseDouble(df3.format((playerPO.getFieldGoalAttempts()+0.44*playerPO.getFreeThrowAttempts()+playerPO.getTurnOver())*(playerPO.getTeamMinutes()/5)/playerPO.getMinutes()/(playerPO.getTeamFieldGoalAttempts()+0.44*playerPO.getTeamFreeThrowAttempts()+playerPO.getTeamTurnOver()))));
 
 		}
 		if (playerPO.getPreviousAverageBackboard()==0) {
