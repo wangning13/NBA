@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.TimerTask;
 
 import rmi.Server;
-import ui.main.Main;
+import ui.main.Frame;
 import data.initial.InitialDatabase;
 
 public class UpdateDatabase extends TimerTask {
@@ -33,7 +33,7 @@ public class UpdateDatabase extends TimerTask {
 		}
 		if (matches.length != Server.matches.length) {
 			updateData(matches, Server.matches);
-			Main.frame.update();
+			Frame.update();
 			Server.matches = matches;
 		}
 	}
