@@ -20,9 +20,6 @@ public interface GetTeamdataDataService {
 	public ArrayList<TeamPO> getSomeTeamdata(String season, String condition,
 			String key, String order);
 
-	public ArrayList<TeamPO> getByEfficiency(ArrayList<TeamPO> po, String key,
-			String order);
-
 	public ArrayList<TeamMatchPO> getTeamMonthMatch(String month, String team);
 
 	public TeamMatchPO getTeamMatch(String date, String team);

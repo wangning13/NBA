@@ -335,19 +335,21 @@ public class UpdateDatabase extends TimerTask {
 				theFifthBackboard = rs.getInt(2);
 				theFifthAssist = rs.getInt(3);
 			}
-			previousAverageScoring = (previousAverageScoring * (appearance - 6) + theFifthScoring)
-					/ (appearance - 5);
-			nearlyFiveAverageScoring = (nearlyFiveAverageScoring * 5
-					- theFifthScoring + thisScoring) / 5;
-			previousAverageBackboard = (previousAverageBackboard
-					* (appearance - 6) + theFifthBackboard)
-					/ (appearance - 5);
-			nearlyFiveAverageBackboard = (nearlyFiveAverageBackboard * 5
-					- theFifthBackboard + thisBackboard) / 5;
-			previousAverageAssist = (previousAverageAssist * (appearance - 6) + theFifthAssist)
-					/ (appearance - 5);
-			nearlyFiveAverageAssist = (nearlyFiveAverageAssist * 5
-					- theFifthAssist + thisAssist) / 5;
+			if (previousAverageScoring > 0) {
+				previousAverageScoring = (previousAverageScoring * (appearance - 6) + theFifthScoring)
+						/ (appearance - 5);
+				nearlyFiveAverageScoring = (nearlyFiveAverageScoring * 5
+						- theFifthScoring + thisScoring) / 5;
+				previousAverageBackboard = (previousAverageBackboard
+						* (appearance - 6) + theFifthBackboard)
+						/ (appearance - 5);
+				nearlyFiveAverageBackboard = (nearlyFiveAverageBackboard * 5
+						- theFifthBackboard + thisBackboard) / 5;
+				previousAverageAssist = (previousAverageAssist * (appearance - 6) + theFifthAssist)
+						/ (appearance - 5);
+				nearlyFiveAverageAssist = (nearlyFiveAverageAssist * 5
+						- theFifthAssist + thisAssist) / 5;
+			}
 			sql = "DELETE FROM `playersum" + season + "` WHERE playerName = '"
 					+ playerName + "'";
 			statement.execute(sql);

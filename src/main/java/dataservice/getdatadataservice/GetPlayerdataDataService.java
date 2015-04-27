@@ -18,9 +18,6 @@ public interface GetPlayerdataDataService {
 	public ArrayList<PlayerPO> getSomePlayerdata(String season,
 			String position, String partition, String key, String order);
 
-	public ArrayList<PlayerPO> getByEfficiency(ArrayList<PlayerPO> po,
-			String key, String order);
-
 	// 一场比赛一个球队所有球员数据
 	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String date, String team);
 
@@ -33,4 +30,7 @@ public interface GetPlayerdataDataService {
 
 	// 仅适用于场均
 	public ArrayList<PlayerPO> getSeasonTop(String season, String condition);
+	
+	public ArrayList<String> getPlayerName(String playerName);
+	
 }
