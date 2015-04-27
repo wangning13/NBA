@@ -447,7 +447,7 @@ public class Statistics extends MyPanel implements ActionListener {
 	public void update() {
 		Object[][] data = getData(prs.getAllPlayerdata("13-14", "scoring",
 				"DESC"));
-		model.setDataVector(data, columnNames);
+		model.setDataVector(data, getColumnNames());
 		table.setWidth();
 		table.updateUI();
 	/*	if (flag == 0) {

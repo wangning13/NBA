@@ -364,7 +364,7 @@ public class Ranking extends MyPanel implements ActionListener {
 	public void update() {
 		Object[][] data = getData(trs.getAllTeamdata("13-14", "wins",
 				"DESC"));
-		model1.setDataVector(data, columnNames1);
+		model1.setDataVector(data, getColumnNames1());
 		table1.setWidth();
 		table1.updateUI();
 		/*if (flag == 0) {
