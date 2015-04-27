@@ -13,7 +13,9 @@ public class Translate {
 		else if (team.equals("休斯顿火箭"))
 			result = "HOU";
 		else if (team.equals("新奥尔良鹈鹕"))
-			result = "NOP";
+			result = "NOP";     ////////////////////以前是NOH
+		else if (team.equals("新奥尔良黄蜂"))
+			result = "NOH";   
 		else if (team.equals("明尼苏达森林狼"))
 			result = "MIN";
 		else if (team.equals("丹佛掘金"))
@@ -43,7 +45,7 @@ public class Translate {
 		else if (team.equals("华盛顿奇才"))
 			result = "WAS";
 		else if (team.equals("夏洛特黄蜂"))
-			result = "CHA";
+			result = "CHA"; 
 		else if (team.equals("底特律活塞"))
 			result = "DET";
 		else if (team.equals("印第安纳步行者"))

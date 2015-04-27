@@ -19,12 +19,10 @@ import businesslogic.teambl.TeamRank;
 import businesslogicservice.playerblservice.PlayerRankService;
 import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
-import ui.main.MyButton;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.MyTable;
 import ui.tools.MyTable1;
-import ui.tools.Translate;
 import vo.PlayerMatchVO;
 import vo.PlayerVO;
 import vo.PlayerinfoVO;
@@ -120,20 +118,26 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		this.add(season);
 		season.setBounds(715, 175, 70, 20);
 		season.setFont(font1);
-
+		season.setUI(new MyComboBoxUI());
+		
 		this.add(month);
 		month.setBounds(800, 175, 60, 20);
 		month.setFont(font1);
+		month.setUI(new MyComboBoxUI());
 
 		this.add(search);
 		search.setBounds(880, 172, 60, 25);
 		search.addActionListener(this);
 		search.setActionCommand("search");
+		search.setUI(new MyButtonUI());
+
 
 		this.add(recent);
 		recent.setBounds(950, 172, 90, 25);
 		recent.addActionListener(this);
 		recent.setActionCommand("recent");
+		recent.setUI(new MyButtonUI());
+
 
 		this.add(rankingBand);
 		rankingBand.setBounds(250, 150, 802, 70);
@@ -309,9 +313,9 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 	public void jump(int row) {
 		if (table1.getValueAt(row, 0) != null) {
 			String team = table1.getValueAt(row, 0).toString();
-			frame.change(this, frame.singleTeamPanel);
-			frame.singleTeamPanel.update(team);
-			frame.singleTeamPanel.flag = true;
+			frame.change(this, Frame.singleTeamPanel);
+			Frame.singleTeamPanel.update(team);
+			Frame.singleTeamPanel.flag = true;
 			Frame.currentPanel = "singleTeam";
 		}
 	}
@@ -394,15 +398,15 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("home")) {
-			frame.change(this, frame.mainFrame);
+			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		} else if (e.getActionCommand().equals("back")) {
 			if (flag) {
-				frame.change(this, frame.singleTeamPanel);
-				frame.singleTeamPanel.flag = false;
+				frame.change(this, Frame.singleTeamPanel);
+				Frame.singleTeamPanel.flag = false;
 				Frame.currentPanel = "singleTeam";
 			} else {
-				frame.change(this, frame.playersSelectPanel);
+				frame.change(this, Frame.playersSelectPanel);
 				Frame.currentPanel = "playerSelect";
 			}
 		} else if (e.getActionCommand().equals("search")) {

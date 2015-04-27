@@ -19,7 +19,6 @@ import businesslogicservice.playerblservice.PlayerRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
-import ui.tools.MyTable;
 import ui.tools.MyTable1;
 import vo.PlayerMatchVO;
 import vo.TeamMonthMatchVO;
@@ -32,13 +31,13 @@ public class SingleMatch extends MyPanel implements ActionListener {
 	JScrollPane pane1;
 	MyTable1 table1;
 	DefaultTableModel model1;
-	String[] columnNames1 = { "主队", "上场时间", "得分", "投篮", "三分",
+	String[] columnNames1 = { "主队", "时间", "得分", "投篮", "三分",
 			 "罚球", "前篮板", "后篮板", "篮板", "助攻", "盖帽",
 			"犯规", "抢断", "失误" };
 	JScrollPane pane2;
 	MyTable1 table2;
 	DefaultTableModel model2;
-	String[] columnNames2 = { "客队", "上场时间", "得分", "投篮", "三分",
+	String[] columnNames2 = { "客队", "时间", "得分", "投篮", "三分",
 			 "罚球", "前篮板", "后篮板", "篮板", "助攻", "盖帽",
 			"犯规", "抢断", "失误" };
 
@@ -233,15 +232,15 @@ public class SingleMatch extends MyPanel implements ActionListener {
 		// TODO Auto-generated method stub
 
 		if (e.getActionCommand().equals("home")) {
-			frame.change(this, frame.mainFrame);
+			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		}
 		if (e.getActionCommand().equals("back")) {
 			if (!flag) {
-				frame.change(this, frame.matchesPanel);
+				frame.change(this, Frame.matchesPanel);
 				Frame.currentPanel = "matches";
 			} else {
-				frame.change(this, frame.singleTeamPanel);
+				frame.change(this, Frame.singleTeamPanel);
 				Frame.currentPanel = "singleTeam";
 			}
 		}

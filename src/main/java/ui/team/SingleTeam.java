@@ -22,6 +22,8 @@ import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
+import ui.player.MyButtonUI;
+import ui.player.MyComboBoxUI;
 import ui.tools.MyTable;
 import ui.tools.MyTable1;
 import vo.PlayerVO;
@@ -105,20 +107,24 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		this.add(season);
 		season.setBounds(715, 175, 70, 20);
 		season.setFont(font1);
-
+		season.setUI(new MyComboBoxUI());
+		
 		this.add(month);
 		month.setBounds(800, 175, 60, 20);
 		month.setFont(font1);
+		month.setUI(new MyComboBoxUI());
 
 		this.add(search);
 		search.setBounds(880, 172, 60, 25);
 		search.addActionListener(this);
 		search.setActionCommand("search");
-
+		search.setUI(new MyButtonUI());
+		
 		this.add(recent);
 		recent.setBounds(950, 172, 90, 25);
 		recent.addActionListener(this);
 		recent.setActionCommand("recent");
+		recent.setUI(new MyButtonUI());
 
 		this.add(rankingBand);
 		rankingBand.setBounds(300, 150, 752, 70);
@@ -251,10 +257,10 @@ public class SingleTeam extends MyPanel implements ActionListener {
 	}
 
 	public void jump(int row) {
-		frame.change(this, frame.singleMatchPanel);
+		frame.change(this, Frame.singleMatchPanel);
 		TeamMonthMatchVO temp = matches.get(matches.size() - row - 1);
-		frame.singleMatchPanel.update(temp);
-		frame.singleMatchPanel.flag = true;
+		Frame.singleMatchPanel.update(temp);
+		Frame.singleMatchPanel.flag = true;
 		Frame.currentPanel = "singleMatch";
 	}
 
@@ -262,9 +268,9 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		if (table1.getValueAt(row, 0) != null) {
 			String name = table1.getValueAt(row, 0).toString();
 			if (!name.equals("")) {
-				frame.change(this, frame.singlePlayerPanel);
-				frame.singlePlayerPanel.update(name);
-				frame.singlePlayerPanel.flag = true;
+				frame.change(this, Frame.singlePlayerPanel);
+				Frame.singlePlayerPanel.update(name);
+				Frame.singlePlayerPanel.flag = true;
 				Frame.currentPanel = "singlePlayer";
 			}
 		}
@@ -361,7 +367,11 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			table2.setWidth();
 			table2.updateUI();
 		} else {
-			matches = trs.getTeamMonthMatch(date, name);
+			String temp = name;
+			if(date.compareTo("13-10")<0&&temp.equals("NOP")){
+				temp = "NOH";
+			}
+			matches = trs.getTeamMonthMatch(date, temp);
 			Object[][] data2 = getData(matches);
 			model2.setDataVector(data2, columnNames2);
 			table2.setWidth();
@@ -380,8 +390,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 					player.getAssist(), player.getSteal(), player.getBlock(), player.getTurnOver(),
 					player.getFoul(), player.getScoring(), };
 			data[i] = temp;
-		}
-		;
+		};
 		model1.setDataVector(data, columnNames1);
 		table1.setWidth();
 		table1.updateUI();
@@ -390,29 +399,33 @@ public class SingleTeam extends MyPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("home")) {
-			frame.change(this, frame.mainFrame);
+			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		} else if (e.getActionCommand().equals("back")) {
 			if (flag) {
-				frame.change(this, frame.singlePlayerPanel);
-				frame.singlePlayerPanel.flag = false;
+				frame.change(this, Frame.singlePlayerPanel);
+				Frame.singlePlayerPanel.flag = false;
 				Frame.currentPanel = "singlePlayer";
 			} else {
-				frame.change(this, frame.teamsSelectPanel);
+				frame.change(this, Frame.teamsSelectPanel);
 				Frame.currentPanel = "teamSelect";
 			}
 		} else if (e.getActionCommand().equals("search")) {
+			date = season.getSelectedItem().toString().substring(2) + "-"
+					+ month.getSelectedItem().toString().substring(0, 2);
+			String temp = name;
+			if(date.compareTo("13-10")<0&&temp.equals("NOP")){
+				temp = "NOH";
+			}
 			matches = trs.getTeamMonthMatch(season.getSelectedItem().toString()
 					.substring(2)
 					+ "-" + month.getSelectedItem().toString().substring(0, 2),
-					name);
+					temp);
 			Object[][] data2 = getData(matches);
 			model2.setDataVector(data2, columnNames2);
 			table2.setWidth();
 			table2.updateUI();
 			isRecent = false;
-			date = season.getSelectedItem().toString().substring(2) + "-"
-					+ month.getSelectedItem().toString().substring(0, 2);
 		} else if (e.getActionCommand().equals("recent")) {
 			matches = trs.getTeamRecentFiveMatch(name);
 			Object[][] data2 = getData(matches);

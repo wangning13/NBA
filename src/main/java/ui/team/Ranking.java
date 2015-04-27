@@ -3,6 +3,7 @@ package ui.team;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -11,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.teambl.TeamRank;
@@ -18,13 +20,15 @@ import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
-import ui.tools.MyTable;
+import ui.player.MyComboBoxUI;
+import ui.tools.MyTable1;
 import ui.tools.Translate;
 import vo.TeamVO;
 
 @SuppressWarnings("serial")
 public class Ranking extends MyPanel implements ActionListener {
 	int flag = 0;
+	DecimalFormat df = new DecimalFormat("#.0");
 	ArrayList<TeamVO> teams;
 	String area = "";
 	String term1 = "win";
@@ -33,23 +37,23 @@ public class Ranking extends MyPanel implements ActionListener {
 	TeamRankService trs = new TeamRank();
 	Frame frame;
 	JScrollPane pane1;
-	MyTable table1;
+	MyTable1 table1;
 	DefaultTableModel model1;
-	String[] columnNames1 = { "球队名称", "场次", "投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
-			"进攻效率", "防守效率", "进攻篮板效率", "防守篮板效率", "抢断效率", "助攻效率", "投篮命中",
+	String[] columnNames1 = { "球队", "场次", "投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
+			"进攻效率", "防守效率", "前篮板效率", "后篮板效率", "抢断效率", "助攻效率", "投篮命中",
 			"投篮出手", "三分命中", "三分出数", "罚球命中", "罚球出手", "进攻篮板",
 			"防守篮板", "篮板", "助攻", "抢断", "盖帽", "失误", "犯规",
 			"得分" };
-	String[] columnNames1_1 = { "球队名称", "场次", "投篮命中","投篮出手", "三分命中", "三分出数", "罚球命中", "罚球出手", "进攻篮板",
-			"防守篮板", "篮板", "助攻", "抢断", "盖帽", "失误", "犯规",
+	String[] columnNames1_1 = { "球队", "场次", "投篮", "三分", "罚球", "前篮板",
+			"后篮板", "篮板", "助攻", "抢断", "盖帽", "失误", "犯规",
 			"得分" };
-	String[] columnNames1_2 = { "球队名称", "场次", "投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
-			"进攻效率", "防守效率", "进攻篮板效率", "防守篮板效率", "抢断效率", "助攻效率" };
-	String[] columnNames2 = { "球队名称", "场次","投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
+	String[] columnNames1_2 = { "球队", "场次", "投篮", "三分", "罚球", "胜率", "进攻回合",
+			"进攻效率", "防守效率", "前篮板率", "后篮板率", "抢断效率", "助攻效率" };
+	String[] columnNames2 = { "球队", "场次","投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
 			"进攻效率", "助攻效率", "投篮命中", "投篮出手", "三分命中", "三分出手",
 			"罚球命中", "罚球出手", "进攻篮板", "防守篮板", "篮板", "助攻",
 			"抢断", "盖帽", "失误", "犯规", "得分" };
-	String[] columnNames2_1 = { "球队名称", "场次", "投篮命中", "投篮出手", "三分命中", "三分出手","罚球命中", "罚球出手", "进攻篮板", "防守篮板", "篮板", "助攻",
+	String[] columnNames2_1 = { "球队名称", "场次", "投篮", "三分","罚球", "前篮板", "后篮板", "篮板", "助攻",
 			"抢断", "盖帽", "失误", "犯规", "得分" };
 	String[] columnNames2_2 = { "球队名称", "场次","投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
 			"进攻效率", "助攻效率"};
@@ -157,12 +161,14 @@ public class Ranking extends MyPanel implements ActionListener {
 		this.add(type);
 		type.setBounds(750, 160, 110, 20);
 		type.setFont(font1);
+		type.setUI(new MyComboBoxUI());
 
 		option.addItem("场均数据");
 		option.addItem("效率评估");
 		this.add(option);
-		option.setBounds(540, 164, 110, 40);
+		option.setBounds(520, 164, 110, 40);
 		option.setFont(font2);
+	//	option.setUI(new MyComboBoxUI());
 		option.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
 				Object[][] data = getData(teams);
@@ -195,7 +201,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		term.addItem("三分命中率");
 		term.addItem("投篮命中率");
 		term.addItem("罚球命中率");
-
+		term.setUI(new MyComboBoxUI());
 		this.add(term);
 		term.setBounds(830, 190, 110, 20);
 		term.setFont(font1);
@@ -215,9 +221,9 @@ public class Ranking extends MyPanel implements ActionListener {
 		Object[][] data = getData(teams);
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
 		model1.setDataVector(data, columnNames1_1);
-		table1 = new MyTable(model1);
+		table1 = new MyTable1(model1);
 
-		// table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+	    table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		pane1 = new JScrollPane(table1);
 		this.add(pane1);
 		pane1.setBounds(0, 220, 1052, 430);
@@ -293,11 +299,11 @@ public class Ranking extends MyPanel implements ActionListener {
 		for (int i = 0; i < num; i++) {
 			Object[] temp = { teams.get(i).getTeamName(),
 					teams.get(i).getMatches(),
-					teams.get(i).getAverageFieldGoal(),
+					teams.get(i).getAverageFieldGoal()+"-"+
 					teams.get(i).getAverageFieldGoalAttempts(),
-					teams.get(i).getAverageThreePointFieldGoal(),
+					teams.get(i).getAverageThreePointFieldGoal()+"-"+
 					teams.get(i).getAverageThreePointFieldGoalAttempts(),
-					teams.get(i).getAverageFreeThrow(),
+					teams.get(i).getAverageFreeThrow()+"-"+
 					teams.get(i).getAverageFreeThrowAttempts(),
 					teams.get(i).getAverageOffensiveRebound(),
 					teams.get(i).getAverageDefensiveRebound(),
@@ -319,15 +325,15 @@ public class Ranking extends MyPanel implements ActionListener {
 		for (int i = 0; i < num; i++) {
 			Object[] temp = { teams.get(i).getTeamName(),
 					teams.get(i).getMatches(),
-					teams.get(i).getFieldGoalPercentage(),
-					teams.get(i).getThreePointShotPercentage(),
-					teams.get(i).getFreeThrowPercentage(),
-					teams.get(i).getWinningPercentage(),
+					df.format(teams.get(i).getFieldGoalPercentage()*100)+"%",
+					df.format(teams.get(i).getThreePointShotPercentage()*100)+"%",
+					df.format(teams.get(i).getFreeThrowPercentage()*100)+"%",
+					df.format(teams.get(i).getWinningPercentage()*100)+"%",
 					teams.get(i).getPossessions(),
 					teams.get(i).getOffensiveEfficiency(),
 					teams.get(i).getDefensiveEfficiency(),
-					teams.get(i).getOffensivebackboardEfficiency(),
-					teams.get(i).getDefensivebackboardEfficiency(),
+					df.format(teams.get(i).getOffensivebackboardEfficiency()*100)+"%",
+					df.format(teams.get(i).getDefensivebackboardEfficiency()*100)+"%",
 					teams.get(i).getStealEfficiency(),
 					teams.get(i).getAssistEfficiency(),
 					};
@@ -342,10 +348,10 @@ public class Ranking extends MyPanel implements ActionListener {
 		for (int i = 0; i < num; i++) {
 			Object[] temp = { teams.get(i).getTeamName(),
 					teams.get(i).getMatches(),
-					teams.get(i).getFieldGoalPercentage(),
-					teams.get(i).getThreePointShotPercentage(),
-					teams.get(i).getFreeThrowPercentage(),
-					teams.get(i).getWinningPercentage(),
+					df.format(teams.get(i).getFieldGoalPercentage()*100)+"%",
+					df.format(teams.get(i).getThreePointShotPercentage()*100)+"%",
+					df.format(teams.get(i).getFreeThrowPercentage()*100)+"%",
+					df.format(teams.get(i).getWinningPercentage()*100)+"%",
 					teams.get(i).getPossessions(),
 					teams.get(i).getOffensiveEfficiency(),
 					teams.get(i).getAssistEfficiency(),
@@ -356,7 +362,12 @@ public class Ranking extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-		if (flag == 0) {
+		Object[][] data = getData(trs.getAllTeamdata("13-14", "wins",
+				"DESC"));
+		model1.setDataVector(data, columnNames1);
+		table1.setWidth();
+		table1.updateUI();
+		/*if (flag == 0) {
 			Object[][] data = getData(trs.getAllTeamdata("13-14", "wins",
 					"DESC"));
 			model1.setDataVector(data, columnNames1);
@@ -388,6 +399,7 @@ public class Ranking extends MyPanel implements ActionListener {
 			table1.setWidth();
 			table1.updateUI();
 		}
+		*/
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -475,7 +487,7 @@ public class Ranking extends MyPanel implements ActionListener {
 			table1.updateUI();
 		} else if (e.getActionCommand().equals("home")
 				|| e.getActionCommand().equals("back")) {
-			frame.change(this, frame.mainFrame);
+			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		} else if (e.getActionCommand().equals("descending")) {
 			/*

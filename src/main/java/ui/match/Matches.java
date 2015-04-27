@@ -19,9 +19,10 @@ import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
+import ui.player.MyButtonUI;
+import ui.player.MyComboBoxUI;
 import ui.tools.MyTable;
 import ui.tools.Translate;
-import vo.TeamMatchVO;
 import vo.TeamMonthMatchVO;
 
 @SuppressWarnings("serial")
@@ -73,6 +74,7 @@ public class Matches extends MyPanel implements ActionListener {
 		month.addItem("11月");
 		month.addItem("12月");
 
+		team.addItem("请选择球队");
 		team.addItem("圣安东尼奥马刺");
 		team.addItem("孟菲斯灰熊");
 		team.addItem("达拉斯小牛");
@@ -105,26 +107,29 @@ public class Matches extends MyPanel implements ActionListener {
 		team.addItem("多伦多猛龙");
 
 		this.add(season);
-		season.setBounds(575, 175, 70, 20);
+		season.setBounds(585, 175, 70, 20);
 		season.setFont(font1);
-
+		season.setUI(new MyComboBoxUI());
 		this.add(month);
-		month.setBounds(670, 175, 60, 20);
+		month.setBounds(680, 175, 60, 20);
 		month.setFont(font1);
-
+		month.setUI(new MyComboBoxUI());
 		this.add(team);
-		team.setBounds(750, 175, 150, 20);
+		team.setBounds(760, 175, 150, 20);
 		team.setFont(font1);
-
+		team.setUI(new MyComboBoxUI());
 		this.add(search);
-		search.setBounds(920, 172, 60, 25);
+		search.setBounds(930, 172, 60, 25);
 		search.addActionListener(this);
 		search.setActionCommand("search");
+		search.setUI(new MyButtonUI());
+
 
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
-
-		Object[][] data = null;
+ 
+		matches = trs.getRecentFifteen();
+		Object[][] data = getData(matches);
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
 		model1.setDataVector(data, columnNames1);
 		table1 = new MyTable(model1);
@@ -145,10 +150,10 @@ public class Matches extends MyPanel implements ActionListener {
 	}
 
 	public void jump(int row) {
-		frame.change(this, frame.singleMatchPanel);
+		frame.change(this, Frame.singleMatchPanel);
 		TeamMonthMatchVO temp = matches.get(matches.size() - row - 1);
-		frame.singleMatchPanel.update(temp);
-		frame.singleMatchPanel.flag = false;
+		Frame.singleMatchPanel.update(temp);
+		Frame.singleMatchPanel.flag = false;
 		Frame.currentPanel = "singleMatch";
 	}
 
@@ -181,22 +186,25 @@ public class Matches extends MyPanel implements ActionListener {
 
 		if (e.getActionCommand().equals("home")
 				|| e.getActionCommand().equals("back")) {
-			frame.change(this, frame.mainFrame);
+			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		}
-		if (e.getActionCommand().equals("search")) {
+		if (e.getActionCommand().equals("search")&&team.getSelectedIndex()!=0) {
+			date = season.getSelectedItem().toString().substring(2) + "-"
+					+ month.getSelectedItem().toString().substring(0, 2);
+			teamName = team.getSelectedItem().toString();
+			if(date.compareTo("13-10")<0&&teamName.equals("新奥尔良鹈鹕")){
+				teamName = "新奥尔良黄蜂";
+			}
+			isStart = true;
 			matches = trs.getTeamMonthMatch(season.getSelectedItem().toString()
 					.substring(2)
 					+ "-" + month.getSelectedItem().toString().substring(0, 2),
 					Translate.translate(team.getSelectedItem().toString()));
-			teamName = team.getSelectedItem().toString();
 			Object[][] data = getData(matches);
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();
 			table1.updateUI();
-			date = season.getSelectedItem().toString().substring(2) + "-"
-					+ month.getSelectedItem().toString().substring(0, 2);
-			isStart = true;
 		}
 	}
 }

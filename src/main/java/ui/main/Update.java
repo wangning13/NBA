@@ -10,7 +10,7 @@ public class Update extends TimerTask{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		frame.update();
+		Frame.update();
 	}
 	 
 

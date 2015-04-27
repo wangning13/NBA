@@ -4,8 +4,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -249,9 +247,9 @@ public class TeamsSelect extends MyPanel implements ActionListener {
 	public void jump(int row, int column) {
 		String temp = table.getValueAt(row, column).toString();
 		String team = Translate.translate(temp);
-		frame.change(this, frame.singleTeamPanel);
-		frame.singleTeamPanel.update(team);
-		frame.singleTeamPanel.flag = false;
+		frame.change(this, Frame.singleTeamPanel);
+		Frame.singleTeamPanel.update(team);
+		Frame.singleTeamPanel.flag = false;
 		Frame.currentPanel = "singleTeam";
 	}
 
@@ -266,13 +264,13 @@ public class TeamsSelect extends MyPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("home")
 				|| e.getActionCommand().equals("back")) {
-			frame.change(this, frame.mainFrame);
+			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		} else if (e.getActionCommand().length() == 3) {
 			String team = e.getActionCommand();
-			frame.change(this, frame.singleTeamPanel);
-			frame.singleTeamPanel.update(team);
-			frame.singleTeamPanel.flag = false;
+			frame.change(this, Frame.singleTeamPanel);
+			Frame.singleTeamPanel.update(team);
+			Frame.singleTeamPanel.flag = false;
 			Frame.currentPanel = "singleTeam";
 		}
 	}
