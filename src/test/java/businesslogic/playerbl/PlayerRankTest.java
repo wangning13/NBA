@@ -57,6 +57,20 @@ public class PlayerRankTest {
 		assertTrue(desc);
 	}
 	@Test
+	public void getAllPlayerdataTest2(){
+		String season = "13-14";
+		String key = "backboard";
+		String order = "ASC";
+		ArrayList<PlayerVO> playerVOs = playerRank.getAllPlayerdata(season, key, order);
+		boolean desc = true;
+		for (int i = 0; i < playerVOs.size()-1; i++) {
+			if (playerVOs.get(i).getBackboard()>playerVOs.get(i+1).getBackboard()) {
+				desc = false;
+			}
+		}
+		assertTrue(desc);
+	}
+	@Test
 	public void getFirstFiftyTest(){
 		String season = "13-14";
 		String position = "G";
