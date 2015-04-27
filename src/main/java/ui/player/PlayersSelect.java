@@ -104,7 +104,7 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 		ArrayList<String> BKNPlayers = prs.getAllPlayer("13-14", "BKN");
 		ArrayList<String> TORPlayers = prs.getAllPlayer("13-14", "TOR");
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 21; i++) {
 			SASPlayers.add("");
 			MEMPlayers.add("");
 			DALPlayers.add("");
@@ -164,9 +164,9 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 		if (table.getValueAt(row, column) != null) {
 			String name = table.getValueAt(row, column).toString();
 			if (!name.equals("")) {
-				frame.change(this, frame.singlePlayerPanel);
-				frame.singlePlayerPanel.update(name);
-				frame.singlePlayerPanel.flag = false;
+				frame.change(this, Frame.singlePlayerPanel);
+				Frame.singlePlayerPanel.update(name);
+				Frame.singlePlayerPanel.flag = false;
 				Frame.currentPanel = "singlePlayer";
 			}
 		}
@@ -176,7 +176,7 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("home")
 				|| e.getActionCommand().equals("back")) {
-			frame.change(this, frame.mainFrame);
+			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		}
 	}

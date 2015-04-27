@@ -60,19 +60,19 @@ public class MainFrame extends MyPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("ranking")) {
-			frame.change(this, frame.rankingPanel);
+			frame.change(this, Frame.rankingPanel);
 			Frame.currentPanel = "ranking";
 		} else if (e.getActionCommand().equals("statistics")) {
-			frame.change(this, frame.statisticsPanel);
+			frame.change(this, Frame.statisticsPanel);
 			Frame.currentPanel = "statistics";
 		} else if (e.getActionCommand().equals("teams")) {
-			frame.change(this, frame.teamsSelectPanel);
+			frame.change(this, Frame.teamsSelectPanel);
 			Frame.currentPanel = "teams";
 		} else if (e.getActionCommand().equals("players")) {
-			frame.change(this, frame.playersSelectPanel);
+			frame.change(this, Frame.playersSelectPanel);
 			Frame.currentPanel = "players";
 		} else if (e.getActionCommand().equals("matches")) {
-			frame.change(this, frame.matchesPanel);
+			frame.change(this, Frame.matchesPanel);
 			Frame.currentPanel = "matches";
 		}
 	}

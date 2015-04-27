@@ -167,7 +167,7 @@ public class MyTable1 extends JTable {
 	public void setWidth() {
 		for (int i = 0; i < this.getColumnCount(); i++) {
 			int with = this.getPreferredWidthForCloumn(this, i) + 1;
-			with = 52 > with ? 52 : with;
+			with = 40 > with ? 40 : with;
 			this.getColumnModel().getColumn(i).setPreferredWidth(with);
 		}
 	}

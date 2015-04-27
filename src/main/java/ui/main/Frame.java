@@ -64,9 +64,8 @@ public class Frame extends JFrame {
 			rankingPanel.update();
 		} else if (currentPanel.equals("statistics")) {
 			statisticsPanel.update();
-		} else if (currentPanel.equals("playersSelect")) {
-			playersSelectPanel.update();
-		} else if (currentPanel.equals("singleTeam")) {
+		} 
+		  else if (currentPanel.equals("singleTeam")) {
 			singleTeamPanel.update();
 		} else if (currentPanel.equals("singlePlayer")) {
 			singlePlayerPanel.update();
