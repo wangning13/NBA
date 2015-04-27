@@ -400,29 +400,6 @@ public class GetTeamdata implements GetTeamdataDataService {
 		return po;
 	}
 
-	public ArrayList<TeamPO> getSeasonTop(String season, String condition) {
-		ArrayList<TeamPO> po = new ArrayList<TeamPO>();
-		String sql = "SELECT `teamName`,`matches`,`wins`,`fieldGoal`/matches	,`fieldGoalAttempts`/matches,`threePointFieldGoal`/matches	,`threePointFieldGoalAttempts`/matches,`freeThrow`/matches,`freeThrowAttempts`/matches,`offensiveRebound`/matches,	`defensiveRebound`	/matches,	`backboard`	/matches,	`assist`/matches,	`steal`/matches,	`block`/matches,	`turnOver`/matches,	`foul`/matches,	`scoring`/matches FROM `teamsum"
-				+ season + "` ORDER BY " + condition + "/matches DESC LIMIT 5";
-		try {
-			ResultSet rs = statement.executeQuery(sql);
-			while (rs.next()) {
-				TeamPO temp = new TeamPO(0, 0, 0, 0, 0, rs.getString(1),
-						rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5),
-						rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9),
-						rs.getInt(10), rs.getInt(11), 0, 0, rs.getInt(12),
-						rs.getInt(13), rs.getInt(14), rs.getInt(15),
-						rs.getInt(16), rs.getInt(17), rs.getInt(18), 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0, 0);
-				po.add(temp);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return po;
-	}
-
 	public ArrayList<TeamMatchPO> getRecentFifteen() {
 		ArrayList<TeamMatchPO> po = new ArrayList<TeamMatchPO>();
 		String sql = "SELECT * FROM matches ORDER BY date DESC LIMIT 30";

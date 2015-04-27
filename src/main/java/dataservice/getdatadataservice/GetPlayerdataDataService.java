@@ -27,9 +27,6 @@ public interface GetPlayerdataDataService {
 	public ArrayList<PlayerMatchPO> getPlayerRecentFiveMatch(String player);
 
 	public ArrayList<PlayerMatchPO> getDayTop(String condition);
-
-	// 仅适用于场均
-	public ArrayList<PlayerPO> getSeasonTop(String season, String condition);
 	
 	public ArrayList<String> getPlayerName(String playerName);
 	

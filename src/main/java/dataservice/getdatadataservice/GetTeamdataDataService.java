@@ -26,8 +26,6 @@ public interface GetTeamdataDataService {
 
 	public ArrayList<TeamMatchPO> getTeamRecentFiveMatch(String team);
 
-	public ArrayList<TeamPO> getSeasonTop(String season, String condition);
-
 	public ArrayList<TeamMatchPO> getRecentFifteen();
 	
 }

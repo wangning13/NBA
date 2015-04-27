@@ -684,36 +684,6 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 
-	// 仅适用于场均
-	public ArrayList<PlayerPO> getSeasonTop(String season, String condition) {
-		ArrayList<PlayerPO> po = new ArrayList<PlayerPO>();
-		String sql = "SELECT playerName,team,appearance,firstPlay,backboard/appearance,assist/appearance,minutes/appearance,`fieldGoal`/appearance,`fieldGoalAttempts`/appearance,`threePointFieldGoal`/appearance,`threePointFieldGoalAttempts`/appearance,`freeThrow`/appearance,`freeThrowAttempts`/appearance, `offensiveRebound`/appearance, `defensiveRebound`	/appearance,	`steal`/appearance, `block`/appearance,	`turnOver`/appearance, `foul`/appearance, `scoring`/appearance, `previousAverageScoring`, `nearlyFiveAverageScoring`,`doubleDouble`/appearance FROM `playersum"
-				+ season
-				+ "` ORDER BY "
-				+ condition
-				+ "/appearance DESC LIMIT 5";
-		try {
-			ResultSet rs = statement.executeQuery(sql);
-			while (rs.next()) {
-				PlayerPO temp = new PlayerPO(rs.getString(1), rs.getString(2),
-						rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6),
-						rs.getDouble(7), rs.getInt(8), rs.getInt(9),
-						rs.getInt(10), rs.getInt(11), rs.getInt(12),
-						rs.getInt(13), rs.getInt(14), rs.getInt(15),
-						rs.getInt(16), rs.getInt(17), rs.getInt(18),
-						rs.getInt(19), rs.getInt(20), 0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-						0, 0, 0, 0, 0, 0, rs.getDouble(21), rs.getDouble(22),
-						0, 0, 0, 0, rs.getInt(23));
-				po.add(temp);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return po;
-	}
-
 	public ArrayList<String> getPlayerName(String playerName) {
 		ArrayList<String> names = new ArrayList<String>();
 		String sql = "SELECT playername";
