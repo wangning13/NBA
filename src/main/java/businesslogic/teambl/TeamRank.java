@@ -164,7 +164,7 @@ public class TeamRank implements TeamRankService{
 			}else {
 				number = 10;
 			}
-			for (int i = 0; i < number; i++) {
+			for (int i = 0; i < number/2; i++) {
 				String host = "";
 				String guest = "";
 				String score = "";
