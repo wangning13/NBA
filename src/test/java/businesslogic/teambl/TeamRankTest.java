@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import businesslogic.playerbl.PlayerRank;
 import po.TeaminfoPO;
+import vo.TeamMatchVO;
+import vo.TeamMonthMatchVO;
 import vo.TeamVO;
 import vo.TeaminfoVO;
 
@@ -38,7 +41,61 @@ public class TeamRankTest {
 		}
 		assertTrue(notNull);
 	}
-	
-	
+	@Test
+	public void getTeamData2(){
+		String season = "13-14";
+		String teamName = "SAS";
+		TeamVO teamVO = teamRank.getTeamData(season, teamName);
+		int matches = teamVO.getMatches();
+		boolean notNull = true;
+		if (matches==0) {
+			notNull = false;
+		}
+		assertTrue(notNull);
+	}
+	@Test
+	public void getTeamMonthMatchTest(){
+		String month = "13-10";
+		String team = "LAL";
+		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getTeamMonthMatch(month, team);
+		boolean notNull = true;
+		if (teamMonthMatchVOs.size()==0) {
+			notNull = false;
+		}
+		assertTrue(notNull);
+	}
+	@Test
+	public void getTeamMatch(){
+		String date = "13-10-29";
+		String team = "LAL";
+		TeamMatchVO teamMatchVO = teamRank.getTeamMatch(date, team);
+		boolean isTrue = true;
+		if (teamMatchVO.getTotal()!=teamMatchVO.getFirst()+teamMatchVO.getSecond()+teamMatchVO.getThird()+teamMatchVO.getFourth()) {
+			isTrue = false;
+		}
+		assertTrue(isTrue);
+	}
+	@Test
+	public void getTeamRecentFiveMatchTest(){
+		String team = "LAL";
+		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getTeamRecentFiveMatch(team);
+		int number = teamMonthMatchVOs.size();
+		assertEquals(number, 5);
+	}
+	@Test
+	public void getSeasonTopTest(){
+		String season = "13-14";
+		String condition = "backboard";
+		ArrayList<TeamVO> teamVOs = teamRank.getSeasonTop(season, condition);
+		int number = teamVOs.size();
+		assertEquals(number, 5);
+		
+	}
+	@Test
+	public void getRecentFifteenTest(){
+		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getRecentFifteen();
+		int number = teamMonthMatchVOs.size();
+		assertEquals(number, 15);
+	}
 
 }
