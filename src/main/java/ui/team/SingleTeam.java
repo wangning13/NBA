@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.playerbl.PlayerRank;
@@ -34,6 +35,7 @@ import vo.TeaminfoVO;
 public class SingleTeam extends MyPanel implements ActionListener {
 	boolean isRecent = true;
 	String date;
+	Object[][] data2;
 	TeamRankService trs = new TeamRank();
 	PlayerRankService prs = new PlayerRank();
 	public boolean flag = false;
@@ -362,20 +364,29 @@ public class SingleTeam extends MyPanel implements ActionListener {
 	public void update() {
 		if (isRecent) {
 			matches = trs.getTeamRecentFiveMatch(name);
-			Object[][] data2 = getData(matches);
-			model2.setDataVector(data2, columnNames2);
-			table2.setWidth();
-			table2.updateUI();
+			data2 = getData(matches);
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+					model2.setDataVector(data2, columnNames2);
+					table2.setWidth();
+		        	table2.updateUI();
+		                 }
+			 });
 		} else {
 			String temp = name;
 			if(date.compareTo("13-10")<0&&temp.equals("NOP")){
 				temp = "NOH";
 			}
 			matches = trs.getTeamMonthMatch(date, temp);
-			Object[][] data2 = getData(matches);
-			model2.setDataVector(data2, columnNames2);
-			table2.setWidth();
-			table2.updateUI();
+			data2 = getData(matches);
+
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+					model2.setDataVector(data2, columnNames2);
+					table2.setWidth();
+		        	table2.updateUI();
+		                 }
+			 });
 		}
 		
 		ArrayList<String> players = prs.getAllPlayer("13-14", name);
@@ -393,7 +404,11 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		};
 		model1.setDataVector(data, columnNames1);
 		table1.setWidth();
-		table1.updateUI();
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	        	table1.updateUI();
+	                 }
+		 });
 	}
 
 	public void actionPerformed(ActionEvent e) {

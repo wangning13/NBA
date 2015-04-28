@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.playerbl.PlayerRank;
@@ -28,6 +29,7 @@ import vo.PlayerVO;
 @SuppressWarnings("serial")
 public class Statistics extends MyPanel implements ActionListener {
 	int flag = 0;
+	Object[][] data;
 	DecimalFormat df = new DecimalFormat("#.0");
 	ArrayList<PlayerVO> players;
 	String term2;
@@ -445,11 +447,17 @@ public class Statistics extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-		Object[][] data = getData(prs.getAllPlayerdata("13-14", "scoring",
-				"DESC"));
-		model.setDataVector(data, getColumnNames());
-		table.setWidth();
-		table.updateUI();
+		players = prs.getAllPlayerdata("13-14", "scoring",
+				"DESC");
+		data = getData(players);
+
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	    		model.setDataVector(data, getColumnNames());
+	    		table.setWidth();
+	        	table.updateUI();
+	                 }
+		 });
 	/*	if (flag == 0) {
 			Object[][] data = getData(prs.getAllPlayerdata("13-14", "scoring",
 					"DESC"));

@@ -65,6 +65,9 @@ public class Frame extends JFrame {
 		} else if (currentPanel.equals("statistics")) {
 			statisticsPanel.update();
 		} 
+		  else if (currentPanel.equals("playersSelect")) {
+			playersSelectPanel.update();
+		} 
 		  else if (currentPanel.equals("singleTeam")) {
 			singleTeamPanel.update();
 		} else if (currentPanel.equals("singlePlayer")) {

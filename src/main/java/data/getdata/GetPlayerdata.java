@@ -2,7 +2,6 @@ package data.getdata;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -684,10 +683,10 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 
-	public ArrayList<String> getPlayerName(String playerName) {
-		ArrayList<String> names = new ArrayList<String>();
+	public ArrayList<PlayerPO> getPlayerName(String playerName) {
+		ArrayList<PlayerPO> po = new ArrayList<PlayerPO>();
 		String sql = "SELECT playername";
-		return names;
+		return po;
 	}
 	
 	

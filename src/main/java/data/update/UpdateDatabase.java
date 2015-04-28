@@ -431,10 +431,10 @@ public class UpdateDatabase extends TimerTask {
 			for (int i = 0; i < 2; i++) {
 				// 原来的数据
 				teamName = team[i];
+				matches ++;
 				String opponent = team[1 - i];
-				matches++;
-				if (winlose.get(team[i]).equals("w")) {
-					wins++;
+				if (winlose.get(teamName).equals("w")) {
+					wins ++;
 				}
 				String sql = "SELECT * FROM `teamsum" + season
 						+ "` WHERE teamName='" + teamName + "'";
@@ -446,8 +446,8 @@ public class UpdateDatabase extends TimerTask {
 					opponentFreeThrowAttempts = rs.getInt(4);
 					oppenentScoring = rs.getInt(5);
 					teamName = rs.getString(6);
-					matches = rs.getInt(7);
-					wins = rs.getInt(8);
+					matches = matches + rs.getInt(7);
+					wins = wins + rs.getInt(8);
 					fieldGoal = rs.getInt(9);
 					fieldGoalAttempts = rs.getInt(10);
 					threePointFieldGoal = rs.getInt(11);
@@ -532,6 +532,11 @@ public class UpdateDatabase extends TimerTask {
 						+ minutes + "','" + opponentBackBoard + "','"
 						+ opponentThreePointFieldGoalAttempts + "')";
 				statement.addBatch(sql);
+				if (teamName.equals("OKC")) {
+					System.out.println(wins);
+				}
+				matches = 0;
+				wins = 0;
 			}
 			statement.executeBatch();
 		} catch (Exception e) {
