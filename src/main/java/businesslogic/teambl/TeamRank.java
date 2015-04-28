@@ -159,10 +159,10 @@ public class TeamRank implements TeamRankService{
 			teamMatchPOs = g.getTeamRecentFiveMatch(team);
 			int teamMatchPOsSize = teamMatchPOs.size();
 			int number = 0;
-			if (teamMatchPOsSize<5) {
+			if (teamMatchPOsSize<10) {
 				number = teamMatchPOsSize;
 			}else {
-				number = 5;
+				number = 10;
 			}
 			for (int i = 0; i < number; i++) {
 				String host = "";
@@ -176,19 +176,19 @@ public class TeamRank implements TeamRankService{
 				if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
 					host = team;
 					guest = teamMatchPOs.get(i).getOpponent();
-					score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(i+number).getTotal();
-					first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(i+number).getFirst();
-					second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(i+number).getSecond();
-					third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(i+number).getThird();
-					fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs.get(i+number).getFourth();
+					score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(i+number/2).getTotal();
+					first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(i+number/2).getFirst();
+					second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(i+number/2).getSecond();
+					third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(i+number/2).getThird();
+					fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs.get(i+number/2).getFourth();
 				}else {
 					host = teamMatchPOs.get(i).getOpponent();
 					guest = team;
-					score = teamMatchPOs.get(i+number).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
-					first = teamMatchPOs.get(i+number).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
-					second = teamMatchPOs.get(i+number).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
-					third = teamMatchPOs.get(i+number).getThird() + "-" + teamMatchPOs.get(i).getThird();
-					fourth = teamMatchPOs.get(i+number).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
+					score = teamMatchPOs.get(i+number/2).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
+					first = teamMatchPOs.get(i+number/2).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
+					second = teamMatchPOs.get(i+number/2).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
+					third = teamMatchPOs.get(i+number/2).getThird() + "-" + teamMatchPOs.get(i).getThird();
+					fourth = teamMatchPOs.get(i+number/2).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
 				}
 				TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(
 						teamMatchPOs.get(i).getDate(),
