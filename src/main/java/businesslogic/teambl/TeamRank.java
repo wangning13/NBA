@@ -157,7 +157,14 @@ public class TeamRank implements TeamRankService{
     	GetTeamdataDataService g;
 			g = new GetTeamdata();
 			teamMatchPOs = g.getTeamRecentFiveMatch(team);
-			for (int i = 0; i < 5; i++) {
+			int teamMatchPOsSize = teamMatchPOs.size();
+			int number = 0;
+			if (teamMatchPOsSize<5) {
+				number = teamMatchPOsSize;
+			}else {
+				number = 5;
+			}
+			for (int i = 0; i < number; i++) {
 				String host = "";
 				String guest = "";
 				String score = "";
@@ -204,13 +211,20 @@ public class TeamRank implements TeamRankService{
     	GetTeamdataDataService g;
  			g = new GetTeamdata();
 			teamPOs = g.getAllTeamdata(season, "wins", "DESC");
+			int teamPOsSize = teamPOs.size();
 			for (int i = 0; i < teamPOs.size(); i++) {
 				Calculate calculate = new Calculate();
 				teamPOs.set(i, calculate.Calculate(teamPOs.get(i)));
 			}
 			Sort sort = new Sort();
 			teamPOs2 = sort.Sort(teamPOs, condition, "DESC");
-			for (int i = 0; i < 5; i++) {
+			int number = 0;
+			if (teamPOsSize<5) {
+				number = teamPOsSize;
+			}else {
+				number = 5;
+			}
+			for (int i = 0; i < number; i++) {
 				GetTeamVO getTeamVO = new GetTeamVO();
 				TeamVO teamVO = getTeamVO.GetTeamVO(teamPOs2.get(i));
 				teamVOs.add(teamVO);
