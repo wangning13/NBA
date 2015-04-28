@@ -431,8 +431,8 @@ public class UpdateDatabase extends TimerTask {
 			for (int i = 0; i < 2; i++) {
 				// 原来的数据
 				teamName = team[i];
-				String opponent = team[1 - i];
 				matches ++;
+				String opponent = team[1 - i];
 				if (winlose.get(team[i]).equals("w")) {
 					wins++;
 				}
