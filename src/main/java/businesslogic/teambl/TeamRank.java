@@ -224,7 +224,7 @@ public class TeamRank implements TeamRankService{
     	GetTeamdataDataService g;
     	g = new GetTeamdata();
     	teamMatchPOs = g.getRecentFifteen();
-    	for (int i = 0; i < teamMatchPOs.size(); ) {
+    	for (int i = 0; i < teamMatchPOs.size(); i++) {
     		String opponent = teamMatchPOs.get(i).getOpponent();
     		for (int j = 1; j < teamMatchPOs.size(); j++) {
 				if (teamMatchPOs.get(j).getName().equals(opponent) && teamMatchPOs.get(j).getDate().equals(teamMatchPOs.get(i).getDate())) {
