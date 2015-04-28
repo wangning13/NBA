@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.playerbl.PlayerRank;
@@ -157,7 +158,11 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 	public void update() {
 		model.setDataVector(getData(), columnNames);
 		table.setWidth();
-		table.updateUI();
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	        	table.updateUI();
+	                 }
+		 });
 	}
 
 	public void jump(int row, int column) {

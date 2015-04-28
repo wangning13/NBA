@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.playerbl.PlayerRank;
@@ -379,19 +380,31 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		data1[0] = temp1;
 		model1.setDataVector(data1, columnNames1);
 		table1.setWidth();
-		table1.updateUI();
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	        	table1.updateUI();
+	                 }
+		 });
 
 		if (isRecent) {
 			matches = prs.getPlayerRecentFiveMatch(playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 			table2.setWidth();
-			table2.updateUI();
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+		        	table2.updateUI();
+		                 }
+			 });
 		} else {
 			matches = prs.getPlayerMonthMatch(date,
 					playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 			table2.setWidth();
-			table2.updateUI();
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+		        	table2.updateUI();
+		                 }
+			 });
 		}
 	}
 
@@ -407,7 +420,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 				Frame.currentPanel = "singleTeam";
 			} else {
 				frame.change(this, Frame.playersSelectPanel);
-				Frame.currentPanel = "playerSelect";
+				Frame.currentPanel = "playersSelect";
 			}
 		} else if (e.getActionCommand().equals("search")) {
 			matches = prs.getPlayerMonthMatch(season.getSelectedItem()

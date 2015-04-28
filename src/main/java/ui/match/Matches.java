@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.teambl.TeamRank;
@@ -28,6 +29,7 @@ import vo.TeamMonthMatchVO;
 @SuppressWarnings("serial")
 public class Matches extends MyPanel implements ActionListener {
 	String date;
+	Object[][] data;
 	boolean isStart = false;
 	TeamRankService trs = new TeamRank();
 	ArrayList<TeamMonthMatchVO> matches;
@@ -45,6 +47,7 @@ public class Matches extends MyPanel implements ActionListener {
 	JComboBox<String> month = new JComboBox<String>();
 	JComboBox<String> season = new JComboBox<String>();
 	JButton search = new JButton("查询");
+	JButton recent = new JButton("最近一轮");
 
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 
@@ -107,22 +110,27 @@ public class Matches extends MyPanel implements ActionListener {
 		team.addItem("多伦多猛龙");
 
 		this.add(season);
-		season.setBounds(585, 175, 70, 20);
+		season.setBounds(485, 175, 70, 20);
 		season.setFont(font1);
 		season.setUI(new MyComboBoxUI());
 		this.add(month);
-		month.setBounds(680, 175, 60, 20);
+		month.setBounds(580, 175, 60, 20);
 		month.setFont(font1);
 		month.setUI(new MyComboBoxUI());
 		this.add(team);
-		team.setBounds(760, 175, 150, 20);
+		team.setBounds(660, 175, 150, 20);
 		team.setFont(font1);
 		team.setUI(new MyComboBoxUI());
 		this.add(search);
-		search.setBounds(930, 172, 60, 25);
+		search.setBounds(830, 172, 60, 25);
 		search.addActionListener(this);
 		search.setActionCommand("search");
 		search.setUI(new MyButtonUI());
+		this.add(recent);
+		recent.setBounds(920, 172, 90, 25);
+		recent.addActionListener(this);
+		recent.setActionCommand("recent");
+		recent.setUI(new MyButtonUI());
 
 
 		this.add(rankingBand);
@@ -134,7 +142,7 @@ public class Matches extends MyPanel implements ActionListener {
 		model1.setDataVector(data, columnNames1);
 		table1 = new MyTable(model1);
 
-		 table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		pane1 = new JScrollPane(table1);
 		this.add(pane1);
 		pane1.setBounds(0, 220, 1052, 430);
@@ -174,10 +182,27 @@ public class Matches extends MyPanel implements ActionListener {
 	public void update() {
 		if (isStart) {
 			matches = trs.getTeamMonthMatch(date, Translate.translate(teamName));
-			Object[][] data = getData(matches);
-			model1.setDataVector(data, columnNames1);
-			table1.setWidth();
-			table1.updateUI();
+			data = getData(matches);
+
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+					model1.setDataVector(data, columnNames1);
+					table1.setWidth();
+		        	table1.updateUI();
+		                 }
+			 });
+		}
+		else{
+			matches = trs.getRecentFifteen();
+			data = getData(matches);
+
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+					model1.setDataVector(data, columnNames1);
+					table1.setWidth();
+		        	table1.updateUI();
+		                 }
+			 });
 		}
 	}
 
@@ -201,6 +226,14 @@ public class Matches extends MyPanel implements ActionListener {
 					.substring(2)
 					+ "-" + month.getSelectedItem().toString().substring(0, 2),
 					Translate.translate(team.getSelectedItem().toString()));
+			Object[][] data = getData(matches);
+			model1.setDataVector(data, columnNames1);
+			table1.setWidth();
+			table1.updateUI();
+		}
+		if (e.getActionCommand().equals("recent")) {
+			isStart = false;
+			matches = trs.getRecentFifteen();
 			Object[][] data = getData(matches);
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();

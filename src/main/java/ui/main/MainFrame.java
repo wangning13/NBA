@@ -62,18 +62,22 @@ public class MainFrame extends MyPanel implements ActionListener {
 		if (e.getActionCommand().equals("ranking")) {
 			frame.change(this, Frame.rankingPanel);
 			Frame.currentPanel = "ranking";
+			Frame.rankingPanel.update();
 		} else if (e.getActionCommand().equals("statistics")) {
 			frame.change(this, Frame.statisticsPanel);
 			Frame.currentPanel = "statistics";
+			Frame.statisticsPanel.update();
 		} else if (e.getActionCommand().equals("teams")) {
 			frame.change(this, Frame.teamsSelectPanel);
-			Frame.currentPanel = "teams";
+			Frame.currentPanel = "teamsSelect";
 		} else if (e.getActionCommand().equals("players")) {
 			frame.change(this, Frame.playersSelectPanel);
-			Frame.currentPanel = "players";
+			Frame.currentPanel = "playersSelect";
+			Frame.playersSelectPanel.update();
 		} else if (e.getActionCommand().equals("matches")) {
 			frame.change(this, Frame.matchesPanel);
 			Frame.currentPanel = "matches";
+		//	Frame.matchesPanel.update();
 		}
 	}
 

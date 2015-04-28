@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.teambl.TeamRank;
@@ -30,6 +31,7 @@ public class Ranking extends MyPanel implements ActionListener {
 	int flag = 0;
 	DecimalFormat df = new DecimalFormat("#.0");
 	ArrayList<TeamVO> teams;
+	Object[][] data;
 	String area = "";
 	String term1 = "win";
 	String term2 = "";
@@ -53,9 +55,9 @@ public class Ranking extends MyPanel implements ActionListener {
 			"进攻效率", "助攻效率", "投篮命中", "投篮出手", "三分命中", "三分出手",
 			"罚球命中", "罚球出手", "进攻篮板", "防守篮板", "篮板", "助攻",
 			"抢断", "盖帽", "失误", "犯规", "得分" };
-	String[] columnNames2_1 = { "球队名称", "场次", "投篮", "三分","罚球", "前篮板", "后篮板", "篮板", "助攻",
+	String[] columnNames2_1 = { "球队", "场次", "投篮", "三分","罚球", "前篮板", "后篮板", "篮板", "助攻",
 			"抢断", "盖帽", "失误", "犯规", "得分" };
-	String[] columnNames2_2 = { "球队名称", "场次","投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
+	String[] columnNames2_2 = { "球队", "场次","投篮命中率", "三分命中率", "罚球命中率", "胜率", "进攻回合",
 			"进攻效率", "助攻效率"};
 	JLabel rankingBand = new JLabel(Img.RANKINGBAND);
 	JRadioButton jrb1 = new JRadioButton("西部");
@@ -362,11 +364,18 @@ public class Ranking extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-		Object[][] data = getData(trs.getAllTeamdata("13-14", "wins",
-				"DESC"));
-		model1.setDataVector(data, getColumnNames1());
-		table1.setWidth();
-		table1.updateUI();
+		teams = trs.getAllTeamdata("13-14", "wins",
+				"DESC");
+		 data = getData(teams);
+	//	model1.setDataVector(data, getColumnNames1());
+	//table1.updateUI();
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	        	model1.setDataVector(data, getColumnNames1());
+	        	table1.setWidth();
+	        	table1.updateUI();
+	                 }
+		 });
 		/*if (flag == 0) {
 			Object[][] data = getData(trs.getAllTeamdata("13-14", "wins",
 					"DESC"));
