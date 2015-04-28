@@ -28,6 +28,6 @@ public interface GetPlayerdataDataService {
 
 	public ArrayList<PlayerMatchPO> getDayTop(String condition);
 	
-	public ArrayList<String> getPlayerName(String playerName);
+	public ArrayList<PlayerPO> getPlayerName(String playerName);
 	
 }

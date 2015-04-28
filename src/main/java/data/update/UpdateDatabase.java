@@ -432,7 +432,7 @@ public class UpdateDatabase extends TimerTask {
 				// 原来的数据
 				teamName = team[i];
 				String opponent = team[1 - i];
-				matches++;
+				matches ++;
 				if (winlose.get(team[i]).equals("w")) {
 					wins++;
 				}
@@ -446,8 +446,8 @@ public class UpdateDatabase extends TimerTask {
 					opponentFreeThrowAttempts = rs.getInt(4);
 					oppenentScoring = rs.getInt(5);
 					teamName = rs.getString(6);
-					matches = rs.getInt(7);
-					wins = rs.getInt(8);
+					matches = matches + rs.getInt(7);
+					wins = wins + rs.getInt(8);
 					fieldGoal = rs.getInt(9);
 					fieldGoalAttempts = rs.getInt(10);
 					threePointFieldGoal = rs.getInt(11);
