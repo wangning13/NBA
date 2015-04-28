@@ -199,604 +199,300 @@ public class PlayerVO {
 	public String getPlayerName() {
 		return playerName;
 	}
-
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
-
 	public String getTeam() {
 		return team;
-	}
-
-	public void setTeam(String team) {
-		this.team = team;
 	}
 
 	public int getAppearance() {
 		return appearance;
 	}
 
-	public void setAppearance(int appearance) {
-		this.appearance = appearance;
-	}
-
 	public int getFirstPlay() {
 		return firstPlay;
-	}
-
-	public void setFirstPlay(int firstPlay) {
-		this.firstPlay = firstPlay;
 	}
 
 	public int getBackboard() {
 		return backboard;
 	}
 
-	public void setBackboard(int backboard) {
-		this.backboard = backboard;
-	}
-
 	public double getAverageBackboard() {
 		return averageBackboard;
-	}
-
-	public void setAverageBackboard(double averageBackboard) {
-		this.averageBackboard = averageBackboard;
 	}
 
 	public int getAssist() {
 		return assist;
 	}
 
-	public void setAssist(int assist) {
-		this.assist = assist;
-	}
-
 	public double getAverageAssist() {
 		return averageAssist;
-	}
-
-	public void setAverageAssist(double averageAssist) {
-		this.averageAssist = averageAssist;
 	}
 
 	public double getMinutes() {
 		return minutes;
 	}
 
-	public void setMinutes(double minutes) {
-		this.minutes = minutes;
-	}
-
 	public double getAverageMinute() {
 		return averageMinute;
-	}
-
-	public void setAverageMinute(double averageMinute) {
-		this.averageMinute = averageMinute;
 	}
 
 	public int getFieldGoal() {
 		return fieldGoal;
 	}
 
-	public void setFieldGoal(int fieldGoal) {
-		this.fieldGoal = fieldGoal;
-	}
-
 	public double getAverageFieldGoal() {
 		return averageFieldGoal;
-	}
-
-	public void setAverageFieldGoal(double averageFieldGoal) {
-		this.averageFieldGoal = averageFieldGoal;
 	}
 
 	public int getFieldGoalAttempts() {
 		return fieldGoalAttempts;
 	}
 
-	public void setFieldGoalAttempts(int fieldGoalAttempts) {
-		this.fieldGoalAttempts = fieldGoalAttempts;
-	}
-
 	public double getAverageFieldGoalAttempts() {
 		return averageFieldGoalAttempts;
-	}
-
-	public void setAverageFieldGoalAttempts(double averageFieldGoalAttempts) {
-		this.averageFieldGoalAttempts = averageFieldGoalAttempts;
 	}
 
 	public int getThreePointFieldGoal() {
 		return threePointFieldGoal;
 	}
 
-	public void setThreePointFieldGoal(int threePointFieldGoal) {
-		this.threePointFieldGoal = threePointFieldGoal;
-	}
-
 	public double getAverageThreePointFieldGoal() {
 		return averageThreePointFieldGoal;
-	}
-
-	public void setAverageThreePointFieldGoal(double averageThreePointFieldGoal) {
-		this.averageThreePointFieldGoal = averageThreePointFieldGoal;
 	}
 
 	public int getThreePointFieldGoalAttempts() {
 		return threePointFieldGoalAttempts;
 	}
 
-	public void setThreePointFieldGoalAttempts(int threePointFieldGoalAttempts) {
-		this.threePointFieldGoalAttempts = threePointFieldGoalAttempts;
-	}
-
 	public double getAverageThreePointFieldGoalAttempts() {
 		return averageThreePointFieldGoalAttempts;
-	}
-
-	public void setAverageThreePointFieldGoalAttempts(
-			double averageThreePointFieldGoalAttempts) {
-		this.averageThreePointFieldGoalAttempts = averageThreePointFieldGoalAttempts;
 	}
 
 	public int getFreeThrow() {
 		return freeThrow;
 	}
 
-	public void setFreeThrow(int freeThrow) {
-		this.freeThrow = freeThrow;
-	}
-
 	public double getAverageFreeThrow() {
 		return averageFreeThrow;
-	}
-
-	public void setAverageFreeThrow(double averageFreeThrow) {
-		this.averageFreeThrow = averageFreeThrow;
 	}
 
 	public int getFreeThrowAttempts() {
 		return freeThrowAttempts;
 	}
 
-	public void setFreeThrowAttempts(int freeThrowAttempts) {
-		this.freeThrowAttempts = freeThrowAttempts;
-	}
-
 	public double getAverageFreeThrowAttempts() {
 		return averageFreeThrowAttempts;
-	}
-
-	public void setAverageFreeThrowAttempts(double averageFreeThrowAttempts) {
-		this.averageFreeThrowAttempts = averageFreeThrowAttempts;
 	}
 
 	public int getOffensiveRebound() {
 		return offensiveRebound;
 	}
 
-	public void setOffensiveRebound(int offensiveRebound) {
-		this.offensiveRebound = offensiveRebound;
-	}
-
 	public double getAverageOffensiveRebound() {
 		return averageOffensiveRebound;
-	}
-
-	public void setAverageOffensiveRebound(double averageOffensiveRebound) {
-		this.averageOffensiveRebound = averageOffensiveRebound;
 	}
 
 	public int getDefensiveRebound() {
 		return defensiveRebound;
 	}
 
-	public void setDefensiveRebound(int defensiveRebound) {
-		this.defensiveRebound = defensiveRebound;
-	}
-
 	public double getAverageDefensiveRebound() {
 		return averageDefensiveRebound;
-	}
-
-	public void setAverageDefensiveRebound(double averageDefensiveRebound) {
-		this.averageDefensiveRebound = averageDefensiveRebound;
 	}
 
 	public int getSteal() {
 		return steal;
 	}
 
-	public void setSteal(int steal) {
-		this.steal = steal;
-	}
-
 	public double getAverageSteal() {
 		return averageSteal;
-	}
-
-	public void setAverageSteal(double averageSteal) {
-		this.averageSteal = averageSteal;
 	}
 
 	public int getBlock() {
 		return block;
 	}
 
-	public void setBlock(int block) {
-		this.block = block;
-	}
-
 	public double getAverageBlock() {
 		return averageBlock;
-	}
-
-	public void setAverageBlock(double averageBlock) {
-		this.averageBlock = averageBlock;
 	}
 
 	public int getTurnOver() {
 		return turnOver;
 	}
 
-	public void setTurnOver(int turnOver) {
-		this.turnOver = turnOver;
-	}
-
 	public double getAverageTurn() {
 		return averageTurn;
-	}
-
-	public void setAverageTurn(double averageTurn) {
-		this.averageTurn = averageTurn;
 	}
 
 	public int getFoul() {
 		return foul;
 	}
 
-	public void setFoul(int foul) {
-		this.foul = foul;
-	}
-
 	public double getAverageFoul() {
 		return averageFoul;
-	}
-
-	public void setAverageFoul(double averageFoul) {
-		this.averageFoul = averageFoul;
 	}
 
 	public int getScoring() {
 		return scoring;
 	}
 
-	public void setScoring(int scoring) {
-		this.scoring = scoring;
-	}
-
 	public double getAverageScoring() {
 		return averageScoring;
-	}
-
-	public void setAverageScoring(double averageScoring) {
-		this.averageScoring = averageScoring;
 	}
 
 	public int getTeamFieldGoalAttempts() {
 		return teamFieldGoalAttempts;
 	}
 
-	public void setTeamFieldGoalAttempts(int teamFieldGoalAttempts) {
-		this.teamFieldGoalAttempts = teamFieldGoalAttempts;
-	}
-
 	public int getTeamBackboard() {
 		return teamBackboard;
-	}
-
-	public void setTeamBackboard(int teamBackboard) {
-		this.teamBackboard = teamBackboard;
 	}
 
 	public int getTeamFieldGoal() {
 		return teamFieldGoal;
 	}
 
-	public void setTeamFieldGoal(int teamFieldGoal) {
-		this.teamFieldGoal = teamFieldGoal;
-	}
-
 	public int getTeamFreeThrow() {
 		return teamFreeThrow;
-	}
-
-	public void setTeamFreeThrow(int teamFreeThrow) {
-		this.teamFreeThrow = teamFreeThrow;
 	}
 
 	public int getTeamOffensiveRebound() {
 		return teamOffensiveRebound;
 	}
 
-	public void setTeamOffensiveRebound(int teamOffensiveRebound) {
-		this.teamOffensiveRebound = teamOffensiveRebound;
-	}
-
 	public int getTeamDefensiveRebound() {
 		return teamDefensiveRebound;
-	}
-
-	public void setTeamDefensiveRebound(int teamDefensiveRebound) {
-		this.teamDefensiveRebound = teamDefensiveRebound;
 	}
 
 	public double getTeamMinutes() {
 		return teamMinutes;
 	}
 
-	public void setTeamMinutes(double teamMinutes) {
-		this.teamMinutes = teamMinutes;
-	}
-
 	public int getTeamFreeThrowAttempts() {
 		return teamFreeThrowAttempts;
-	}
-
-	public void setTeamFreeThrowAttempts(int teamFreeThrowAttempts) {
-		this.teamFreeThrowAttempts = teamFreeThrowAttempts;
 	}
 
 	public int getTeamTurnOver() {
 		return teamTurnOver;
 	}
 
-	public void setTeamTurnOver(int teamTurnOver) {
-		this.teamTurnOver = teamTurnOver;
-	}
-
 	public int getOpponentBackBoard() {
 		return opponentBackBoard;
-	}
-
-	public void setOpponentBackBoard(int opponentBackBoard) {
-		this.opponentBackBoard = opponentBackBoard;
 	}
 
 	public int getOpponentOffensiveRebound() {
 		return opponentOffensiveRebound;
 	}
 
-	public void setOpponentOffensiveRebound(int opponentOffensiveRebound) {
-		this.opponentOffensiveRebound = opponentOffensiveRebound;
-	}
-
 	public int getOpponentDefensiveRebound() {
 		return opponentDefensiveRebound;
-	}
-
-	public void setOpponentDefensiveRebound(int opponentDefensiveRebound) {
-		this.opponentDefensiveRebound = opponentDefensiveRebound;
 	}
 
 	public int getOpponentFieldGoalAttempts() {
 		return opponentFieldGoalAttempts;
 	}
 
-	public void setOpponentFieldGoalAttempts(int opponentFieldGoalAttempts) {
-		this.opponentFieldGoalAttempts = opponentFieldGoalAttempts;
-	}
-
 	public int getOpponentThreePointFieldGoalAttempts() {
 		return opponentThreePointFieldGoalAttempts;
-	}
-
-	public void setOpponentThreePointFieldGoalAttempts(
-			int opponentThreePointFieldGoalAttempts) {
-		this.opponentThreePointFieldGoalAttempts = opponentThreePointFieldGoalAttempts;
 	}
 
 	public double getThreePointShotPercentage() {
 		return threePointShotPercentage;
 	}
 
-	public void setThreePointShotPercentage(double threePointShotPercentage) {
-		this.threePointShotPercentage = threePointShotPercentage;
-	}
-
 	public double getFreeThrowPercentage() {
 		return freeThrowPercentage;
-	}
-
-	public void setFreeThrowPercentage(double freeThrowPercentage) {
-		this.freeThrowPercentage = freeThrowPercentage;
 	}
 
 	public double getEfficiency() {
 		return efficiency;
 	}
 
-	public void setEfficiency(double efficiency) {
-		this.efficiency = efficiency;
-	}
-
 	public double getGmScEfficiency() {
 		return GmScEfficiency;
-	}
-
-	public void setGmScEfficiency(double gmScEfficiency) {
-		GmScEfficiency = gmScEfficiency;
 	}
 
 	public double getNearlyFivePercentage() {
 		return nearlyFivePercentage;
 	}
 
-	public void setNearlyFivePercentage(double nearlyFivePercentage) {
-		this.nearlyFivePercentage = nearlyFivePercentage;
-	}
-
 	public double getTrueShootingPercentage() {
 		return trueShootingPercentage;
-	}
-
-	public void setTrueShootingPercentage(double trueShootingPercentage) {
-		this.trueShootingPercentage = trueShootingPercentage;
 	}
 
 	public double getShootingEfficiency() {
 		return shootingEfficiency;
 	}
 
-	public void setShootingEfficiency(double shootingEfficiency) {
-		this.shootingEfficiency = shootingEfficiency;
-	}
-
 	public double getBackboardPercentage() {
 		return backboardPercentage;
-	}
-
-	public void setBackboardPercentage(double backboardPercentage) {
-		this.backboardPercentage = backboardPercentage;
 	}
 
 	public double getOffensiveReboundPercentage() {
 		return offensiveReboundPercentage;
 	}
 
-	public void setOffensiveReboundPercentage(double offensiveReboundPercentage) {
-		this.offensiveReboundPercentage = offensiveReboundPercentage;
-	}
-
 	public double getDefensiveReboundPercentage() {
 		return defensiveReboundPercentage;
-	}
-
-	public void setDefensiveReboundPercentage(double defensiveReboundPercentage) {
-		this.defensiveReboundPercentage = defensiveReboundPercentage;
 	}
 
 	public double getAssistPercentage() {
 		return assistPercentage;
 	}
 
-	public void setAssistPercentage(double assistPercentage) {
-		this.assistPercentage = assistPercentage;
-	}
-
 	public double getStealPercentage() {
 		return stealPercentage;
-	}
-
-	public void setStealPercentage(double stealPercentage) {
-		this.stealPercentage = stealPercentage;
 	}
 
 	public double getBlockPercentage() {
 		return blockPercentage;
 	}
 
-	public void setBlockPercentage(double blockPercentage) {
-		this.blockPercentage = blockPercentage;
-	}
-
 	public double getTurnOverPercentage() {
 		return turnOverPercentage;
-	}
-
-	public void setTurnOverPercentage(double turnOverPercentage) {
-		this.turnOverPercentage = turnOverPercentage;
 	}
 
 	public double getUsage() {
 		return usage;
 	}
 
-	public void setUsage(double usage) {
-		this.usage = usage;
-	}
-
 	public double getPreviousAverageScoring() {
 		return previousAverageScoring;
-	}
-
-	public void setPreviousAverageScoring(double previousAverageScoring) {
-		this.previousAverageScoring = previousAverageScoring;
 	}
 
 	public double getNearlyFiveAverageScoring() {
 		return nearlyFiveAverageScoring;
 	}
 
-	public void setNearlyFiveAverageScoring(double nearlyFiveAverageScoring) {
-		this.nearlyFiveAverageScoring = nearlyFiveAverageScoring;
-	}
-
 	public int getDoubleDouble() {
 		return doubleDouble;
-	}
-
-	public void setDoubleDouble(int doubleDouble) {
-		this.doubleDouble = doubleDouble;
 	}
 
 	public double getFielfGoalShotPercentage() {
 		return fielfGoalShotPercentage;
 	}
 
-	public void setFielfGoalShotPercentage(double fielfGoalShotPercentage) {
-		this.fielfGoalShotPercentage = fielfGoalShotPercentage;
-	}
-
 	public double getNearlyFiveBackboardPercentage() {
 		return nearlyFiveBackboardPercentage;
-	}
-
-	public void setNearlyFiveBackboardPercentage(
-			double nearlyFiveBackboardPercentage) {
-		this.nearlyFiveBackboardPercentage = nearlyFiveBackboardPercentage;
 	}
 
 	public double getNearlyFiveAssistPercentage() {
 		return nearlyFiveAssistPercentage;
 	}
 
-	public void setNearlyFiveAssistPercentage(double nearlyFiveAssistPercentage) {
-		this.nearlyFiveAssistPercentage = nearlyFiveAssistPercentage;
-	}
-
 	public double getPreviousAverageBackboard() {
 		return previousAverageBackboard;
-	}
-
-	public void setPreviousAverageBackboard(double previousAverageBackboard) {
-		this.previousAverageBackboard = previousAverageBackboard;
 	}
 
 	public double getNearlyFiveAverageBackboard() {
 		return nearlyFiveAverageBackboard;
 	}
 
-	public void setNearlyFiveAverageBackboard(double nearlyFiveAverageBackboard) {
-		this.nearlyFiveAverageBackboard = nearlyFiveAverageBackboard;
-	}
-
 	public double getPreviousAverageAssist() {
 		return previousAverageAssist;
 	}
 
-	public void setPreviousAverageAssist(double previousAverageAssist) {
-		this.previousAverageAssist = previousAverageAssist;
-	}
-
 	public double getNearlyFiveAverageAssist() {
 		return nearlyFiveAverageAssist;
-	}
-
-	public void setNearlyFiveAverageAssist(double nearlyFiveAverageAssist) {
-		this.nearlyFiveAverageAssist = nearlyFiveAverageAssist;
 	}
 
 }
