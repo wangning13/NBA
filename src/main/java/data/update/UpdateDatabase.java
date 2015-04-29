@@ -439,9 +439,6 @@ public class UpdateDatabase extends TimerTask {
 				String sql = "SELECT * FROM `teamsum" + season
 						+ "` WHERE teamName='" + teamName + "'";
 				ResultSet rs = statement.executeQuery(sql);
-				if (teamName.equals("OKC")) {
-					System.out.println(wins);
-				}
 				while (rs.next()) {
 					opponentFieldGoal = rs.getInt(1);
 					opponentFieldGoalAttempts = rs.getInt(2);
@@ -471,6 +468,9 @@ public class UpdateDatabase extends TimerTask {
 					minutes = rs.getDouble(26);
 					opponentBackBoard = rs.getInt(27);
 					opponentThreePointFieldGoalAttempts = rs.getInt(28);
+				}
+				if (teamName.equals("OKC")) {
+					System.out.println(wins);
 				}
 				// 加球员数据
 				sql = "SELECT * FROM `playerdata` WHERE date='" + date
