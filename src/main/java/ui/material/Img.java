@@ -15,6 +15,14 @@ public class Img {
 			.getImage();
 	public static final Image BG = new ImageIcon("graphics/main/backGround.jpg")
 			.getImage();
+	public static final Image SEARCH1 = new ImageIcon("graphics/player/search1.png")
+	.getImage();
+	public static final Image SEARCH2 = new ImageIcon("graphics/player/search2.png")
+	.getImage();
+	public static final Image SHOWALL1 = new ImageIcon("graphics/player/showAll1.png")
+	.getImage();
+	public static final Image SHOWALL2 = new ImageIcon("graphics/player/showAll2.png")
+	.getImage();
 	public static final ImageIcon BAND = new ImageIcon("graphics/main/band.png");
 	public static final ImageIcon TITTLE = new ImageIcon(
 			"graphics/main/tittle.png");

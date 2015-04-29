@@ -11,12 +11,14 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import businesslogic.playerbl.PlayerRank;
 import businesslogicservice.playerblservice.PlayerRankService;
 import ui.main.Frame;
+import ui.main.MyButton;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.MyTable;
@@ -28,9 +30,12 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 	JScrollPane pane;
 	MyTable table;
 	DefaultTableModel model;
+	MyButton search = new MyButton(Img.SEARCH1,Img.SEARCH2);
+	MyButton showAll = new MyButton(Img.SEARCH1,Img.SEARCH2);
+	JTextField jtf = new JTextField(50);
 	JLabel rankingBand = new JLabel(Img.RANKINGBAND);
-	JRadioButton jrb1 = new JRadioButton("按球队查找");
-	ButtonGroup group = new ButtonGroup();
+	//JRadioButton jrb1 = new JRadioButton("按球队查找");
+	//ButtonGroup group = new ButtonGroup();
 	String[] columnNames = { "圣安东尼奥马刺", "孟菲斯灰熊", "达拉斯小牛", "休斯顿火箭", "新奥尔良鹈鹕",
 			"明尼苏达森林狼", "丹佛掘金", "尤他爵士", "波特兰开拓者", "俄克拉荷马雷霆", "萨克拉门托国王",
 			"菲尼克斯太阳", "洛杉矶湖人", "洛杉矶快船", "金州勇士", "迈阿密热", "奥兰多魔术", "亚特兰大老鹰",
@@ -43,14 +48,28 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 		// TODO Auto-generated constructor stub
 		this.frame = frame;
 
-		this.add(jrb1);
+	/*	this.add(jrb1);
 		jrb1.setBounds(20, 170, 120, 30);
 		jrb1.setFont(font1);
 		jrb1.setSelected(true);
 		jrb1.addActionListener(this);
 		jrb1.setActionCommand("byTeam");
 		group.add(jrb1);
-
+		
+		*/
+		this.add(jtf);
+		jtf.setBounds(720, 173, 120, 20);
+		
+		this.add(search);
+		search.setBounds(860, 170, 120, 30);
+		search.addActionListener(this);
+		search.setActionCommand("search");
+		
+		this.add(showAll);
+		showAll.setBounds(960, 170, 120, 30);
+		showAll.addActionListener(this);
+		showAll.setActionCommand("showAll");
+		
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
 
@@ -156,10 +175,11 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-		model.setDataVector(getData(), columnNames);
-		table.setWidth();
+
 		SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
+	    		model.setDataVector(getData(), columnNames);
+	    		table.setWidth();
 	        	table.updateUI();
 	                 }
 		 });

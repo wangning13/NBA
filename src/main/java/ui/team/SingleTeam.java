@@ -367,7 +367,15 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			data2 = getData(matches);
 			SwingUtilities.invokeLater(new Runnable() {
 		        public void run() {
+
 					model2.setDataVector(data2, columnNames2);
+
+		                 }
+			 });
+			
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+
 					table2.setWidth();
 		        	table2.updateUI();
 		                 }
@@ -401,7 +409,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 					player.getAssist(), player.getSteal(), player.getBlock(), player.getTurnOver(),
 					player.getFoul(), player.getScoring(), };
 			data[i] = temp;
-		};
+		}
 		model1.setDataVector(data, columnNames1);
 		table1.setWidth();
 		SwingUtilities.invokeLater(new Runnable() {

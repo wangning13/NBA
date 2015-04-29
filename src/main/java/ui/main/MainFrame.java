@@ -77,7 +77,7 @@ public class MainFrame extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("matches")) {
 			frame.change(this, Frame.matchesPanel);
 			Frame.currentPanel = "matches";
-		//	Frame.matchesPanel.update();
+			Frame.matchesPanel.update();
 		}
 	}
 

@@ -347,51 +347,53 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-		PlayerVO player = prs.getPlayerdata("13-14", playerName);
-		Object[][] data1 = new Object[1][];
-		Object[] temp1 = { player.getTeam(), player.getAppearance(),
-				player.getFirstPlay(), player.getBackboard(),
-				player.getAssist(), player.getMinutes(),
-				player.getFielfGoalShotPercentage(),
-				player.getThreePointShotPercentage(),
-				player.getFreeThrowPercentage(), player.getOffensiveRebound(),
-				player.getDefensiveRebound(), player.getSteal(),
-				player.getBlock(), player.getTurnOver(), player.getFoul(),
-				player.getScoring(), player.getEfficiency(),
-				player.getGmScEfficiency(), player.getTrueShootingPercentage(),
-				player.getShootingEfficiency(),
-				player.getBackboardPercentage(),
-				player.getOffensiveReboundPercentage(),
-				player.getDefensiveReboundPercentage(),
-				player.getAssistPercentage(), player.getStealPercentage(),
-				player.getBlockPercentage(), player.getTurnOverPercentage(),
-				player.getUsage(), player.getAverageScoring(),
-				player.getAverageMinute(), player.getAverageBackboard(),
-				player.getAverageAssist(), player.getAverageFieldGoal(),
-				player.getAverageFieldGoalAttempts(),
-				player.getAverageThreePointFieldGoal(),
-				player.getAverageThreePointFieldGoalAttempts(),
-				player.getAverageFreeThrow(),
-				player.getAverageFreeThrowAttempts(),
-				player.getAverageOffensiveRebound(),
-				player.getAverageDefensiveRebound(), player.getAverageSteal(),
-				player.getAverageBlock(), player.getAverageTurn(),
-				player.getAverageFoul() };
-		data1[0] = temp1;
-		model1.setDataVector(data1, columnNames1);
-		table1.setWidth();
+		
 		SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
+	        	PlayerVO player = prs.getPlayerdata("13-14", playerName);
+	    		Object[][] data1 = new Object[1][];
+	    		Object[] temp1 = { player.getTeam(), player.getAppearance(),
+	    				player.getFirstPlay(), player.getBackboard(),
+	    				player.getAssist(), player.getMinutes(),
+	    				player.getFielfGoalShotPercentage(),
+	    				player.getThreePointShotPercentage(),
+	    				player.getFreeThrowPercentage(), player.getOffensiveRebound(),
+	    				player.getDefensiveRebound(), player.getSteal(),
+	    				player.getBlock(), player.getTurnOver(), player.getFoul(),
+	    				player.getScoring(), player.getEfficiency(),
+	    				player.getGmScEfficiency(), player.getTrueShootingPercentage(),
+	    				player.getShootingEfficiency(),
+	    				player.getBackboardPercentage(),
+	    				player.getOffensiveReboundPercentage(),
+	    				player.getDefensiveReboundPercentage(),
+	    				player.getAssistPercentage(), player.getStealPercentage(),
+	    				player.getBlockPercentage(), player.getTurnOverPercentage(),
+	    				player.getUsage(), player.getAverageScoring(),
+	    				player.getAverageMinute(), player.getAverageBackboard(),
+	    				player.getAverageAssist(), player.getAverageFieldGoal(),
+	    				player.getAverageFieldGoalAttempts(),
+	    				player.getAverageThreePointFieldGoal(),
+	    				player.getAverageThreePointFieldGoalAttempts(),
+	    				player.getAverageFreeThrow(),
+	    				player.getAverageFreeThrowAttempts(),
+	    				player.getAverageOffensiveRebound(),
+	    				player.getAverageDefensiveRebound(), player.getAverageSteal(),
+	    				player.getAverageBlock(), player.getAverageTurn(),
+	    				player.getAverageFoul() };
+	    		data1[0] = temp1;
+	    		model1.setDataVector(data1, columnNames1);
+	    		table1.setWidth();
 	        	table1.updateUI();
 	                 }
 		 });
 
 		if (isRecent) {
-			matches = prs.getPlayerRecentFiveMatch(playerName);
-			model2.setDataVector(getData2(matches), columnNames2);
-			table2.setWidth();
+
 			SwingUtilities.invokeLater(new Runnable() {
 		        public void run() {
+					matches = prs.getPlayerRecentFiveMatch(playerName);
+					model2.setDataVector(getData2(matches), columnNames2);
+					table2.setWidth();
 		        	table2.updateUI();
 		                 }
 			 });
