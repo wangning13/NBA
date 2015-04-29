@@ -683,9 +683,19 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 
-	public ArrayList<PlayerPO> getPlayerName(String playerName) {
+	public ArrayList<PlayerPO> getPlayerName(String season,String key) {
 		ArrayList<PlayerPO> po = new ArrayList<PlayerPO>();
-		String sql = "SELECT playername";
+		String sql = "SELECT playerName,team FROM `playersum" + season + "` WHERE playerName LIKE '%" + key + "%'";
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				PlayerPO temp = new PlayerPO(rs.getString(1), rs.getString(2), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+				po.add(temp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return po;
 	}
 	
