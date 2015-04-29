@@ -30,56 +30,28 @@ public class TeaminfoVO {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getAbbr() {
 		return abbr;
-	}
-
-	public void setAbbr(String abbr) {
-		this.abbr = abbr;
 	}
 
 	public String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
 	public String getLeague() {
 		return league;
-	}
-
-	public void setLeague(String league) {
-		this.league = league;
 	}
 
 	public String getPartition() {
 		return partition;
 	}
 
-	public void setPartition(String partition) {
-		this.partition = partition;
-	}
-
 	public String getCourt() {
 		return court;
 	}
 
-	public void setCourt(String court) {
-		this.court = court;
-	}
-
 	public int getYear() {
 		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
 	}
 
 }

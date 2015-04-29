@@ -157,7 +157,14 @@ public class TeamRank implements TeamRankService{
     	GetTeamdataDataService g;
 			g = new GetTeamdata();
 			teamMatchPOs = g.getTeamRecentFiveMatch(team);
-			for (int i = 0; i < 5; i++) {
+			int teamMatchPOsSize = teamMatchPOs.size();
+			int number = 0;
+			if (teamMatchPOsSize<10) {
+				number = teamMatchPOsSize;
+			}else {
+				number = 10;
+			}
+			for (int i = 0; i < number/2; i++) {
 				String host = "";
 				String guest = "";
 				String score = "";
@@ -169,19 +176,19 @@ public class TeamRank implements TeamRankService{
 				if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
 					host = team;
 					guest = teamMatchPOs.get(i).getOpponent();
-					score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(i+5).getTotal();
-					first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(i+5).getFirst();
-					second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(i+5).getSecond();
-					third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(i+5).getThird();
-					fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs.get(i+5).getFourth();
+					score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(i+number/2).getTotal();
+					first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(i+number/2).getFirst();
+					second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(i+number/2).getSecond();
+					third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(i+number/2).getThird();
+					fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs.get(i+number/2).getFourth();
 				}else {
 					host = teamMatchPOs.get(i).getOpponent();
 					guest = team;
-					score = teamMatchPOs.get(i+5).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
-					first = teamMatchPOs.get(i+5).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
-					second = teamMatchPOs.get(i+5).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
-					third = teamMatchPOs.get(i+5).getThird() + "-" + teamMatchPOs.get(i).getThird();
-					fourth = teamMatchPOs.get(i+5).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
+					score = teamMatchPOs.get(i+number/2).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
+					first = teamMatchPOs.get(i+number/2).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
+					second = teamMatchPOs.get(i+number/2).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
+					third = teamMatchPOs.get(i+number/2).getThird() + "-" + teamMatchPOs.get(i).getThird();
+					fourth = teamMatchPOs.get(i+number/2).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
 				}
 				TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(
 						teamMatchPOs.get(i).getDate(),
@@ -204,13 +211,20 @@ public class TeamRank implements TeamRankService{
     	GetTeamdataDataService g;
  			g = new GetTeamdata();
 			teamPOs = g.getAllTeamdata(season, "wins", "DESC");
+			int teamPOsSize = teamPOs.size();
 			for (int i = 0; i < teamPOs.size(); i++) {
 				Calculate calculate = new Calculate();
 				teamPOs.set(i, calculate.Calculate(teamPOs.get(i)));
 			}
 			Sort sort = new Sort();
 			teamPOs2 = sort.Sort(teamPOs, condition, "DESC");
-			for (int i = 0; i < 5; i++) {
+			int number = 0;
+			if (teamPOsSize<5) {
+				number = teamPOsSize;
+			}else {
+				number = 5;
+			}
+			for (int i = 0; i < number; i++) {
 				GetTeamVO getTeamVO = new GetTeamVO();
 				TeamVO teamVO = getTeamVO.GetTeamVO(teamPOs2.get(i));
 				teamVOs.add(teamVO);
@@ -218,59 +232,59 @@ public class TeamRank implements TeamRankService{
     	return teamVOs;
     }
     
-    public ArrayList<TeamMonthMatchVO> getRecentFifteen(){
-    	ArrayList<TeamMatchPO> teamMatchPOs = new ArrayList<TeamMatchPO>();
-    	ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = new ArrayList<TeamMonthMatchVO>();
-    	GetTeamdataDataService g;
-    	g = new GetTeamdata();
-    	teamMatchPOs = g.getRecentFifteen();
-    	for (int i = 0; i < teamMatchPOs.size(); i++) {
-    		String opponent = teamMatchPOs.get(i).getOpponent();
-    		for (int j = 1; j < teamMatchPOs.size(); j++) {
-				if (teamMatchPOs.get(j).getName().equals(opponent) && teamMatchPOs.get(j).getDate().equals(teamMatchPOs.get(i).getDate())) {
-					String date = teamMatchPOs.get(j).getDate();
-					String host = "";
-					String guest = "";
-					String score = "";
-					String first = "";
-					String second = "";
-					String third = "";
-					String fourth = "";
-					if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
-						host = teamMatchPOs.get(i).getName();
-						guest = teamMatchPOs.get(j).getName();
-						score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(j).getTotal();
-						first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(j).getFirst();
-						second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(j).getSecond();
-						third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(j).getThird();
-						fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs.get(j).getFourth();
-					}else {
-						host = teamMatchPOs.get(j).getName();
-						guest = teamMatchPOs.get(i).getName();
-						score = teamMatchPOs.get(j).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
-						first = teamMatchPOs.get(j).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
-						second = teamMatchPOs.get(j).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
-						third = teamMatchPOs.get(j).getThird() + "-" + teamMatchPOs.get(i).getThird();
-						fourth = teamMatchPOs.get(j).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
-					}	
-					TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(date,
-							host, 
-							guest,
-							score,
-							first, 
-							second,
-							third, 
-							fourth);
-					teamMonthMatchVOs.add(teamMonthMatchVO);
-					teamMatchPOs.remove(j);
-					teamMatchPOs.remove(i);
-				}
-			}
-    		
-//    		teamMatchVOs.set(i, teamMatchVO);
-		}
-    	return teamMonthMatchVOs;
-    }
+//    public ArrayList<TeamMonthMatchVO> getRecentFifteen(){
+//    	ArrayList<TeamMatchPO> teamMatchPOs = new ArrayList<TeamMatchPO>();
+//    	ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = new ArrayList<TeamMonthMatchVO>();
+//    	GetTeamdataDataService g;
+//    	g = new GetTeamdata();
+//    	teamMatchPOs = g.getRecentFifteen();
+//    	for (int i = 0; i < teamMatchPOs.size(); ) {
+//    		String opponent = teamMatchPOs.get(i).getOpponent();
+//    		for (int j = 1; j < teamMatchPOs.size(); j++) {
+//				if (teamMatchPOs.get(j).getName().equals(opponent) && teamMatchPOs.get(j).getDate().equals(teamMatchPOs.get(i).getDate())) {
+//					String date = teamMatchPOs.get(j).getDate();
+//					String host = "";
+//					String guest = "";
+//					String score = "";
+//					String first = "";
+//					String second = "";
+//					String third = "";
+//					String fourth = "";
+//					if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
+//						host = teamMatchPOs.get(i).getName();
+//						guest = teamMatchPOs.get(j).getName();
+//						score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs.get(j).getTotal();
+//						first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs.get(j).getFirst();
+//						second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs.get(j).getSecond();
+//						third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs.get(j).getThird();
+//						fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs.get(j).getFourth();
+//					}else {
+//						host = teamMatchPOs.get(j).getName();
+//						guest = teamMatchPOs.get(i).getName();
+//						score = teamMatchPOs.get(j).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
+//						first = teamMatchPOs.get(j).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
+//						second = teamMatchPOs.get(j).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
+//						third = teamMatchPOs.get(j).getThird() + "-" + teamMatchPOs.get(i).getThird();
+//						fourth = teamMatchPOs.get(j).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
+//					}	
+//					TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(date,
+//							host, 
+//							guest,
+//							score,
+//							first, 
+//							second,
+//							third, 
+//							fourth);
+//					teamMonthMatchVOs.add(teamMonthMatchVO);
+//					teamMatchPOs.remove(j);
+//					teamMatchPOs.remove(i);
+//				}
+//			}
+//    		
+////    		teamMatchVOs.set(i, teamMatchVO);
+//		}
+//    	return teamMonthMatchVOs;
+//    }
 
 }
 

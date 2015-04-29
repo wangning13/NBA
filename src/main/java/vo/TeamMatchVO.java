@@ -39,84 +39,48 @@ public class TeamMatchVO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getDate() {
-		return date;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public String getDate() {
+		return date;
 	}
 
 	public String getHostGuest() {
 		return hostGuest;
 	}
 
-	public void setHostGuest(String hostGuest) {
-		this.hostGuest = hostGuest;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getOpponent() {
 		return opponent;
 	}
 
-	public void setOpponent(String opponent) {
-		this.opponent = opponent;
-	}
-
 	public String getWinLose() {
 		return winLose;
-	}
-
-	public void setWinLose(String winLose) {
-		this.winLose = winLose;
 	}
 
 	public int getTotal() {
 		return total;
 	}
 
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
 	public int getFirst() {
 		return first;
-	}
-
-	public void setFirst(int first) {
-		this.first = first;
 	}
 
 	public int getSecond() {
 		return second;
 	}
 
-	public void setSecond(int second) {
-		this.second = second;
-	}
-
 	public int getThird() {
 		return third;
 	}
 
-	public void setThird(int third) {
-		this.third = third;
-	}
-
 	public int getFourth() {
 		return fourth;
-	}
-
-	public void setFourth(int fourth) {
-		this.fourth = fourth;
 	}
 
 }

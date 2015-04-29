@@ -220,6 +220,7 @@ public class PlayerRank implements PlayerRankService{
 		GetPlayerdataDataService g;
 			g = new GetPlayerdata();
 			playerPOs = g.getAllPlayerdata(season, "backboard", "DESC");
+			int playerPOsSize = playerPOs.size();
 			for (int i = 0; i < playerPOs.size(); i++) {
 				Calculate calculate = new Calculate();
 				playerPOs.set(i, calculate.Calculate(playerPOs.get(i)));
@@ -227,7 +228,13 @@ public class PlayerRank implements PlayerRankService{
 			Sort sort = new Sort();
 			
 			playerPOs2 = sort.Sort(playerPOs, condition, "DESC");
-			for (int i = 0; i < 5; i++) {
+			int number = 0;
+			if (playerPOsSize<5) {
+				number = playerPOsSize;
+			}else {
+				number = 5;
+			}
+			for (int i = 0; i < number; i++) {
 				GetPlayerVO getPlayerVO = new GetPlayerVO();
 				PlayerVO playerVO = getPlayerVO.getPlayerVO(playerPOs2.get(i));
 				playerVOs.add(playerVO);
@@ -244,13 +251,20 @@ public class PlayerRank implements PlayerRankService{
 		GetPlayerdataDataService g;
 			g = new GetPlayerdata();
 			playerPOs = g.getAllPlayerdata(season, "backboard", "DESC");
+			int playerPOsSize = playerPOs.size();
 			for (int i = 0; i < playerPOs.size(); i++) {
 				Calculate calculate = new Calculate();
 				playerPOs.set(i, calculate.Calculate(playerPOs.get(i)));
 			}
 			Sort sort = new Sort();
 			playerPOs2 = sort.Sort(playerPOs, key, "DESC");
-			for (int i = 0; i < 5; i++) {
+			int number = 0;
+			if (playerPOsSize<5) {
+				number = playerPOsSize;
+			}else {
+				number = 5;
+			}
+			for (int i = 0; i < number; i++) {
 				GetPlayerVO getPlayerVO = new GetPlayerVO();
 				PlayerVO playerVO = getPlayerVO.getPlayerVO(playerPOs2.get(i));
 				playerVOs.add(playerVO);

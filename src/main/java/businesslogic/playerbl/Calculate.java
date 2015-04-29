@@ -76,7 +76,7 @@ public class Calculate {
 			}else {
 				playerPO.setDefensiveReboundPercentage(Double.parseDouble(df3.format(playerPO.getDefensiveRebound()*(playerPO.getTeamMinutes()/5)/playerPO.getMinutes()/(playerPO.getTeamDefensiveRebound()+playerPO.getOpponentDefensiveRebound()))));
 			}
-			if (playerPO.getMinutes()==0) {
+			if (playerPO.getMinutes()==0 || playerPO.getTeamMinutes()==0) {
 				playerPO.setAssistPercentage(0);
 			}else {
 				playerPO.setAssistPercentage(Double.parseDouble(df3.format(playerPO.getAssist()/(playerPO.getMinutes()/(playerPO.getTeamMinutes()/5)*(playerPO.getTeamFieldGoal()+playerPO.getTeamFreeThrow()-playerPO.getFieldGoal()-playerPO.getFreeThrow())))));
