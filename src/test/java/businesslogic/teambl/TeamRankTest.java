@@ -91,14 +91,14 @@ public class TeamRankTest {
 		assertEquals(number, 5);
 		
 	}
-	@Test
-	public void getRecentFifteenTest(){
-		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getRecentFifteen();
-		boolean notNull = true;
-		if (teamMonthMatchVOs.size()==0) {
-			notNull = false;
-		}
-		assertTrue(notNull);
-	}
+//	@Test
+//	public void getRecentFifteenTest(){
+//		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getRecentFifteen();
+//		boolean notNull = true;
+//		if (teamMonthMatchVOs.size()==0) {
+//			notNull = false;
+//		}
+//		assertTrue(notNull);
+//	}
 
 }

@@ -273,4 +273,21 @@ public class PlayerRank implements PlayerRankService{
 		
 		return playerVOs;
 	}
+	public ArrayList<PlayerVO> getPlayerName(String season,String key){
+		ArrayList<PlayerVO> playerVOs = new ArrayList<PlayerVO>();
+		ArrayList<PlayerPO> playerPOs = new ArrayList<PlayerPO>();
+		GetPlayerdataDataService g = new GetPlayerdata();
+		playerPOs = g.getPlayerName(season, key);
+		for (int i = 0; i < playerPOs.size(); i++) {
+			Calculate calculate = new Calculate();
+			playerPOs.set(i, calculate.Calculate(playerPOs.get(i)));
+			}
+		for (int i = 0; i < playerPOs.size(); i++) {
+			GetPlayerVO getPlayerVO = new GetPlayerVO();
+			PlayerVO playerVO = getPlayerVO.getPlayerVO(playerPOs.get(i));
+			playerVOs.add(playerVO);
+		}
+		
+		return playerVOs;
+	}
 }
