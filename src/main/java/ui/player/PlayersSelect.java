@@ -30,8 +30,9 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 	JScrollPane pane;
 	MyTable table;
 	DefaultTableModel model;
+	JLabel jl = new JLabel("球员搜索");
 	MyButton search = new MyButton(Img.SEARCH1,Img.SEARCH2);
-	MyButton showAll = new MyButton(Img.SEARCH1,Img.SEARCH2);
+	MyButton showAll = new MyButton(Img.SHOWALL1,Img.SHOWALL2);
 	JTextField jtf = new JTextField(50);
 	JLabel rankingBand = new JLabel(Img.RANKINGBAND);
 	//JRadioButton jrb1 = new JRadioButton("按球队查找");
@@ -57,16 +58,20 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 		group.add(jrb1);
 		
 		*/
+		this.add(jl);
+		jl.setBounds(670, 173, 120, 20);
+		jl.setFont(font1);
+		
 		this.add(jtf);
-		jtf.setBounds(720, 173, 120, 20);
+		jtf.setBounds(770, 173, 120, 20);
 		
 		this.add(search);
-		search.setBounds(860, 170, 120, 30);
+		search.setBounds(910, 170, 25, 25);
 		search.addActionListener(this);
 		search.setActionCommand("search");
 		
 		this.add(showAll);
-		showAll.setBounds(960, 170, 120, 30);
+		showAll.setBounds(960, 173, 60, 20);
 		showAll.addActionListener(this);
 		showAll.setActionCommand("showAll");
 		
@@ -203,6 +208,12 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 				|| e.getActionCommand().equals("back")) {
 			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
+		}
+		else if (e.getActionCommand().equals("search")) {
+
+		}
+		else if (e.getActionCommand().equals("showAll")) {
+            update();
 		}
 	}
 }
