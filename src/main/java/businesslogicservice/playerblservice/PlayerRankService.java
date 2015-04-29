@@ -33,4 +33,6 @@ public interface PlayerRankService {
 	public ArrayList<PlayerVO> getSeasonTop(String season, String condition);
 
 	public ArrayList<PlayerVO> getMostImporvedPlayer(String season, String key);
+	
+	public ArrayList<PlayerVO> getPlayerName(String season,String key);
 }
