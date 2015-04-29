@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -22,14 +23,18 @@ import ui.main.MyButton;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.MyTable;
+import vo.PlayerVO;
 
 @SuppressWarnings("serial")
 public class PlayersSelect extends MyPanel implements ActionListener {
 	PlayerRankService prs = new PlayerRank();
 	Frame frame;
 	JScrollPane pane;
+	JScrollPane pane1;
 	MyTable table;
+	MyTable table1;
 	DefaultTableModel model;
+	DefaultTableModel model1;
 	JLabel jl = new JLabel("球员搜索");
 	MyButton search = new MyButton(Img.SEARCH1,Img.SEARCH2);
 	MyButton showAll = new MyButton(Img.SHOWALL1,Img.SHOWALL2);
@@ -42,6 +47,7 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 			"菲尼克斯太阳", "洛杉矶湖人", "洛杉矶快船", "金州勇士", "迈阿密热", "奥兰多魔术", "亚特兰大老鹰",
 			"华盛顿奇才", "夏洛特黄蜂", "底特律活塞", "印第安纳步行者", "克里夫兰骑士", "芝加哥公牛", "密尔沃基雄鹿",
 			"波士顿凯尔特人", "费城76人", "纽约尼克斯", "布鲁克林篮网", "多伦多猛龙" };
+	String[] columnNames1 = { "姓名","球队" };
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 
 	public PlayersSelect(Frame frame) {
@@ -59,7 +65,7 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 		
 		*/
 		this.add(jl);
-		jl.setBounds(670, 173, 120, 20);
+		jl.setBounds(690, 173, 120, 20);
 		jl.setFont(font1);
 		
 		this.add(jtf);
@@ -82,6 +88,8 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 		model = new DefaultTableModel(new Object[][] {}, columnNames);
 		model.setDataVector(data, columnNames);
 		table = new MyTable(model);
+		
+		
 
 		// table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		pane = new JScrollPane(table);
@@ -95,6 +103,28 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 				jump(row, column);
 			}
 		});
+		
+		Object[][] data1 = null;
+		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
+		model1.setDataVector(data1, columnNames1);
+		table1 = new MyTable(model1);
+		
+		
+
+		table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		pane1 = new JScrollPane(table1);
+		this.add(pane1);
+		pane1.setBounds(0, 220, 1052, 430);
+
+		table1.addMouseListener(new MouseAdapter() { // 这里使用MouseAdapter代替MouseListener，因为MouseListener要重写的方法太多
+			public void mouseClicked(MouseEvent e) {
+				int row = table1.getSelectedRow();
+				int column = table1.getSelectedColumn();
+				if(column==0)
+				jump1(row, column);
+			}
+		});
+		pane1.setVisible(false);
 	}
 
 	public Object[][] getData() {
@@ -186,6 +216,8 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 	    		model.setDataVector(getData(), columnNames);
 	    		table.setWidth();
 	        	table.updateUI();
+	        	pane.setVisible(true);
+	        	pane1.setVisible(false);
 	                 }
 		 });
 	}
@@ -193,6 +225,18 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 	public void jump(int row, int column) {
 		if (table.getValueAt(row, column) != null) {
 			String name = table.getValueAt(row, column).toString();
+			if (!name.equals("")) {
+				frame.change(this, Frame.singlePlayerPanel);
+				Frame.singlePlayerPanel.update(name);
+				Frame.singlePlayerPanel.flag = false;
+				Frame.currentPanel = "singlePlayer";
+			}
+		}
+	}
+	
+	public void jump1(int row, int column) {
+		if (table1.getValueAt(row, column) != null) {
+			String name = table1.getValueAt(row, column).toString();
 			if (!name.equals("")) {
 				frame.change(this, Frame.singlePlayerPanel);
 				Frame.singlePlayerPanel.update(name);
@@ -209,8 +253,20 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 			frame.change(this, Frame.mainFrame);
 			Frame.currentPanel = "main";
 		}
-		else if (e.getActionCommand().equals("search")) {
-
+		else if (e.getActionCommand().equals("search")&&!jtf.getText().equals("")) {
+			ArrayList<PlayerVO> players = prs.getPlayerName("13-14",jtf.getText());
+			int num = players.size();
+			Object[][] data = new Object[num][];
+			for (int i = 0; i < num; i++) {
+				Object temp[] = { players.get(i).getPlayerName(), players.get(i).getTeam()};
+				data[i] = temp;
+			}
+		//	table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+    		model1.setDataVector(data, columnNames1);
+    		table1.setWidth();
+        	table1.updateUI();
+        	pane.setVisible(false);
+        	pane1.setVisible(true);
 		}
 		else if (e.getActionCommand().equals("showAll")) {
             update();

@@ -439,6 +439,7 @@ public class UpdateDatabase extends TimerTask {
 				String sql = "SELECT * FROM `teamsum" + season
 						+ "` WHERE teamName='" + teamName + "'";
 				ResultSet rs = statement.executeQuery(sql);
+				int temp = 0;
 				while (rs.next()) {
 					opponentFieldGoal = rs.getInt(1);
 					opponentFieldGoalAttempts = rs.getInt(2);
@@ -447,7 +448,8 @@ public class UpdateDatabase extends TimerTask {
 					oppenentScoring = rs.getInt(5);
 					teamName = rs.getString(6);
 					matches = matches + rs.getInt(7);
-					wins = wins + rs.getInt(8);
+					temp = rs.getInt(8);
+					wins = wins + temp;
 					fieldGoal = rs.getInt(9);
 					fieldGoalAttempts = rs.getInt(10);
 					threePointFieldGoal = rs.getInt(11);
@@ -468,9 +470,6 @@ public class UpdateDatabase extends TimerTask {
 					minutes = rs.getDouble(26);
 					opponentBackBoard = rs.getInt(27);
 					opponentThreePointFieldGoalAttempts = rs.getInt(28);
-				}
-				if (teamName.equals("OKC")) {
-					System.out.println(wins);
 				}
 				// 加球员数据
 				sql = "SELECT * FROM `playerdata` WHERE date='" + date
@@ -537,8 +536,8 @@ public class UpdateDatabase extends TimerTask {
 				statement.addBatch(sql);
 				matches = 0;
 				wins = 0;
+				statement.executeBatch();
 			}
-			statement.executeBatch();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
