@@ -42,6 +42,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 	String name;
 	ArrayList<TeamMonthMatchVO> matches;
 	Frame frame;
+	Object[][] data;
 	JScrollPane pane1;
 	MyTable1 table1;
 	DefaultTableModel model1;
@@ -377,6 +378,13 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		        public void run() {
 
 					table2.setWidth();
+		        	
+		                 }
+			 });
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+
+					
 		        	table2.updateUI();
 		                 }
 			 });
@@ -391,7 +399,18 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			SwingUtilities.invokeLater(new Runnable() {
 		        public void run() {
 					model2.setDataVector(data2, columnNames2);
+
+		                 }
+			 });
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
 					table2.setWidth();
+		        	
+		                 }
+			 });
+			SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
+					
 		        	table2.updateUI();
 		                 }
 			 });
@@ -400,7 +419,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		ArrayList<String> players = prs.getAllPlayer("13-14", name);
 
 		int num = players.size();
-		Object[][] data = new Object[num][];
+		data = new Object[num][];
 		for (int i = 0; i < num; i++) {
 			// System.out.println(players.get(i));
 			PlayerVO player = prs.getPlayerdata("13-14", players.get(i));
@@ -410,8 +429,18 @@ public class SingleTeam extends MyPanel implements ActionListener {
 					player.getFoul(), player.getScoring(), };
 			data[i] = temp;
 		}
-		model1.setDataVector(data, columnNames1);
-		table1.setWidth();
+		
+		
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	        	model1.setDataVector(data, columnNames1);
+	                 }
+		 });
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	        	table1.setWidth();
+	                 }
+		 });
 		SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	        	table1.updateUI();

@@ -109,6 +109,9 @@ public class UpdateDatabase extends TimerTask {
 						String[] singleinfo = info.split("%");
 						for (int j = 0; j < singleinfo.length; j++) {
 							temp = singleinfo[j].split(";");
+							if (temp.length < 20) {
+								System.out.println(temp[0]+temp[2]);
+							}
 							if (temp[19].charAt(0) < 48
 									|| temp[19].charAt(0) > 57)
 								temp[19] = "0";

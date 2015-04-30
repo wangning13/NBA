@@ -29,6 +29,7 @@ import vo.PlayerVO;
 public class PlayersSelect extends MyPanel implements ActionListener {
 	PlayerRankService prs = new PlayerRank();
 	Frame frame;
+	Boolean isStart = false;
 	JScrollPane pane;
 	JScrollPane pane1;
 	MyTable table;
@@ -210,7 +211,20 @@ public class PlayersSelect extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-
+        if(!isStart){
+		SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	    		model.setDataVector(getData(), columnNames);
+	    		table.setWidth();
+	        	table.updateUI();
+	        	pane.setVisible(true);
+	        	pane1.setVisible(false);
+	                 }
+		 });
+        }
+	}
+	public void update1() {
+        isStart = false;
 		SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	    		model.setDataVector(getData(), columnNames);
@@ -267,9 +281,11 @@ public class PlayersSelect extends MyPanel implements ActionListener {
         	table1.updateUI();
         	pane.setVisible(false);
         	pane1.setVisible(true);
+        	isStart = true;
 		}
 		else if (e.getActionCommand().equals("showAll")) {
             update();
+            isStart = false;
 		}
 	}
 }
