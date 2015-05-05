@@ -92,13 +92,13 @@ public class Console {
 			System.out.println("isHigh:"+this.isHigh);
 		}
 		
-	/*过滤功能
-	 * 	@CmdOption(names = {"-filter"},args = {"field"},description = "filter filed")
+	
+	  	@CmdOption(names = {"-filter"},args = {"field"},description = "filter filed", maxCount = 1, minCount = 0)
 		public void setField(String field) {
-			String[] temp = field.split(".");
+			String[] temp = field.split("\\.");
 			out.println(temp[0]+":"+temp[1]);
 		}
-		*/
+		
 	/*	排序
 	 * 
 	 * @CmdOption(names = {"-sort field.asc"},description = "setAsc")
@@ -150,7 +150,7 @@ public class Console {
 	
 	public static void main(String[] args){
 		Console console = new Console();
-		console.execute(System.out, new String[]{"-player","-avg","-hot","score","-season","-n","10"});
+		console.execute(System.out, new String[]{"-player","-king","score","-season","-n","10","-filter","position.F"});
 	}
 	
 }
