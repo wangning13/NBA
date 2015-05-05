@@ -125,8 +125,71 @@ public class Console {
 	
 	@CmdCommand(names = {"-team"},description = "Show team data")
 	public class TeamModel {
+
+		boolean isAvg = true;
+		boolean isAll = true;
+		int num = 30;
+		boolean isHigh = false;
+		String field;
+		String order;
 		
+		@CmdOption(names = {"-avg"},description = "Show average team data")
+		public void setAvgTeam() {
+			
+		}
 		
+		@CmdOption(names = {"-total"},description = "Show total team data")
+		public void setTotalTeam() {
+			isAvg = false;
+		}
+		
+		@CmdOption(names = {"-all"},description = "Show all team data")
+		public void setAllTeam() {
+			
+		}
+		
+		@CmdOption(names = {"-hot"},args = {"field"},description = "Show hot team data")
+		public void setHotTeam(String field) {
+			isAll = false;
+			this.field = field;
+		}
+		
+		@CmdOption(names = {"-n"},args = {"number"},description = "Show number of team data")
+		public void setTeamNum(String number) {
+			num = Integer.parseInt(number);
+		}
+		
+		@CmdOption(names = {"-high"},description = "Show high team data")
+		public void setTeamHigh() {
+			isHigh = true;
+		}
+		
+		@CmdOption(names = {"-sort"},args = {"field.sortOrder"},description = "Show sort of team data")
+		public void setTeamSort(String s) {
+			String[] temp = s.split("\\.");
+			field = temp[0];
+			order = temp[1];
+		}
+		
+		public void print() {
+			if (isAvg && isAll && isHigh) {
+
+			} else if (isAvg && isAll && !isHigh) {
+				
+			} else if (isAvg && !isAll && isHigh) {
+				
+			} else if (!isAvg && isAll && isHigh) {
+				
+			} else if (isAvg && !isAll && !isHigh) {
+		
+			} else if (!isAvg && isAll && !isHigh) {
+		
+			} else if (!isAvg && !isAll && isHigh) {
+		
+			} else if (!isAvg && !isAll && !isHigh) {
+		
+			}
+		}
 		
 	}
 	
