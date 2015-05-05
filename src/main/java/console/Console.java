@@ -1,6 +1,7 @@
 package console;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import de.tototec.cmdoption.CmdCommand;
 import de.tototec.cmdoption.CmdOption;
@@ -14,9 +15,12 @@ public class Console {
 		boolean isAvg = true;
 		boolean isSeason = true;
 		boolean isHigh = false;
+		boolean isDesc = true;
 		String term = "all";
 		String field;
 		int num = 50;
+		ArrayList<String> filter = new ArrayList<String>(0);
+		ArrayList<String> sort = new ArrayList<String>(0);
 		@CmdOption(names = {"-avg"},description = "Show average player data")
 		public void setAvgPlayer() {
 			isAvg = true;
@@ -95,22 +99,24 @@ public class Console {
 	
 	  	@CmdOption(names = {"-filter"},args = {"field"},description = "filter filed", maxCount = 1, minCount = 0)
 		public void setField(String field) {
-			String[] temp = field.split("\\.");
-			out.println(temp[0]+":"+temp[1]);
+	  		String[] temps = field.split(",");
+	  		for(int i=0;i<temps.length;i++){
+	  			filter.add(temps[i]);
+			    String[] temp = temps[i].split("\\.");
+			    out.println(temp[0]+":"+temp[1]);
+	  		}
+		}	
+
+	   @CmdOption(names = {"-sort"},args = {"field"},description = "set sort", maxCount = 1, minCount = 0)
+		public void setSortAsc(String field) {
+	  		String[] temps = field.split(",");
+	  		for(int i=0;i<temps.length;i++){
+	  			sort.add(temps[i]);
+			    String[] temp = temps[i].split("\\.");
+			    out.println(temp[0]+":"+temp[1]);
+	  		}
 		}
 		
-	/*	排序
-	 * 
-	 * @CmdOption(names = {"-sort field.asc"},description = "setAsc")
-		public void setSortAsc() {
-			out.println("setAsc");
-		}
-		
-		@CmdOption(names = {"-sort field.desc"},description = "setDesc")
-		public void setSortDesc() {
-			out.println("setDesc");
-		}
-		*/
 	
 		public void print(){
 			if(isAvg){
@@ -213,7 +219,7 @@ public class Console {
 	
 	public static void main(String[] args){
 		Console console = new Console();
-		console.execute(System.out, new String[]{"-player","-king","score","-season","-n","10","-filter","position.F"});
+		console.execute(System.out, new String[]{"-player","-king","score","-season","-n","10","-filter","position.F,league.West,age.<=22","-sort","score.desc,foul.asc"});
 	}
 	
 }
