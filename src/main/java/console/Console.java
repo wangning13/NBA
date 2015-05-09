@@ -3,6 +3,10 @@ package console;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import test.data.PlayerNormalInfo;
+import vo.PlayerVO;
+import businesslogic.playerbl.PlayerRank;
+import businesslogicservice.playerblservice.PlayerRankService;
 import de.tototec.cmdoption.CmdCommand;
 import de.tototec.cmdoption.CmdOption;
 import de.tototec.cmdoption.CmdlineParser;
@@ -12,6 +16,7 @@ public class Console {
 
 	@CmdCommand(names = {"-player"},description = "Show player data")
 	public class PlayerModel {
+		PlayerRankService prs = new PlayerRank();
 		boolean isAvg = true;
 		boolean isSeason = true;
 		boolean isHigh = false;
@@ -53,25 +58,7 @@ public class Console {
 			this.field = field;
 			out.println("Show king player:"+ this.field);
 		}
-		
-	/*	@CmdOption(names = {"score"},description = "Show score player ")
-		public void setScorePlayer() {
-			field = "score";
-			out.println("Show score player ");
-		}
-		
-		@CmdOption(names = {"rebound"},description = "Show rebound player ")
-		public void setReboundPlayer() {
-			field = "rebound";
-			out.println("Show Rebound player ");
-		}
-		
-		@CmdOption(names = {"assist"},description = "Show assist player ")
-		public void setAssistPlayer() {
-			field = "assist";
-			out.println("Show assist player ");
-		}
-*/
+
 		@CmdOption(names = {"-season"},description = "Show season king player data",maxCount = 1,minCount = 0,requires = {"-king"},conflictsWith = {"-daily"})
 		public void setKingSeasonPlayer() {
 			isSeason = true;
@@ -120,7 +107,17 @@ public class Console {
 	
 		public void print(){
 			if(isAvg){
+				if(term.equals("all")){
+					ArrayList<PlayerVO> players = prs.getAllPlayerdata("13-14", "scoring", "DESC");
+		//		PlayerNormalInfo player = new PlayerNormalInfo();
 				
+				}
+				else if(term.equals("hot")){
+					ArrayList<PlayerVO> players = prs.getMostImporvedPlayer("13-14", field);
+				}
+				else if(term.equals("king")){
+					
+				}
 			}
 			else{
 				
