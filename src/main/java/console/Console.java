@@ -470,7 +470,7 @@ public class Console {
 					normalInfo.setThree(teamList.get(i).getAverageThreePointFieldGoal());
 				}
 			} else if (isAvg && !isAll && isHigh) {
-				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
 				if (teamList.size() < num) {
 					num = teamList.size();
 				}
@@ -504,7 +504,7 @@ public class Console {
 					highInfo.setOffendRound(teamList.get(i).getPossessions());
 				}
 			} else if (isAvg && !isAll && !isHigh) {
-				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
 				if (teamList.size() < num) {
 					num = teamList.size();
 				}
@@ -548,7 +548,7 @@ public class Console {
 					normalInfo.setThree(teamList.get(i).getThreePointFieldGoal());
 				}
 			} else if (!isAvg && !isAll && isHigh) {
-				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
 				if (teamList.size() < num) {
 					num = teamList.size();
 				}
@@ -565,7 +565,7 @@ public class Console {
 					highInfo.setOffendRound(teamList.get(i).getPossessions());
 				}
 			} else if (!isAvg && !isAll && !isHigh) {
-				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
 				if (teamList.size() < num) {
 					num = teamList.size();
 				}
