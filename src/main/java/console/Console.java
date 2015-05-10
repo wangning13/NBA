@@ -3,10 +3,14 @@ package console;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import test.data.PlayerNormalInfo;
+import rmi.Server;
+import test.data.*;
 import vo.PlayerVO;
+import vo.TeamVO;
 import businesslogic.playerbl.PlayerRank;
+import businesslogic.teambl.TeamRank;
 import businesslogicservice.playerblservice.PlayerRankService;
+import businesslogicservice.teamblservice.TeamRankService;
 import de.tototec.cmdoption.CmdCommand;
 import de.tototec.cmdoption.CmdOption;
 import de.tototec.cmdoption.CmdlineParser;
@@ -129,12 +133,13 @@ public class Console {
 	@CmdCommand(names = {"-team"},description = "Show team data")
 	public class TeamModel {
 
+		TeamRankService trs = new TeamRank();
 		boolean isAvg = true;
 		boolean isAll = true;
 		int num = 30;
 		boolean isHigh = false;
-		String field;
-		String order;
+		String field = "";
+		String order = "desc";
 		
 		@CmdOption(names = {"-avg"},description = "Show average team data")
 		public void setAvgTeam() {
@@ -175,11 +180,19 @@ public class Console {
 		}
 		
 		public void print() {
+			if (!isHigh) {
+				field = field.equals("") ? "score" : field;
+			} else {
+				field = field.equals("") ? "score" : field;
+			}
 			if (isAvg && isAll && isHigh) {
-
+				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, field, order);
+				
 			} else if (isAvg && isAll && !isHigh) {
+				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, field, order);
 				
 			} else if (isAvg && !isAll && isHigh) {
+				
 				
 			} else if (!isAvg && isAll && isHigh) {
 				
