@@ -2,12 +2,14 @@ package console;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+
 import rmi.Server;
-import test.data.*;
+import test.data.TeamHighInfo;
 import test.data.PlayerHighInfo;
 import test.data.PlayerHotInfo;
 import test.data.PlayerKingInfo;
 import test.data.PlayerNormalInfo;
+import test.data.TeamNormalInfo;
 import vo.PlayerMatchVO;
 import vo.PlayerVO;
 import vo.TeamVO;
@@ -422,30 +424,164 @@ public class Console {
 		}
 		
 		public void print() {
+			ArrayList<TeamVO> teamList;
 			if (!isHigh) {
 				field = field.equals("") ? "score" : field;
 			} else {
 				field = field.equals("") ? "winRate" : field;
 			}
 			if (isAvg && isAll && isHigh) {
-				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, translate(field), order);
-				
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamHighInfo highInfo = new TeamHighInfo();
+					highInfo.setWinRate(teamList.get(i).getWinningPercentage());
+					highInfo.setAssistEfficient(teamList.get(i).getAssistEfficiency());
+					highInfo.setDefendEfficient(teamList.get(i).getDefensiveEfficiency());
+					highInfo.setDefendReboundEfficient(teamList.get(i).getDefensivebackboardEfficiency());
+					highInfo.setOffendReboundEfficient(teamList.get(i).getOffensivebackboardEfficiency());
+					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
+					highInfo.setTeamName(teamList.get(i).getTeamName());
+					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+				}
 			} else if (isAvg && isAll && !isHigh) {
-				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, translate(field), order);
-				
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamNormalInfo normalInfo = new TeamNormalInfo();
+					normalInfo.setAssist(teamList.get(i).getAverageAsist());
+					normalInfo.setBlockShot(teamList.get(i).getAverageBlock());
+					normalInfo.setDefendRebound(teamList.get(i).getAverageDefensiveRebound());
+					normalInfo.setFault(teamList.get(i).getAverageTurnOver());
+					normalInfo.setFoul(teamList.get(i).getAverageFoul());
+					normalInfo.setNumOfGame(teamList.get(i).getMatches());
+					normalInfo.setOffendRebound(teamList.get(i).getAverageOffensiveRebound());
+					normalInfo.setPenalty(teamList.get(i).getFreeThrowPercentage());
+					normalInfo.setPoint(teamList.get(i).getAverageScoring());
+					normalInfo.setRebound(teamList.get(i).getAverageBackboard());
+					normalInfo.setShot(teamList.get(i).getAverageFieldGoal());
+					normalInfo.setSteal(teamList.get(i).getAverageSteal());
+					normalInfo.setTeamName(teamList.get(i).getTeamName());
+					normalInfo.setThree(teamList.get(i).getAverageThreePointFieldGoal());
+				}
 			} else if (isAvg && !isAll && isHigh) {
-				
-				
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamHighInfo highInfo = new TeamHighInfo();
+					highInfo.setWinRate(teamList.get(i).getWinningPercentage());
+					highInfo.setAssistEfficient(teamList.get(i).getAssistEfficiency());
+					highInfo.setDefendEfficient(teamList.get(i).getDefensiveEfficiency());
+					highInfo.setDefendReboundEfficient(teamList.get(i).getDefensivebackboardEfficiency());
+					highInfo.setOffendReboundEfficient(teamList.get(i).getOffensivebackboardEfficiency());
+					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
+					highInfo.setTeamName(teamList.get(i).getTeamName());
+					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+				}				
 			} else if (!isAvg && isAll && isHigh) {
-				
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamHighInfo highInfo = new TeamHighInfo();
+					highInfo.setWinRate(teamList.get(i).getWinningPercentage());
+					highInfo.setAssistEfficient(teamList.get(i).getAssistEfficiency());
+					highInfo.setDefendEfficient(teamList.get(i).getDefensiveEfficiency());
+					highInfo.setDefendReboundEfficient(teamList.get(i).getDefensivebackboardEfficiency());
+					highInfo.setOffendReboundEfficient(teamList.get(i).getOffensivebackboardEfficiency());
+					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
+					highInfo.setTeamName(teamList.get(i).getTeamName());
+					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+				}
 			} else if (isAvg && !isAll && !isHigh) {
-		
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamNormalInfo normalInfo = new TeamNormalInfo();
+					normalInfo.setAssist(teamList.get(i).getAverageAsist());
+					normalInfo.setBlockShot(teamList.get(i).getAverageBlock());
+					normalInfo.setDefendRebound(teamList.get(i).getAverageDefensiveRebound());
+					normalInfo.setFault(teamList.get(i).getAverageTurnOver());
+					normalInfo.setFoul(teamList.get(i).getAverageFoul());
+					normalInfo.setNumOfGame(teamList.get(i).getMatches());
+					normalInfo.setOffendRebound(teamList.get(i).getAverageOffensiveRebound());
+					normalInfo.setPenalty(teamList.get(i).getFreeThrowPercentage());
+					normalInfo.setPoint(teamList.get(i).getAverageScoring());
+					normalInfo.setRebound(teamList.get(i).getAverageBackboard());
+					normalInfo.setShot(teamList.get(i).getAverageFieldGoal());
+					normalInfo.setSteal(teamList.get(i).getAverageSteal());
+					normalInfo.setTeamName(teamList.get(i).getTeamName());
+					normalInfo.setThree(teamList.get(i).getAverageThreePointFieldGoal());
+				}
 			} else if (!isAvg && isAll && !isHigh) {
-		
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamNormalInfo normalInfo = new TeamNormalInfo();
+					normalInfo.setAssist(teamList.get(i).getAssist());
+					normalInfo.setBlockShot(teamList.get(i).getBlock());
+					normalInfo.setDefendRebound(teamList.get(i).getDefensiveRebound());
+					normalInfo.setFault(teamList.get(i).getTurnOver());
+					normalInfo.setFoul(teamList.get(i).getFoul());
+					normalInfo.setNumOfGame(teamList.get(i).getMatches());
+					normalInfo.setOffendRebound(teamList.get(i).getOffensiveRebound());
+					normalInfo.setPenalty(teamList.get(i).getFreeThrowPercentage());
+					normalInfo.setPoint(teamList.get(i).getScoring());
+					normalInfo.setRebound(teamList.get(i).getBackboard());
+					normalInfo.setShot(teamList.get(i).getFieldGoal());
+					normalInfo.setSteal(teamList.get(i).getSteal());
+					normalInfo.setTeamName(teamList.get(i).getTeamName());
+					normalInfo.setThree(teamList.get(i).getThreePointFieldGoal());
+				}
 			} else if (!isAvg && !isAll && isHigh) {
-		
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamHighInfo highInfo = new TeamHighInfo();
+					highInfo.setWinRate(teamList.get(i).getWinningPercentage());
+					highInfo.setAssistEfficient(teamList.get(i).getAssistEfficiency());
+					highInfo.setDefendEfficient(teamList.get(i).getDefensiveEfficiency());
+					highInfo.setDefendReboundEfficient(teamList.get(i).getDefensivebackboardEfficiency());
+					highInfo.setOffendReboundEfficient(teamList.get(i).getOffensivebackboardEfficiency());
+					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
+					highInfo.setTeamName(teamList.get(i).getTeamName());
+					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+				}
 			} else if (!isAvg && !isAll && !isHigh) {
-		
+				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
+				if (teamList.size() < num) {
+					num = teamList.size();
+				}
+				for (int i = 0; i < num; i++) {
+					TeamNormalInfo normalInfo = new TeamNormalInfo();
+					normalInfo.setAssist(teamList.get(i).getAssist());
+					normalInfo.setBlockShot(teamList.get(i).getBlock());
+					normalInfo.setDefendRebound(teamList.get(i).getDefensiveRebound());
+					normalInfo.setFault(teamList.get(i).getTurnOver());
+					normalInfo.setFoul(teamList.get(i).getFoul());
+					normalInfo.setNumOfGame(teamList.get(i).getMatches());
+					normalInfo.setOffendRebound(teamList.get(i).getOffensiveRebound());
+					normalInfo.setPenalty(teamList.get(i).getFreeThrowPercentage());
+					normalInfo.setPoint(teamList.get(i).getScoring());
+					normalInfo.setRebound(teamList.get(i).getBackboard());
+					normalInfo.setShot(teamList.get(i).getFieldGoal());
+					normalInfo.setSteal(teamList.get(i).getSteal());
+					normalInfo.setTeamName(teamList.get(i).getTeamName());
+					normalInfo.setThree(teamList.get(i).getThreePointFieldGoal());
+				}
 			}
 		}
 		
