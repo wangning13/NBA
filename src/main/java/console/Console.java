@@ -174,7 +174,7 @@ public class Console {
 			if(!isHigh){
 	    		if(isAvg){
 		    		if(term.equals("all")){
-		    			players = prs.getAllPlayerdata("13-14", "scoring", "DESC");
+		    			players = prs.getAllPlayerdata(Server.initial_season, "scoring", "DESC");
 		    			players = filter(players);
 			    		int n = players.size();
 			    		if(num>n)
@@ -206,7 +206,7 @@ public class Console {
 			    		}
 	    			}
 		    		else if(term.equals("hot")){
-			    		players = prs.getMostImporvedPlayer("13-14", translate(field));
+			    		players = prs.getMostImporvedPlayer(Server.initial_season, translate(field));
 			    		int n = players.size();
 			    		if(num>n)
 			    			num=n;
@@ -232,7 +232,7 @@ public class Console {
 		    		}
 		    		else if(term.equals("king")){
 		      			if(isSeason){
-		     			players = prs.getSeasonTop("13-14", translate(field));
+		     			players = prs.getSeasonTop(Server.initial_season, translate(field));
 		      			}
 		    			else{
 		    				ArrayList<PlayerMatchVO> players = prs.getDayTop(translate(field));
@@ -267,7 +267,7 @@ public class Console {
 			    	}
 	    		}
 			    else{
-			    	players = prs.getAllPlayerdata("13-14", "scoring", "DESC");
+			    	players = prs.getAllPlayerdata(Server.initial_season, "scoring", "DESC");
 			    	players = filter(players);
 			    	
 		    		int n = players.size();
@@ -302,7 +302,7 @@ public class Console {
 
 			}
 			else{
-				players = prs.getAllPlayerdata("13-14", "trueShootingPercentage", "DESC");
+				players = prs.getAllPlayerdata(Server.initial_season, "trueShootingPercentage", "DESC");
 	    		int n = players.size();
 	    		if(num>n)
 	    			num=n;
@@ -464,6 +464,8 @@ public class Console {
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
 					highInfo.setOffendRound(teamList.get(i).getPossessions());
+					out.println(i+1);
+	    			out.println(highInfo);
 				}
 			} else if (isAvg && isAll && !isHigh) {
 				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
@@ -486,6 +488,8 @@ public class Console {
 					normalInfo.setSteal(teamList.get(i).getAverageSteal());
 					normalInfo.setTeamName(teamList.get(i).getTeamName());
 					normalInfo.setThree(teamList.get(i).getAverageThreePointFieldGoal());
+					out.println(i+1);
+	    			out.println(normalInfo);
 				}
 			} else if (isAvg && !isAll && isHigh) {
 				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
@@ -503,6 +507,8 @@ public class Console {
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
 					highInfo.setOffendRound(teamList.get(i).getPossessions());
+					out.println(i+1);
+	    			out.println(highInfo);
 				}				
 			} else if (!isAvg && isAll && isHigh) {
 				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
@@ -520,6 +526,8 @@ public class Console {
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
 					highInfo.setOffendRound(teamList.get(i).getPossessions());
+					out.println(i+1);
+	    			out.println(highInfo);
 				}
 			} else if (isAvg && !isAll && !isHigh) {
 				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
@@ -542,6 +550,8 @@ public class Console {
 					normalInfo.setSteal(teamList.get(i).getAverageSteal());
 					normalInfo.setTeamName(teamList.get(i).getTeamName());
 					normalInfo.setThree(teamList.get(i).getAverageThreePointFieldGoal());
+					out.println(i+1);
+	    			out.println(normalInfo);
 				}
 			} else if (!isAvg && isAll && !isHigh) {
 				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
@@ -564,6 +574,8 @@ public class Console {
 					normalInfo.setSteal(teamList.get(i).getSteal());
 					normalInfo.setTeamName(teamList.get(i).getTeamName());
 					normalInfo.setThree(teamList.get(i).getThreePointFieldGoal());
+					out.println(i+1);
+	    			out.println(normalInfo);
 				}
 			} else if (!isAvg && !isAll && isHigh) {
 				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
@@ -581,6 +593,8 @@ public class Console {
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
 					highInfo.setOffendRound(teamList.get(i).getPossessions());
+					out.println(i+1);
+	    			out.println(highInfo);
 				}
 			} else if (!isAvg && !isAll && !isHigh) {
 				teamList = trs.getSeasonTop(Server.initial_season, translate(field));
@@ -603,6 +617,8 @@ public class Console {
 					normalInfo.setSteal(teamList.get(i).getSteal());
 					normalInfo.setTeamName(teamList.get(i).getTeamName());
 					normalInfo.setThree(teamList.get(i).getThreePointFieldGoal());
+					out.println(i+1);
+	    			out.println(normalInfo);
 				}
 			}
 		}
@@ -629,6 +645,7 @@ public class Console {
 		case "--datasource":
 			InitialDatabase.datasource = args[1];
 			new InitialDatabase();
+			new Server();
 			break;
 		}
 	}
