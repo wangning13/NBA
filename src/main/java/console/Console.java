@@ -445,6 +445,7 @@ public class Console {
 					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+					highInfo.setOffendRound(teamList.get(i).getPossessions());
 				}
 			} else if (isAvg && isAll && !isHigh) {
 				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
@@ -483,6 +484,7 @@ public class Console {
 					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+					highInfo.setOffendRound(teamList.get(i).getPossessions());
 				}				
 			} else if (!isAvg && isAll && isHigh) {
 				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
@@ -499,6 +501,7 @@ public class Console {
 					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+					highInfo.setOffendRound(teamList.get(i).getPossessions());
 				}
 			} else if (isAvg && !isAll && !isHigh) {
 				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
@@ -559,6 +562,7 @@ public class Console {
 					highInfo.setStealEfficient(teamList.get(i).getStealEfficiency());
 					highInfo.setTeamName(teamList.get(i).getTeamName());
 					highInfo.setOffendEfficient(teamList.get(i).getOffensiveEfficiency());
+					highInfo.setOffendRound(teamList.get(i).getPossessions());
 				}
 			} else if (!isAvg && !isAll && !isHigh) {
 				teamList = trs.getAllTeamdata(Server.initial_season, translate(field), order);
