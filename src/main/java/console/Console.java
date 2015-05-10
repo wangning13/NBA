@@ -179,17 +179,76 @@ public class Console {
 			order = temp[1];
 		}
 		
+		public String translate(String field) {
+			switch (field) {
+			case "score":
+				field = "scoring";
+				break;
+			case "point":
+				field = "scoring";
+				break;
+			case "rebound":
+				field = "backboard";
+				break;
+			case "blockShot":
+				field = "block";
+				break;
+			case "fault":
+				field = "turnOver";
+				break;
+			case "shot":
+				field = "fieldGoalPercentage";
+				break;
+			case "three":
+				field = "threePointShotPercentage";
+				break;
+			case "penalty":
+				field = "freeThrowPercentage";
+				break;
+			case "defendRebound":
+				field = "defensiveRebound";
+				break;
+			case "offendRebound":
+				field = "offensiveRebound";
+				break;
+			case "winRate":
+				field = "winningPercentage";
+				break;
+			case "offendEfficient":
+				field = "offensiveEfficiency";
+				break;
+			case "defendEfficient":
+				field = "defensiveEfficiency";
+				break;
+			case "offendReboundEfficient":
+				field = "offensivebackboardEfficiency";
+				break;
+			case "defendReboundEfficient":
+				field = "defensivebackboardEfficiency";
+				break;
+			case "stealEfficient":
+				field = "stealEfficiency";
+				break;
+			case "assistEfficient":
+				field = "assistEfficiency";
+				break;
+			default:
+				break;
+			}
+			return field;
+		}
+		
 		public void print() {
 			if (!isHigh) {
 				field = field.equals("") ? "score" : field;
 			} else {
-				field = field.equals("") ? "score" : field;
+				field = field.equals("") ? "winRate" : field;
 			}
 			if (isAvg && isAll && isHigh) {
-				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, field, order);
+				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, translate(field), order);
 				
 			} else if (isAvg && isAll && !isHigh) {
-				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, field, order);
+				ArrayList<TeamVO> list = trs.getAllTeamdata(Server.initial_season, translate(field), order);
 				
 			} else if (isAvg && !isAll && isHigh) {
 				
