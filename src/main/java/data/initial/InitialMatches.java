@@ -48,11 +48,11 @@ public class InitialMatches {
 	}
 
 	public void ReadIn() {
-		File f = new File("data/matches");
+		File f = new File(InitialDatabase.datasource + "/matches");
 		String[] filelist = f.list();
 		for (int i = 0; i < filelist.length; i++) {
 			try {
-				FileReader fr = new FileReader("data/matches/" + filelist[i]);
+				FileReader fr = new FileReader(InitialDatabase.datasource + "/matches/" + filelist[i]);
 				@SuppressWarnings("resource")
 				BufferedReader br = new BufferedReader(fr);
 				String line = br.readLine();

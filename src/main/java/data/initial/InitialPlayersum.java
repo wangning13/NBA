@@ -18,7 +18,7 @@ public class InitialPlayersum {
 		String[] tempYear = InitialDatabase.initial_season.split("-");
 		String season = "date < '" + tempYear[1] + "-05' AND date > '"
 				+ tempYear[0] + "-09'";
-		File f = new File("data/players/info");
+		File f = new File(InitialDatabase.datasource + "/players/info");
 		String[] filelist = f.list();
 		String insert = "INSERT INTO `playersum"
 				+ InitialDatabase.initial_season

@@ -37,7 +37,7 @@ public class InitialTeaminfo {
 
 	public void ReadIn() {
 		try {
-			FileReader fr = new FileReader("data/teams/teams");
+			FileReader fr = new FileReader(InitialDatabase.datasource + "/teams/teams");
 			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(fr);
 			String line = "";

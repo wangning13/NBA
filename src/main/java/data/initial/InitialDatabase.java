@@ -10,10 +10,11 @@ public class InitialDatabase {
 	public static String driver = "org.sqlite.JDBC";
 	public static String url = "jdbc:sqlite:nba.db";
 	public static String initial_season;
+	public static String datasource = "";
 
-	public static void main(String[] args) {
+	public InitialDatabase() {
 		long time = System.currentTimeMillis();
-		File f = new File("data/matches");
+		File f = new File(datasource);
 		String[] filelist = f.list();
 		initial_season = filelist[filelist.length / 2];
 		initial_season = initial_season.substring(0,

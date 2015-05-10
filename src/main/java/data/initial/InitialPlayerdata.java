@@ -74,7 +74,7 @@ public class InitialPlayerdata {
 	}
 
 	public void ReadIn() {
-		File f = new File("data/matches");
+		File f = new File(InitialDatabase.datasource + "/matches");
 		String[] filelist = f.list();
 		for (int i = 0; i < filelist.length; i++) {
 			String[] temp = filelist[i].split("_");
@@ -89,7 +89,7 @@ public class InitialPlayerdata {
 			else
 				date = year[1] + "-" + date;
 			try {
-				FileReader fr = new FileReader("data/matches/" + filelist[i]);
+				FileReader fr = new FileReader(InitialDatabase.datasource + "/matches/" + filelist[i]);
 				@SuppressWarnings("resource")
 				BufferedReader br = new BufferedReader(fr);
 				String line = "";

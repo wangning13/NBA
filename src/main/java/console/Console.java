@@ -11,6 +11,7 @@ import vo.PlayerMatchVO;
 import vo.PlayerVO;
 import businesslogic.playerbl.PlayerRank;
 import businesslogicservice.playerblservice.PlayerRankService;
+import data.initial.InitialDatabase;
 import de.tototec.cmdoption.CmdCommand;
 import de.tototec.cmdoption.CmdOption;
 import de.tototec.cmdoption.CmdlineParser;
@@ -412,12 +413,11 @@ public class Console {
 			cp = new CmdlineParser(t);
 			cp.parse(args);
 			break;
+			
+		case "--datasource":
+			InitialDatabase.datasource = args[1];
+			new InitialDatabase();
+			break;
 		}
 	}
-	
-	public static void main(String[] args){
-		Console console = new Console();
-		console.execute(System.out, new String[]{"-player","-king","score","-season","-n","10","-filter","position.F,league.West,age.<=22","-sort","score.desc"});
-	}
-	
 }

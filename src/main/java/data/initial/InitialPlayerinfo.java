@@ -44,11 +44,11 @@ public class InitialPlayerinfo {
 	}
 
 	public void ReadIn() {
-		File f = new File("data/players/info");
+		File f = new File(InitialDatabase.datasource + "/players/info");
 		filelist = f.list();
 		for (int i = 0; i < filelist.length; i++) {
 			try {
-				FileReader fr = new FileReader("data/players/info/"
+				FileReader fr = new FileReader(InitialDatabase.datasource + "/players/info/"
 						+ filelist[i]);
 				@SuppressWarnings("resource")
 				BufferedReader br = new BufferedReader(fr);

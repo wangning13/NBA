@@ -22,7 +22,7 @@ import data.initial.InitialDatabase;
 public class UpdateDatabase extends TimerTask {
 
 	public void run() {
-		File f = new File("data/matches");
+		File f = new File(InitialDatabase.datasource + "/matches");
 		String[] matches = f.list();
 		for (int i = 0; i < matches.length; i++) {
 			String[] temp = matches[i].split("_");
@@ -72,7 +72,7 @@ public class UpdateDatabase extends TimerTask {
 					else
 						date = year[1] + "-" + date; // date 13-12-02
 					try {
-						FileReader fr = new FileReader("data/matches/"
+						FileReader fr = new FileReader(InitialDatabase.datasource + "/matches/"
 								+ newData[i]);
 						BufferedReader br = new BufferedReader(fr);
 						String line = "";
@@ -554,7 +554,7 @@ public class UpdateDatabase extends TimerTask {
 			Connection conn = DriverManager.getConnection(InitialDatabase.url);
 			conn.setAutoCommit(false);
 			String info = "";
-			FileReader fr = new FileReader("data/matches/" + fileName);
+			FileReader fr = new FileReader(InitialDatabase.datasource + "/matches/" + fileName);
 			BufferedReader br = new BufferedReader(fr);
 			String line = br.readLine();
 			String[] temp = line.split(";");
