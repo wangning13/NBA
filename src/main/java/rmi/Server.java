@@ -20,7 +20,7 @@ public class Server {
 	public Server() {
 		season = new ArrayList<String>();
 		try {
-			File f = new File("data/matches");
+			File f = new File(InitialDatabase.datasource + "/matches");
 			matches = f.list();
 			if (matches.length > 0) {
 				initial_season = matches[matches.length/2].substring(0, matches[matches.length/2].indexOf("_"));
