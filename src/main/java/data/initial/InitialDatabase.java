@@ -14,7 +14,7 @@ public class InitialDatabase {
 
 	public InitialDatabase() {
 		long time = System.currentTimeMillis();
-		File f = new File(datasource);
+		File f = new File(datasource + "/matches");
 		String[] filelist = f.list();
 		initial_season = filelist[filelist.length / 2];
 		initial_season = initial_season.substring(0,

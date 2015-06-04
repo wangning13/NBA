@@ -640,11 +640,12 @@ public class Console {
 			TeamModel t = new TeamModel();
 			cp = new CmdlineParser(t);
 			cp.parse(args);
+			t.print();
 			break;
 			
 		case "--datasource":
 			InitialDatabase.datasource = args[1];
-			new InitialDatabase();
+			//new InitialDatabase();
 			new Server();
 			break;
 		}
