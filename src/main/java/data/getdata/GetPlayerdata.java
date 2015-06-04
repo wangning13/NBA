@@ -21,7 +21,7 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 	public GetPlayerdata() {
 		try {
 			Class.forName(InitialDatabase.driver);
-			conn = DriverManager.getConnection(InitialDatabase.url);
+			conn = DriverManager.getConnection(InitialDatabase.url,InitialDatabase.user,InitialDatabase.password);
 			statement = conn.createStatement();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -20,7 +20,7 @@ public class GetTeamdata implements GetTeamdataDataService {
 	public GetTeamdata() {
 		try {
 			Class.forName(InitialDatabase.driver);
-			Connection conn = DriverManager.getConnection(InitialDatabase.url);
+			Connection conn = DriverManager.getConnection(InitialDatabase.url,InitialDatabase.user,InitialDatabase.password);
 			statement = conn.createStatement();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

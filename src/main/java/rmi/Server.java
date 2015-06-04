@@ -27,7 +27,7 @@ public class Server {
 			}
 			if (initial_season.equals("")) {
 				Class.forName(InitialDatabase.driver);
-				Connection conn = DriverManager.getConnection(InitialDatabase.url);
+				Connection conn = DriverManager.getConnection(InitialDatabase.url,InitialDatabase.user,InitialDatabase.password);
 				conn.setAutoCommit(false);
 				Statement statement = conn.createStatement();
 				String sql = "DELETE FROM playerdata";

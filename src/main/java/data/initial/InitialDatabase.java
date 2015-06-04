@@ -7,21 +7,23 @@ import java.sql.Statement;
 
 public class InitialDatabase {
 
-	public static String driver = "org.sqlite.JDBC";
-	public static String url = "jdbc:sqlite:nba.db";
+	public static String driver = "com.mysql.jdbc.Driver";
+	public static String url = "jdbc:mysql://127.0.0.1:3306/nba";
+	public static String user = "root";
+	public static String password = "123";
 	public static String initial_season;
-	public static String datasource = "";
+	public static String datasource = "data";
 
-	public InitialDatabase() {
+	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
-		File f = new File(datasource);
+		File f = new File(datasource + "/matches");
 		String[] filelist = f.list();
 		initial_season = filelist[filelist.length / 2];
 		initial_season = initial_season.substring(0,
 				initial_season.indexOf("_"));
 		try {
 			Class.forName(driver);
-			Connection conn = DriverManager.getConnection(url);
+			Connection conn = DriverManager.getConnection(url, user, password);
 			if (!conn.isClosed()) {
 				Statement statement = conn.createStatement();
 				conn.setAutoCommit(false);
@@ -39,11 +41,11 @@ public class InitialDatabase {
 				statement.addBatch(sql);
 				sql = "CREATE TABLE `playersum"
 						+ initial_season
-						+ "` (`playerName`	TEXT,`team`	TEXT,`appearance`	INTEGER,	`firstPlay`	INTEGER,`backboard`	INTEGER,	`assist`	INTEGER,	`minutes`	REAL,`fieldGoal`	INTEGER,`fieldGoalAttempts`	INTEGER,`threePointFieldGoal` INTEGER,`threePointFieldGoalAttempts` INTEGER,`freeThrow`	INTEGER,`freeThrowAttempts` INTEGER, `offensiveRebound` INTEGER, `defensiveRebound`	INTEGER,	`steal` INTEGER, `block`	INTEGER,	`turnOver` INTEGER, `foul` INTEGER, `scoring` INTEGER, `previousAverageScoring` INTEGER, `nearlyFiveAverageScoring` INTEGER,previousAverageBackboard INTEGER,nearlyFiveAverageBackboard INTEGER,previousAverageAssist INTEGER,nearlyFiveAverageAssist INTEGER,	`doubleDouble` INTEGER, PRIMARY KEY(playerName,team))";
+						+ "` (`playerName`	varchar(255),`team`	varchar(255),`appearance`	INTEGER,	`firstPlay`	INTEGER,`backboard`	INTEGER,	`assist`	INTEGER,	`minutes`	REAL,`fieldGoal`	INTEGER,`fieldGoalAttempts`	INTEGER,`threePointFieldGoal` INTEGER,`threePointFieldGoalAttempts` INTEGER,`freeThrow`	INTEGER,`freeThrowAttempts` INTEGER, `offensiveRebound` INTEGER, `defensiveRebound`	INTEGER,	`steal` INTEGER, `block`	INTEGER,	`turnOver` INTEGER, `foul` INTEGER, `scoring` INTEGER, `previousAverageScoring` INTEGER, `nearlyFiveAverageScoring` INTEGER,previousAverageBackboard INTEGER,nearlyFiveAverageBackboard INTEGER,previousAverageAssist INTEGER,nearlyFiveAverageAssist INTEGER,	`doubleDouble` INTEGER, PRIMARY KEY(playerName,team))";
 				statement.addBatch(sql);
 				sql = "CREATE TABLE `teamsum"
 						+ initial_season
-						+ "` (`opponentFieldGoal`	INTEGER,`opponentFieldGoalAttempts` INTEGER,`opponentTurnOver` INTEGER,`opponentFreeThrowAttempts`	INTEGER,	`oppenentScoring`	INTEGER,	`teamName`	TEXT,`matches` INTEGER,`wins`	INTEGER,`fieldGoal`	INTEGER,	`fieldGoalAttempts` INTEGER,`threePointFieldGoal`	INTEGER,	`threePointFieldGoalAttempts`	INTEGER,	`freeThrow`	INTEGER,	`freeThrowAttempts`	INTEGER,	`offensiveRebound`	INTEGER,	`defensiveRebound`	INTEGER,	`opponentOffensiveRebound`	INTEGER,	`opponentDefensiveRebound` INTEGER,`backboard`	INTEGER,	`assist`	INTEGER,	`steal`	INTEGER,	`block`	INTEGER,	`turnOver` INTEGER,`foul` INTEGER,`scoring`	INTEGER,	`minutes`	REAL,`opponentBackBoard` INTEGER,`opponentThreePointFieldGoalAttempts`	INTEGER);";
+						+ "` (`opponentFieldGoal`	INTEGER,`opponentFieldGoalAttempts` INTEGER,`opponentTurnOver` INTEGER,`opponentFreeThrowAttempts`	INTEGER,	`oppenentScoring`	INTEGER,	`teamName`	varchar(255),`matches` INTEGER,`wins`	INTEGER,`fieldGoal`	INTEGER,	`fieldGoalAttempts` INTEGER,`threePointFieldGoal`	INTEGER,	`threePointFieldGoalAttempts`	INTEGER,	`freeThrow`	INTEGER,	`freeThrowAttempts`	INTEGER,	`offensiveRebound`	INTEGER,	`defensiveRebound`	INTEGER,	`opponentOffensiveRebound`	INTEGER,	`opponentDefensiveRebound` INTEGER,`backboard`	INTEGER,	`assist`	INTEGER,	`steal`	INTEGER,	`block`	INTEGER,	`turnOver` INTEGER,`foul` INTEGER,`scoring`	INTEGER,	`minutes`	REAL,`opponentBackBoard` INTEGER,`opponentThreePointFieldGoalAttempts`	INTEGER);";
 				statement.addBatch(sql);
 				statement.executeBatch();
 				statement.clearBatch();
