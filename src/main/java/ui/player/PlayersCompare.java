@@ -10,12 +10,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import businesslogic.playerbl.PlayerRank;
 import businesslogicservice.playerblservice.PlayerRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
+import ui.tools.JFreeUtils;
 import ui.tools.Translate;
+import vo.PlayerVO;
 
 
 @SuppressWarnings("serial")
@@ -28,6 +33,7 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 	JLabel playerIcon2 = new JLabel(Img.loadPlayer("Jeremy Lin"));
 	JLabel jl1 = new JLabel("");
 	JLabel jl2 = new JLabel("");
+	JLabel jl = new JLabel();
 	JComboBox<String> selectTeam1 = new JComboBox<String>();
 	JComboBox<String> selectPlayer1 = new JComboBox<String>();
 	JComboBox<String> selectTeam2 = new JComboBox<String>();
@@ -39,25 +45,28 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 		// TODO Auto-generated constructor stub
 		this.frame = frame;
 
+		this.add(jl);
+		jl.setBounds(250,150,552,500);
+		
 		this.add(playerIcon1);
 		playerIcon1.setBounds(0, 150, 220, 350);
 		this.add(jl1);
 		jl1.setBounds(50,550,200,30);
 		jl1.setFont(font);
 		this.add(selectTeam1);
-		selectTeam1.setBounds(20,600,120,25);
+		selectTeam1.setBounds(0,600,120,25);
 		this.add(selectPlayer1);
-		selectPlayer1.setBounds(150,600,120,25);
+		selectPlayer1.setBounds(125,600,120,25);
 		
 		this.add(playerIcon2);
-		playerIcon2.setBounds(802, 150, 220, 350);
+		playerIcon2.setBounds(832, 150, 220, 350);
 		this.add(jl2);
 		jl2.setBounds(852,550,200,30);
 		jl2.setFont(font);
 		this.add(selectTeam2);
-		selectTeam2.setBounds(780,600,120,25);
+		selectTeam2.setBounds(807,600,120,25);
 		this.add(selectPlayer2);
-		selectPlayer2.setBounds(910,600,120,25);
+		selectPlayer2.setBounds(932,600,120,25);
 		
 		this.add(blank);
 		blank.setBounds(0,150,1052,500);
@@ -169,7 +178,7 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 		selectPlayer2.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
 				if(selectPlayer2.getSelectedIndex()!=0&&selectPlayer2.getSelectedItem()!=null){
-					update1(selectPlayer2.getSelectedItem().toString());
+					update2(selectPlayer2.getSelectedItem().toString());
 				}
 			}
 			
@@ -189,6 +198,8 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 				Image.SCALE_DEFAULT));
 		playerIcon2.setIcon(icon1);
 		jl2.setText("Average of League");
+		
+		updateChart();
 	}
 	
 	public void update1(String name){
@@ -198,6 +209,8 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 				Image.SCALE_DEFAULT));
 		playerIcon1.setIcon(icon);
 		jl1.setText(name);
+		
+		updateChart();
 	}
 	
 	public void update2(String name){
@@ -207,6 +220,49 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 				Image.SCALE_DEFAULT));
 		playerIcon2.setIcon(icon);
 		jl2.setText(name);
+		
+		updateChart();
+	}
+	
+	public void updateChart(){
+		PlayerVO playerData1 = prs.getPlayerdata("13-14", player1);
+		PlayerVO playerData2 = prs.getPlayerdata("13-14", player2);
+		
+	    //初始化数据
+	    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+	    dataset.setValue(playerData1.getAverageScoring(), player1, "场均得分");
+	    dataset.setValue(playerData2.getAverageScoring(), player2, "场均得分");
+
+
+	    dataset.setValue(playerData1.getAverageBackboard(), player1, "场均篮板");
+	    dataset.setValue(playerData2.getAverageBackboard(), player2, "场均篮板");
+
+
+	    dataset.setValue(playerData1.getAverageAssist(), player1, "场均助攻");
+	    dataset.setValue(playerData2.getAverageAssist(), player2, "场均助攻");
+	
+
+	    dataset.setValue(playerData1.getAverageSteal(), player1, "场均抢断");
+	    dataset.setValue(playerData2.getAverageSteal(), player2, "场均抢断");
+	
+	    dataset.setValue(playerData1.getAverageBlock(), player1, "场均盖帽");
+	    dataset.setValue(playerData2.getAverageBlock(), player2, "场均盖帽");
+	
+    	dataset.setValue(playerData1.getAverageTurn(), player1, "场均失误");
+    	dataset.setValue(playerData2.getAverageTurn(), player2, "场均失误");
+	
+    	dataset.setValue(playerData1.getAverageFoul(),player1, "场均犯规");
+	    dataset.setValue(playerData2.getAverageFoul(), player2, "场均犯规");
+
+	    //生成图表
+	    JFreeChart chart = JFreeUtils.createBarChart(dataset, "球员数据对比柱状图", "数据项", "赛季数据",false);
+	    //生成图片
+	    JFreeUtils.drawToOutputStream("graphics/chart/柱状图.JPG", chart, 552, 500);
+		ImageIcon icon = new ImageIcon(
+				"graphics/chart/柱状图.JPG");
+		icon.setImage(icon.getImage().getScaledInstance(552, 500,
+				Image.SCALE_DEFAULT));
+		jl.setIcon(icon);
 	}
 
 	public void actionPerformed(ActionEvent e) {
