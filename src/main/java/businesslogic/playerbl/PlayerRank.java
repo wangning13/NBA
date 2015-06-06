@@ -36,6 +36,7 @@ public class PlayerRank implements PlayerRankService{
 	}
 	
 	public PlayerVO getPlayerdata(String season,String playerName){
+		DecimalFormat df1=new DecimalFormat("#.0");
 		ArrayList<PlayerPO> playerPOs = new ArrayList<>();
 		ArrayList<PlayerVO> playerVOs = new ArrayList<>();
 		GetPlayerdataDataService g ;
@@ -74,15 +75,15 @@ public class PlayerRank implements PlayerRankService{
 				averageTurn = averageTurn + playerVOs.get(i).getAverageTurn();
 				averageFoul = averageFoul + playerVOs.get(i).getAverageFoul();
 			}
-			averageScoring = averageScoring/playerVOs.size();
-			averageBackboard = averageBackboard/playerVOs.size();
-			averageAssist = averageAssist/playerVOs.size();
-			averageFreeThrow  = averageFreeThrow/playerVOs.size();
-			averageThreePointFieldGoal = averageThreePointFieldGoal/playerVOs.size();
-			averageSteal = averageSteal/playerVOs.size();
-			averageBlock = averageBlock/playerVOs.size();
-			averageTurn = averageTurn/playerVOs.size();
-			averageFoul = averageFoul/playerVOs.size();
+			averageScoring = Double.parseDouble(df1.format(averageScoring/playerVOs.size()));
+			averageBackboard = Double.parseDouble(df1.format(averageBackboard/playerVOs.size()));
+			averageAssist = Double.parseDouble(df1.format(averageAssist/playerVOs.size()));
+			averageFreeThrow  = Double.parseDouble(df1.format(averageFreeThrow/playerVOs.size()));
+			averageThreePointFieldGoal = Double.parseDouble(df1.format(averageThreePointFieldGoal/playerVOs.size()));
+			averageSteal = Double.parseDouble(df1.format(averageSteal/playerVOs.size()));
+			averageBlock = Double.parseDouble(df1.format(averageBlock/playerVOs.size()));
+			averageTurn = Double.parseDouble(df1.format(averageTurn/playerVOs.size()));
+			averageFoul = Double.parseDouble(df1.format(averageFoul/playerVOs.size()));
 			playerVO = new PlayerVO("league", null, 0, 0, 0, averageBackboard, 0,
 					averageAssist, 0, 0, 0, 0, 0, 
 					0, 0, averageThreePointFieldGoal, 
