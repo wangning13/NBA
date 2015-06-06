@@ -74,6 +74,15 @@ public class PlayerRank implements PlayerRankService{
 				averageTurn = averageTurn + playerVOs.get(i).getAverageTurn();
 				averageFoul = averageFoul + playerVOs.get(i).getAverageFoul();
 			}
+			averageScoring = averageScoring/playerVOs.size();
+			averageBackboard = averageBackboard/playerVOs.size();
+			averageAssist = averageAssist/playerVOs.size();
+			averageFreeThrow  = averageFreeThrow/playerVOs.size();
+			averageThreePointFieldGoal = averageThreePointFieldGoal/playerVOs.size();
+			averageSteal = averageSteal/playerVOs.size();
+			averageBlock = averageBlock/playerVOs.size();
+			averageTurn = averageTurn/playerVOs.size();
+			averageFoul = averageFoul/playerVOs.size();
 			playerVO = new PlayerVO("league", null, 0, 0, 0, averageBackboard, 0,
 					averageAssist, 0, 0, 0, 0, 0, 
 					0, 0, averageThreePointFieldGoal, 
