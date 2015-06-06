@@ -60,6 +60,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 	JLabel jl = new JLabel("比赛查询");
 	JButton search = new JButton("查询");
 	JButton recent = new JButton("最近五场");
+	JButton compare = new JButton("比较");
 	JLabel jl1 = new JLabel("姓名");
 	JLabel jl2 = new JLabel("号码");
 	JLabel jl3 = new JLabel("位置");
@@ -139,6 +140,11 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		recent.setActionCommand("recent");
 		recent.setUI(new MyButtonUI());
 
+		this.add(compare);
+		compare.setBounds(500, 172, 60, 25);
+		compare.addActionListener(this);
+		compare.setActionCommand("compare");
+		compare.setUI(new MyButtonUI());
 
 		this.add(rankingBand);
 		rankingBand.setBounds(250, 150, 802, 70);
@@ -442,5 +448,10 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 			table2.updateUI();
 			isRecent = true;
 		}
+		 else if (e.getActionCommand().equals("compare")) {
+				frame.change(this, Frame.playersComparePanel);
+				Frame.playersComparePanel.update(playerName);
+				Frame.currentPanel = "playersComparePanel";
+			}
 	}
 }

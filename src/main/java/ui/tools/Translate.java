@@ -69,7 +69,7 @@ public class Translate {
 
 		return result;
 	}
-
+	
 	public static String translate1(String type) {
 		String result = "scoring";
 		if (type.equals("胜率"))
