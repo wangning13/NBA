@@ -54,12 +54,16 @@ public class PlayerRank implements PlayerRankService{
 			double averageTurn = 0;//平均失误数
 			double averageFoul = 0;//平均犯规数
 			for (int i = 0; i < playerPOs.size(); i++) {
-				playerPO = playerPOs.get(i);
+				
 				Calculate calculate = new Calculate();
-				playerPO = calculate.Calculate(playerPO);
+				playerPOs.set(i, calculate.Calculate(playerPOs.get(i)));
 					
 				GetPlayerVO getPlayerVO = new GetPlayerVO();
-				playerVOs.set(i, getPlayerVO.getPlayerVO(playerPO));
+				playerVO = getPlayerVO.getPlayerVO(playerPOs.get(i));
+				playerVOs.add(playerVO);
+				
+			}
+			for (int i = 0; i < playerVOs.size(); i++) {
 				averageScoring = averageScoring + playerVOs.get(i).getAverageScoring();
 				averageBackboard = averageBackboard + playerVOs.get(i).getAverageBackboard();
 				averageAssist = averageAssist + playerVOs.get(i).getAverageAssist();
