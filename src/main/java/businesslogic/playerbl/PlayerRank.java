@@ -36,16 +36,56 @@ public class PlayerRank implements PlayerRankService{
 	}
 	
 	public PlayerVO getPlayerdata(String season,String playerName){
+		ArrayList<PlayerPO> playerPOs = new ArrayList<>();
+		
 		GetPlayerdataDataService g ;
 		PlayerPO playerPO = new PlayerPO();
 		PlayerVO playerVO = new PlayerVO() ;
-			g = new GetPlayerdata();
+		g = new GetPlayerdata();
+		if (playerName.equals("league")) {
+			playerPOs = g.getAllPlayerdata(season, "backboard", "DESC");
+			int scoring = 0;//平均得分
+			int backboard = 0;//平均篮板
+			int assist = 0;//平均助攻
+			int freethrow = 0;//平均罚球命中数
+			int threePointFieldGoal = 0;//平均三分命中数
+			int steal = 0;//平均抢断数
+			int block= 0; //平均盖帽数
+			int turnOver = 0 ;//平均失误数
+			int foul = 0;//平均犯规数
+			for (int i = 0; i < playerPOs.size(); i++) {
+				scoring = scoring + playerPOs.get(i).getScoring();
+				backboard = backboard + playerPOs.get(i).getBackboard();
+				assist = assist + playerPOs.get(i).getAssist();
+				freethrow  = freethrow + playerPOs.get(i).getFreeThrow();
+				threePointFieldGoal = threePointFieldGoal + playerPOs.get(i).getThreePointFieldGoal();
+				steal = steal + playerPOs.get(i).getSteal();
+				block = block + playerPOs.get(i).getBlock();
+				turnOver = turnOver + playerPOs.get(i).getTurnOver();
+				foul = foul + playerPOs.get(i).getFoul();
+			}
+			scoring = scoring/playerPOs.size();
+			backboard = backboard/playerPOs.size();
+			assist = assist/playerPOs.size();
+			freethrow = freethrow/playerPOs.size();
+			threePointFieldGoal = threePointFieldGoal/playerPOs.size();
+			steal = steal/playerPOs.size();
+			block = block/playerPOs.size();
+			turnOver = turnOver/playerPOs.size();
+			foul = foul/playerPOs.size();
+			playerPO = new PlayerPO("league", null, 0, 0, backboard, assist, 0, 0, 0, threePointFieldGoal, 
+					0, 0, 0, 0, 0, steal, block, turnOver, foul, scoring, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+					0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			
+		}else {
 			playerPO = g.getPlayerdata(season,playerName);
 			Calculate calculate = new Calculate();
 			playerPO = calculate.Calculate(playerPO);
-			
+				
 			GetPlayerVO getPlayerVO = new GetPlayerVO();
 			playerVO = getPlayerVO.getPlayerVO(playerPO);
+		}
+		
 		
 		return playerVO;
 	}
@@ -242,7 +282,7 @@ public class PlayerRank implements PlayerRankService{
 			}
 		return playerVOs;
 	}
-	
+	 
 	
 	public ArrayList<PlayerVO> getMostImporvedPlayer(String season,String key){
 		ArrayList<PlayerVO> playerVOs = new ArrayList<PlayerVO>();
@@ -290,4 +330,5 @@ public class PlayerRank implements PlayerRankService{
 		
 		return playerVOs;
 	}
+	
 }
