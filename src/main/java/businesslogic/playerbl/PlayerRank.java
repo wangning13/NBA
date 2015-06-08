@@ -245,13 +245,28 @@ public class PlayerRank implements PlayerRankService{
 		return playerMatchVOs;
 		
 	}
-	
+	//近5场
 	public ArrayList<PlayerMatchVO> getPlayerRecentFiveMatch(String player){
 		ArrayList<PlayerMatchPO> playerMatchPOs = new ArrayList<PlayerMatchPO>();
 		ArrayList<PlayerMatchVO> playerMatchVOs = new ArrayList<PlayerMatchVO>();
 		GetPlayerdataDataService g;
 			g = new GetPlayerdata();
 			playerMatchPOs = g.getPlayerRecentFiveMatch(player);
+			for (int i = 0; i < playerMatchPOs.size(); i++) {
+				GetPlayerMatchVO getPlayerMatchVO = new GetPlayerMatchVO();
+				PlayerMatchVO playerMatchVO = getPlayerMatchVO.getPlayerMatchVO(playerMatchPOs.get(i));
+				playerMatchVOs.add(playerMatchVO);
+				
+			}
+		return playerMatchVOs;
+	}
+	//近10场
+	public ArrayList<PlayerMatchVO> getPlayerRecentTenMatch(String player){
+		ArrayList<PlayerMatchPO> playerMatchPOs = new ArrayList<PlayerMatchPO>();
+		ArrayList<PlayerMatchVO> playerMatchVOs = new ArrayList<PlayerMatchVO>();
+		GetPlayerdataDataService g;
+			g = new GetPlayerdata();
+			playerMatchPOs = g.getPlayerRecentTenMatch(player);
 			for (int i = 0; i < playerMatchPOs.size(); i++) {
 				GetPlayerMatchVO getPlayerMatchVO = new GetPlayerMatchVO();
 				PlayerMatchVO playerMatchVO = getPlayerMatchVO.getPlayerMatchVO(playerMatchPOs.get(i));

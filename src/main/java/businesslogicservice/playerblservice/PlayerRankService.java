@@ -27,6 +27,8 @@ public interface PlayerRankService {
 			String team);
 
 	public ArrayList<PlayerMatchVO> getPlayerRecentFiveMatch(String player);
+	
+	public ArrayList<PlayerMatchVO> getPlayerRecentTenMatch(String player);
 
 	public ArrayList<PlayerMatchVO> getDayTop(String condition);
 
