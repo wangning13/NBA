@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import ui.match.Matches;
 import ui.match.SingleMatch;
+import ui.player.PlayersCompare;
 import ui.player.PlayersSelect;
 import ui.player.SinglePlayer;
 import ui.player.Statistics;
@@ -27,6 +28,7 @@ public class Frame extends JFrame {
 	public static SinglePlayer singlePlayerPanel;
 	public static Matches matchesPanel ;
 	public static SingleMatch singleMatchPanel;
+	public static PlayersCompare playersComparePanel;
 
 	public static String currentPanel = "main";
 
@@ -42,6 +44,7 @@ public class Frame extends JFrame {
 		singlePlayerPanel = new SinglePlayer(this);
 		matchesPanel = new Matches(this);
 		singleMatchPanel = new SingleMatch(this);
+		playersComparePanel = new PlayersCompare(this);
 		
 		this.getContentPane().add(mainFrame);
 		CardLayout cl = new CardLayout();

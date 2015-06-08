@@ -36,16 +36,81 @@ public class PlayerRank implements PlayerRankService{
 	}
 	
 	public PlayerVO getPlayerdata(String season,String playerName){
+		DecimalFormat df1=new DecimalFormat("#.0");
+		ArrayList<PlayerPO> playerPOs = new ArrayList<>();
+		ArrayList<PlayerVO> playerVOs = new ArrayList<>();
 		GetPlayerdataDataService g ;
 		PlayerPO playerPO = new PlayerPO();
 		PlayerVO playerVO = new PlayerVO() ;
-			g = new GetPlayerdata();
+		g = new GetPlayerdata();
+		if (playerName.equals("league")) {
+			playerPOs = g.getAllPlayerdata(season, "backboard", "DESC");
+			double averageScoring = 0;//平均得分
+			double averageBackboard = 0;//平均篮板
+			double averageAssist = 0;//平均助攻
+			double averageFreeThrow = 0;//平均罚球命中数
+			double averageThreePointFieldGoal = 0;//平均三分命中数
+			double averageSteal = 0;//平均抢断数
+			double averageBlock = 0; //平均盖帽数
+			double averageTurn = 0;//平均失误数
+			double averageFoul = 0;//平均犯规数
+			for (int i = 0; i < playerPOs.size(); i++) {
+				
+				Calculate calculate = new Calculate();
+				playerPOs.set(i, calculate.Calculate(playerPOs.get(i)));
+					
+				GetPlayerVO getPlayerVO = new GetPlayerVO();
+				playerVO = getPlayerVO.getPlayerVO(playerPOs.get(i));
+				playerVOs.add(playerVO);
+				
+			}
+			for (int i = 0; i < playerVOs.size(); i++) {
+				averageScoring = averageScoring + playerVOs.get(i).getAverageScoring();
+				averageBackboard = averageBackboard + playerVOs.get(i).getAverageBackboard();
+				averageAssist = averageAssist + playerVOs.get(i).getAverageAssist();
+				averageFreeThrow  = averageFreeThrow + playerVOs.get(i).getAverageFreeThrow();
+				averageThreePointFieldGoal = averageThreePointFieldGoal + playerVOs.get(i).getAverageThreePointFieldGoal();
+				averageSteal = averageSteal + playerVOs.get(i).getAverageSteal();
+				averageBlock = averageBlock + playerVOs.get(i).getAverageBlock();
+				averageTurn = averageTurn + playerVOs.get(i).getAverageTurn();
+				averageFoul = averageFoul + playerVOs.get(i).getAverageFoul();
+			}
+			averageScoring = Double.parseDouble(df1.format(averageScoring/playerVOs.size()));
+			averageBackboard = Double.parseDouble(df1.format(averageBackboard/playerVOs.size()));
+			averageAssist = Double.parseDouble(df1.format(averageAssist/playerVOs.size()));
+			averageFreeThrow  = Double.parseDouble(df1.format(averageFreeThrow/playerVOs.size()));
+			averageThreePointFieldGoal = Double.parseDouble(df1.format(averageThreePointFieldGoal/playerVOs.size()));
+			averageSteal = Double.parseDouble(df1.format(averageSteal/playerVOs.size()));
+			averageBlock = Double.parseDouble(df1.format(averageBlock/playerVOs.size()));
+			averageTurn = Double.parseDouble(df1.format(averageTurn/playerVOs.size()));
+			averageFoul = Double.parseDouble(df1.format(averageFoul/playerVOs.size()));
+			playerVO = new PlayerVO("league", null, 0, 0, 0, averageBackboard, 0,
+					averageAssist, 0, 0, 0, 0, 0, 
+					0, 0, averageThreePointFieldGoal, 
+					0, 0, 0, averageFreeThrow,
+					0, 0, 0, 0,
+					0, 0, 0, averageSteal, 0, averageBlock, 0, 
+					averageTurn, 0, averageFoul, 0, averageScoring, 0, 0,
+					0, 0, 0, 0, 0, 
+					0, 0, 0, 0, 
+					0, 0, 0, 
+					0, 0, 0, 0,
+					0, 0, 0, 0, 
+					0, 0, 0, 0,
+					0, 0, 0, 0, 0,
+					0, 0, 0, 0,
+					0, 0, 0, 0);
+			
+			
+		}else {
 			playerPO = g.getPlayerdata(season,playerName);
 			Calculate calculate = new Calculate();
 			playerPO = calculate.Calculate(playerPO);
-			
+				
 			GetPlayerVO getPlayerVO = new GetPlayerVO();
 			playerVO = getPlayerVO.getPlayerVO(playerPO);
+		}
+		
 		
 		return playerVO;
 	}
@@ -242,7 +307,7 @@ public class PlayerRank implements PlayerRankService{
 			}
 		return playerVOs;
 	}
-	
+	 
 	
 	public ArrayList<PlayerVO> getMostImporvedPlayer(String season,String key){
 		ArrayList<PlayerVO> playerVOs = new ArrayList<PlayerVO>();
@@ -290,4 +355,5 @@ public class PlayerRank implements PlayerRankService{
 		
 		return playerVOs;
 	}
+	
 }

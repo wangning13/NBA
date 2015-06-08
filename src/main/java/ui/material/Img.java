@@ -64,6 +64,8 @@ public class Img {
 			"graphics/main/比赛2.png").getImage();
 	public static final ImageIcon COPYRIGHT = new ImageIcon(
 			"graphics/main/copyright.png");
+	public static final ImageIcon BLANK = new ImageIcon(
+			"graphics/player/blank.png");
 
 	public static final ImageIcon ATL = new ImageIcon("graphics/teams/ATL.png");
 	public static final ImageIcon BKN = new ImageIcon("graphics/teams/BKN.png");
@@ -129,9 +131,16 @@ public class Img {
 
 	public static ImageIcon load(String name) {
 		ImageIcon PLAYER = new ImageIcon("graphics/portrait/" + name + ".png");
+
 		return PLAYER;
 	}
 
+	public static ImageIcon loadPlayer(String name) {
+		ImageIcon PLAYER = new ImageIcon("graphics/action/" + name + ".png");
+		return PLAYER;
+	}
+
+	
 	public static ImageIcon loadTeam(String name) {
 		ImageIcon TEAM = new ImageIcon("graphics/teams/" + name + ".png");
 		return TEAM;
