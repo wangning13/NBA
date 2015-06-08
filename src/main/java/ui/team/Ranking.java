@@ -69,10 +69,13 @@ public class Ranking extends MyPanel implements ActionListener {
 	JRadioButton jrb7 = new JRadioButton("中部区");
 	JRadioButton jrb8 = new JRadioButton("大西洋区");
 	JLabel jl = new JLabel("赛季热点:");
+	JLabel jl1 = new JLabel("赛季选择:");
+	
 	ButtonGroup group = new ButtonGroup();
 	JComboBox<String> type = new JComboBox<String>();
 	JComboBox<String> term = new JComboBox<String>();
 	JComboBox<String> option = new JComboBox<String>();
+	JComboBox<String> season = new JComboBox<String>();
 	JButton descending = new JButton("降序");
 	JButton ascending = new JButton("升序");
 	JButton search = new JButton("查询");
@@ -84,42 +87,42 @@ public class Ranking extends MyPanel implements ActionListener {
 		this.frame = frame;
 
 		this.add(jrb1);
-		jrb1.setBounds(30, 165, 90, 20);
+		jrb1.setBounds(200, 165, 90, 20);
 		jrb1.setFont(font1);
 		jrb1.addActionListener(this);
 		jrb1.setActionCommand("west");
 		this.add(jrb2);
-		jrb2.setBounds(30, 185, 90, 20);
+		jrb2.setBounds(200, 185, 90, 20);
 		jrb2.setFont(font1);
 		jrb2.addActionListener(this);
 		jrb2.setActionCommand("east");
 		this.add(jrb3);
-		jrb3.setBounds(120, 165, 90, 20);
+		jrb3.setBounds(290, 165, 90, 20);
 		jrb3.setFont(font1);
 		jrb3.addActionListener(this);
 		jrb3.setActionCommand("southwest");
 		this.add(jrb4);
-		jrb4.setBounds(210, 165, 90, 20);
+		jrb4.setBounds(380, 165, 90, 20);
 		jrb4.setFont(font1);
 		jrb4.addActionListener(this);
 		jrb4.setActionCommand("northwest");
 		this.add(jrb5);
-		jrb5.setBounds(300, 165, 95, 20);
+		jrb5.setBounds(470, 165, 95, 20);
 		jrb5.setFont(font1);
 		jrb5.addActionListener(this);
 		jrb5.setActionCommand("pacific");
 		this.add(jrb6);
-		jrb6.setBounds(120, 185, 90, 20);
+		jrb6.setBounds(290, 185, 90, 20);
 		jrb6.setFont(font1);
 		jrb6.addActionListener(this);
 		jrb6.setActionCommand("southeast");
 		this.add(jrb7);
-		jrb7.setBounds(210, 185, 90, 20);
+		jrb7.setBounds(380, 185, 90, 20);
 		jrb7.setFont(font1);
 		jrb7.addActionListener(this);
 		jrb7.setActionCommand("central");
 		this.add(jrb8);
-		jrb8.setBounds(300, 185, 95, 20);
+		jrb8.setBounds(470, 185, 95, 20);
 		jrb8.setFont(font1);
 		jrb8.addActionListener(this);
 		jrb8.setActionCommand("atlantic");
@@ -168,7 +171,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		option.addItem("场均数据");
 		option.addItem("效率评估");
 		this.add(option);
-		option.setBounds(520, 164, 110, 40);
+		option.setBounds(610, 164, 110, 40);
 		option.setFont(font2);
 	//	option.setUI(new MyComboBoxUI());
 		option.addActionListener(new ActionListener() {
@@ -180,7 +183,28 @@ public class Ranking extends MyPanel implements ActionListener {
 			}
 		});
 		
-
+		this.add(jl1);
+		jl1.setBounds(5, 170, 100, 30);
+		jl1.setFont(font1);
+		
+		season.addItem("13-14");
+		season.addItem("14-15");	
+		season.addItem("12-13");	
+		season.addItem("11-12");
+		season.addItem("10-11");	
+		this.add(season);
+		season.setBounds(90, 176, 80, 20);
+		season.setFont(font1);
+		season.setUI(new MyComboBoxUI());
+		season.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent e) {
+				teams = trs.getAllTeamdata(season.getSelectedItem().toString(), "wins", "DESC");
+				Object[][] data = getData(teams);
+				model1.setDataVector(data, getColumnNames1());
+				table1.setWidth();
+				table1.updateUI();
+			}
+		});
 		
 		this.add(descending);
 		descending.setBounds(880, 157, 60, 25);

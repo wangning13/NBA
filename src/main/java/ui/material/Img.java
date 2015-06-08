@@ -36,6 +36,8 @@ public class Img {
 			.getImage();
 	public static final ImageIcon BOARD = new ImageIcon(
 			"graphics/team/board.png");
+	public static final ImageIcon BOARD2 = new ImageIcon(
+			"graphics/team/board1.png");
 	public static final ImageIcon BOARD1 = new ImageIcon(
 			"graphics/player/board.png");
 	public static final Image BACK1 = new ImageIcon("graphics/main/back1.png")

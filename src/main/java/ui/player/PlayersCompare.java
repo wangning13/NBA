@@ -39,6 +39,7 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 	JComboBox<String> selectTeam2 = new JComboBox<String>();
 	JComboBox<String> selectPlayer2 = new JComboBox<String>();
 	Font font = new Font("黑体", Font.BOLD, 16);
+	Font font1 = new Font("黑体", Font.BOLD, 12);
 	JLabel blank = new JLabel(Img.BLANK);
 	public PlayersCompare(Frame frame) {
 		super(frame);
@@ -46,7 +47,7 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 		this.frame = frame;
 
 		this.add(jl);
-		jl.setBounds(250,150,552,500);
+		jl.setBounds(250,150,552,495);
 		
 		this.add(playerIcon1);
 		playerIcon1.setBounds(0, 150, 220, 350);
@@ -54,19 +55,27 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 		jl1.setBounds(50,550,200,30);
 		jl1.setFont(font);
 		this.add(selectTeam1);
-		selectTeam1.setBounds(0,600,120,25);
+		selectTeam1.setBounds(5,600,120,25);
+		selectTeam1.setFont(font1);
+		selectTeam1.setUI(new MyComboBoxUI());
 		this.add(selectPlayer1);
-		selectPlayer1.setBounds(125,600,120,25);
+		selectPlayer1.setBounds(130,600,120,25);
+		selectPlayer1.setFont(font1);
+		selectPlayer1.setUI(new MyComboBoxUI());
 		
 		this.add(playerIcon2);
-		playerIcon2.setBounds(832, 150, 220, 350);
+		playerIcon2.setBounds(827, 150, 220, 350);
 		this.add(jl2);
 		jl2.setBounds(852,550,200,30);
 		jl2.setFont(font);
 		this.add(selectTeam2);
-		selectTeam2.setBounds(807,600,120,25);
+		selectTeam2.setBounds(802,600,120,25);
+		selectTeam2.setFont(font1);
+		selectTeam2.setUI(new MyComboBoxUI());
 		this.add(selectPlayer2);
-		selectPlayer2.setBounds(932,600,120,25);
+		selectPlayer2.setBounds(927,600,120,25);
+		selectPlayer2.setFont(font1);
+		selectPlayer2.setUI(new MyComboBoxUI());
 		
 		this.add(blank);
 		blank.setBounds(0,150,1052,500);
@@ -192,13 +201,17 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 				Image.SCALE_DEFAULT));
 		playerIcon1.setIcon(icon);
 		jl1.setText(name);
+		selectTeam1.setSelectedIndex(0);
+		selectPlayer1.setSelectedIndex(0);
 		
+		player2 = "league";
 		ImageIcon icon1 = Img.loadPlayer("NBA");
 		icon1.setImage(icon1.getImage().getScaledInstance(128, 300,
 				Image.SCALE_DEFAULT));
 		playerIcon2.setIcon(icon1);
 		jl2.setText("Average of League");
-		
+		selectTeam2.setSelectedIndex(0);
+		selectPlayer2.setSelectedIndex(0);
 		updateChart();
 	}
 	
@@ -233,7 +246,6 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 	    dataset.setValue(playerData1.getAverageScoring(), player1, "场均得分");
 	    dataset.setValue(playerData2.getAverageScoring(), player2, "场均得分");
 
-
 	    dataset.setValue(playerData1.getAverageBackboard(), player1, "场均篮板");
 	    dataset.setValue(playerData2.getAverageBackboard(), player2, "场均篮板");
 
@@ -255,12 +267,12 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 	    dataset.setValue(playerData2.getAverageFoul(), player2, "场均犯规");
 
 	    //生成图表
-	    JFreeChart chart = JFreeUtils.createBarChart(dataset, "球员数据对比柱状图", "数据项", "赛季数据",false);
+	    JFreeChart chart = JFreeUtils.createBarChart(dataset, "球员数据对比柱状图", "数据项", "赛季数据",true);
 	    //生成图片
-	    JFreeUtils.drawToOutputStream("graphics/chart/柱状图.JPG", chart, 552, 500);
+	    JFreeUtils.drawToOutputStream("graphics/chart/柱状图.JPG", chart, 552, 495);
 		ImageIcon icon = new ImageIcon(
 				"graphics/chart/柱状图.JPG");
-		icon.setImage(icon.getImage().getScaledInstance(552, 500,
+		icon.setImage(icon.getImage().getScaledInstance(552, 495,
 				Image.SCALE_DEFAULT));
 		jl.setIcon(icon);
 	}

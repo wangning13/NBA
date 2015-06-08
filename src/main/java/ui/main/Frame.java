@@ -6,12 +6,14 @@ import javax.swing.*;
 
 import ui.match.Matches;
 import ui.match.SingleMatch;
+import ui.player.PlayerAnalyze;
 import ui.player.PlayersCompare;
 import ui.player.PlayersSelect;
 import ui.player.SinglePlayer;
 import ui.player.Statistics;
 import ui.team.Ranking;
 import ui.team.SingleTeam;
+import ui.team.TeamAnalyze;
 import ui.team.TeamsSelect;
 
 @SuppressWarnings("serial")
@@ -29,6 +31,8 @@ public class Frame extends JFrame {
 	public static Matches matchesPanel ;
 	public static SingleMatch singleMatchPanel;
 	public static PlayersCompare playersComparePanel;
+	public static PlayerAnalyze playerAnalyzePanel;
+	public static TeamAnalyze teamAnalyzePanel;
 
 	public static String currentPanel = "main";
 
@@ -45,6 +49,8 @@ public class Frame extends JFrame {
 		matchesPanel = new Matches(this);
 		singleMatchPanel = new SingleMatch(this);
 		playersComparePanel = new PlayersCompare(this);
+		playerAnalyzePanel = new PlayerAnalyze(this);
+		teamAnalyzePanel = new TeamAnalyze(this);
 		
 		this.getContentPane().add(mainFrame);
 		CardLayout cl = new CardLayout();
@@ -56,10 +62,6 @@ public class Frame extends JFrame {
 		this.setResizable(false); // 去除窗口栏 (目前暂时保留以供调试方便)
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-
-		
-		
-		
 	}
 
 	public static void update() {

@@ -145,11 +145,11 @@ public class JFreeUtils {
 
 			CategoryAxis h = plot.getDomainAxis(); // 获取x轴   
 			h.setMaximumCategoryLabelWidthRatio(1.0f);// 横轴上的 Lable 是否完整显示   
-			h.setLabelFont(new Font("宋体", Font.BOLD, 12));// 设置字体，防止中文乱码   
-			h.setTickLabelFont(new Font("宋体", Font.BOLD, 12));// 轴数值   
+			h.setLabelFont(new Font("黑体", Font.BOLD, 12));// 设置字体，防止中文乱码   
+			h.setTickLabelFont(new Font("黑体", Font.BOLD, 12));// 轴数值   
 			// h.setCategoryLabelPositions(CategoryLabelPositions.UP_45);//45度倾斜   
 
-			plot.getRangeAxis().setLabelFont(new Font("宋体", Font.BOLD, 12)); // Y轴设置字体，防止中文乱码   
+			plot.getRangeAxis().setLabelFont(new Font("黑体", Font.BOLD, 12)); // Y轴设置字体，防止中文乱码   
 
 			// 柱图的呈现器   
 			BarRenderer renderer = new BarRenderer();
@@ -163,8 +163,8 @@ public class JFreeUtils {
 			renderer.setDrawBarOutline(true);
 			// 设置每个柱的颜色   
 			renderer.setSeriesPaint(0, Color.BLUE);
-			renderer.setSeriesPaint(1, Color.GREEN);
-			renderer.setSeriesPaint(2, Color.RED);
+			renderer.setSeriesPaint(1, Color.RED);
+			renderer.setSeriesPaint(2, Color.GREEN);
 			// 设置每个地区所包含的平行柱的之间距离   
 			renderer.setItemMargin(0.05);
 			// 显示每个柱的数值，并修改该数值的字体属性   

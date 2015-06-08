@@ -61,6 +61,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 	JButton search = new JButton("查询");
 	JButton recent = new JButton("最近五场");
 	JButton compare = new JButton("比较");
+	JButton analyze = new JButton("分析");
 	JLabel jl1 = new JLabel("姓名");
 	JLabel jl2 = new JLabel("号码");
 	JLabel jl3 = new JLabel("位置");
@@ -141,10 +142,16 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		recent.setUI(new MyButtonUI());
 
 		this.add(compare);
-		compare.setBounds(500, 172, 60, 25);
+		compare.setBounds(270, 172, 60, 25);
 		compare.addActionListener(this);
 		compare.setActionCommand("compare");
 		compare.setUI(new MyButtonUI());
+		
+		this.add(analyze);
+		analyze.setBounds(350, 172, 60, 25);
+		analyze.addActionListener(this);
+		analyze.setActionCommand("analyze");
+		analyze.setUI(new MyButtonUI());
 
 		this.add(rankingBand);
 		rankingBand.setBounds(250, 150, 802, 70);
@@ -451,7 +458,12 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		 else if (e.getActionCommand().equals("compare")) {
 				frame.change(this, Frame.playersComparePanel);
 				Frame.playersComparePanel.update(playerName);
-				Frame.currentPanel = "playersComparePanel";
+				Frame.currentPanel = "playersCompare";
+			}
+		 else if (e.getActionCommand().equals("analyze")) {
+				frame.change(this, Frame.playerAnalyzePanel);
+				Frame.playerAnalyzePanel.update(playerName);
+				Frame.currentPanel = "playerAnalyze";
 			}
 	}
 }

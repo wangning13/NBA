@@ -75,6 +75,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 	JLabel jl8 = new JLabel("比赛查询");
 	JButton search = new JButton("查询");
 	JButton recent = new JButton("最近五场");
+	JButton analyze = new JButton("分析");
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 	JLabel teamIcon = new JLabel(Img.GSW);
 
@@ -128,6 +129,12 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		recent.addActionListener(this);
 		recent.setActionCommand("recent");
 		recent.setUI(new MyButtonUI());
+		
+		this.add(analyze);
+		analyze.setBounds(330, 172, 60, 25);
+		analyze.addActionListener(this);
+		analyze.setActionCommand("analyze");
+		analyze.setUI(new MyButtonUI());
 
 		this.add(rankingBand);
 		rankingBand.setBounds(300, 150, 752, 70);
@@ -478,7 +485,8 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			table2.setWidth();
 			table2.updateUI();
 			isRecent = false;
-		} else if (e.getActionCommand().equals("recent")) {
+		} 
+		else if (e.getActionCommand().equals("recent")) {
 			matches = trs.getTeamRecentFiveMatch(name);
 			Object[][] data2 = getData(matches);
 			model2.setDataVector(data2, columnNames2);
@@ -486,6 +494,13 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			table2.updateUI();
 			isRecent = true;
 		}
+		else if (e.getActionCommand().equals("analyze")) {
+			frame.change(this, Frame.teamAnalyzePanel);
+			Frame.teamAnalyzePanel.update(name);
+			Frame.currentPanel = "teamAnalyze";
+		}
+		
+		
 
 	}
 
