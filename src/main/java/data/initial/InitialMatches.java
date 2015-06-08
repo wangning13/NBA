@@ -64,11 +64,11 @@ public class InitialMatches {
 				String[] year = item[0].split("-");
 				if (temp[0].startsWith("10-") || temp[0].startsWith("11-")
 						|| temp[0].startsWith("12-")) {
-					info = info + year[0] + "-" + temp[0] + ";h;";
-					guest = ":" + year[0] + "-" + temp[0] + ";g;";
+					info = info + year[0] + "-" + temp[0] + ";g;";
+					guest = ":" + year[0] + "-" + temp[0] + ";h;";
 				} else {
-					info = info + year[1] + "-" + temp[0] + ";h;";
-					guest = ":" + year[1] + "-" + temp[0] + ";g;";
+					info = info + year[1] + "-" + temp[0] + ";g;";
+					guest = ":" + year[1] + "-" + temp[0] + ";h;";
 				}
 				String[] temp1 = temp[1].split("-");
 				info = info + temp1[0] + ";" + temp1[1] + ";";
