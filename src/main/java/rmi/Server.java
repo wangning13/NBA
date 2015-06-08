@@ -48,8 +48,8 @@ public class Server {
 				}
 			}
 
-			timer = new Timer();
-			timer.schedule(new UpdateDatabase(), 0, 5000);
+		/*	timer = new Timer();
+			timer.schedule(new UpdateDatabase(), 0, 5000);    */
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

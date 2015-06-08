@@ -30,4 +30,6 @@ public interface GetPlayerdataDataService {
 	
 	public ArrayList<PlayerPO> getPlayerName(String season,String key);
 	
+	public ArrayList<PlayerMatchPO> getPlayerRecentTenMatch(String player);
+	
 }

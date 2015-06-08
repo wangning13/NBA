@@ -699,5 +699,28 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 	
+	public ArrayList<PlayerMatchPO> getPlayerRecentTenMatch(String player) {
+		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
+		String sql = "SELECT * FROM playerdata WHERE playername='" + player
+				+ "' ORDER BY date DESC LIMIT 10";
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				PlayerMatchPO temp = new PlayerMatchPO(rs.getString(1),
+						rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getDouble(5), rs.getInt(6), rs.getInt(7),
+						rs.getInt(8), rs.getInt(9), rs.getInt(10),
+						rs.getInt(11), rs.getInt(12), rs.getInt(13),
+						rs.getInt(14), rs.getInt(15), rs.getInt(16),
+						rs.getInt(17), rs.getInt(18), rs.getInt(19),
+						rs.getInt(20));
+				po.add(temp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return po;
+	}
 	
 }
