@@ -702,7 +702,7 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 	public ArrayList<PlayerMatchPO> getPlayerRecentSeasonMatch(String season,String player) {
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
 		String sql = "SELECT * FROM `playerdata" + season + "` WHERE playername='" + player
-				+ "' ORDER BY date DESC LIMIT 10";
+				+ "' ORDER BY date DESC";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
