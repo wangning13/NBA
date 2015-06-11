@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 
 import javax.swing.*;
 
+import ui.match.MatchLive;
 import ui.match.Matches;
 import ui.match.SingleMatch;
 import ui.player.PlayerAnalyze;
@@ -33,6 +34,7 @@ public class Frame extends JFrame {
 	public static PlayersCompare playersComparePanel;
 	public static PlayerAnalyze playerAnalyzePanel;
 	public static TeamAnalyze teamAnalyzePanel;
+	public static MatchLive matchLivePanel;
 
 	public static String currentPanel = "main";
 
@@ -51,6 +53,7 @@ public class Frame extends JFrame {
 		playersComparePanel = new PlayersCompare(this);
 		playerAnalyzePanel = new PlayerAnalyze(this);
 		teamAnalyzePanel = new TeamAnalyze(this);
+		matchLivePanel = new MatchLive(this);
 		
 		this.getContentPane().add(mainFrame);
 		CardLayout cl = new CardLayout();
@@ -63,7 +66,7 @@ public class Frame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
-
+/*
 	public static void update() {
 		if (currentPanel.equals("ranking")) {
 			rankingPanel.update();
@@ -80,7 +83,7 @@ public class Frame extends JFrame {
 		} else if (currentPanel.equals("matches")) {
 			matchesPanel.update();
 		}
-	}
+	}*/
 
 	public void change(JPanel cur, JPanel next) {
 		cur.setVisible(false);

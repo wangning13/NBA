@@ -158,11 +158,16 @@ public class Matches extends MyPanel implements ActionListener {
 	}
 
 	public void jump(int row) {
-		frame.change(this, Frame.singleMatchPanel);
-		TeamMonthMatchVO temp = matches.get(matches.size() - row - 1);
-		Frame.singleMatchPanel.update(temp);
-		Frame.singleMatchPanel.flag = false;
-		Frame.currentPanel = "singleMatch";
+		if(table1.getValueAt(row, 8).toString().equals("直播")){
+			frame.change(this, Frame.matchLivePanel);
+			Frame.currentPanel = "MatchLive";
+	    }else{
+		    frame.change(this, Frame.singleMatchPanel);
+		    TeamMonthMatchVO temp = matches.get(matches.size() - row - 1);
+		    Frame.singleMatchPanel.update(temp);
+		    Frame.singleMatchPanel.flag = false;
+		    Frame.currentPanel = "singleMatch";
+	    }
 	}
 
 	public Object[][] getData(ArrayList<TeamMonthMatchVO> matches) {
