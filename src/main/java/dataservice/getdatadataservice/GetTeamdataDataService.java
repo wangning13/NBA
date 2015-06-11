@@ -20,9 +20,9 @@ public interface GetTeamdataDataService {
 	public ArrayList<TeamPO> getSomeTeamdata(String season, String condition,
 			String key, String order);
 
-	public ArrayList<TeamMatchPO> getTeamMonthMatch(String season,String month, String team);
+	public ArrayList<TeamMatchPO> getTeamMonthMatch(String month, String team);
 
-	public TeamMatchPO getTeamMatch(String season,String date, String team);
+	public TeamMatchPO getTeamMatch(String date, String team);
 
 	public ArrayList<TeamMatchPO> getTeamRecentFiveMatch(String season,String team);
 

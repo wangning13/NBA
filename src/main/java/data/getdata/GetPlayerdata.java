@@ -581,14 +581,23 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 	}
 
 	// 一场比赛一个球队所有球员数据
-	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String season,String date, String team) {
+	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String date, String team) {
+		String[] temp = date.split("-");
+		String season = "";
+		if (temp[1].equals("01") || temp[1].equals("02") || temp[1].equals("03") || temp[1].equals("04")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0];
+		} else if (temp[1].equals("05") || temp[1].equals("06")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0] + "a";
+		} else {
+			season = temp[0] + "-" + Integer.toString(Integer.parseInt(temp[0])+1);
+		}
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
 		String sql = "SELECT * FROM `playerdata" + season + "` WHERE date='" + date
 				+ "' AND team='" + team + "'";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
-				PlayerMatchPO temp = new PlayerMatchPO(rs.getString(1),
+				PlayerMatchPO tmp = new PlayerMatchPO(rs.getString(1),
 						rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getDouble(5), rs.getInt(6), rs.getInt(7),
 						rs.getInt(8), rs.getInt(9), rs.getInt(10),
@@ -596,7 +605,7 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 						rs.getInt(14), rs.getInt(15), rs.getInt(16),
 						rs.getInt(17), rs.getInt(18), rs.getInt(19),
 						rs.getInt(20));
-				po.add(temp);
+				po.add(tmp);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -605,15 +614,24 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 
-	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String season,String month,
+	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String month,
 			String player) {
+		String[] temp = month.split("-");
+		String season = "";
+		if (temp[1].equals("01") || temp[1].equals("02") || temp[1].equals("03") || temp[1].equals("04")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0];
+		} else if (temp[1].equals("05") || temp[1].equals("06")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0] + "a";
+		} else {
+			season = temp[0] + "-" + Integer.toString(Integer.parseInt(temp[0])+1);
+		}
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
 		String sql = "SELECT * FROM `playerdata" + season + "` WHERE date LIKE '" + month
 				+ "%' AND playername='" + player + "' ORDER BY date DESC";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
-				PlayerMatchPO temp = new PlayerMatchPO(rs.getString(1),
+				PlayerMatchPO tmp = new PlayerMatchPO(rs.getString(1),
 						rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getDouble(5), rs.getInt(6), rs.getInt(7),
 						rs.getInt(8), rs.getInt(9), rs.getInt(10),
@@ -621,7 +639,7 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 						rs.getInt(14), rs.getInt(15), rs.getInt(16),
 						rs.getInt(17), rs.getInt(18), rs.getInt(19),
 						rs.getInt(20));
-				po.add(temp);
+				po.add(tmp);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
