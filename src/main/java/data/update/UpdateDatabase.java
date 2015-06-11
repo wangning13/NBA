@@ -21,7 +21,13 @@ import data.initial.InitialDatabase;
 
 public class UpdateDatabase extends TimerTask {
 
+	@Override
 	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*public void run() {
 		File f = new File(InitialDatabase.datasource + "/matches");
 		String[] matches = f.list();
 		for (int i = 0; i < matches.length; i++) {
@@ -626,6 +632,6 @@ public class UpdateDatabase extends TimerTask {
 			e.printStackTrace();
 		}
 		return winlose;
-	}
+	} */
 
 }
