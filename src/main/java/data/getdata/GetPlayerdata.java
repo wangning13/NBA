@@ -581,9 +581,9 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 	}
 
 	// 一场比赛一个球队所有球员数据
-	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String date, String team) {
+	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String season,String date, String team) {
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
-		String sql = "SELECT * FROM playerdata WHERE date='" + date
+		String sql = "SELECT * FROM `playerdata" + season + "` WHERE date='" + date
 				+ "' AND team='" + team + "'";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -605,10 +605,10 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 
-	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String month,
+	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String season,String month,
 			String player) {
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
-		String sql = "SELECT * FROM playerdata WHERE date LIKE '" + month
+		String sql = "SELECT * FROM `playerdata" + season + "` WHERE date LIKE '" + month
 				+ "%' AND playername='" + player + "' ORDER BY date DESC";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -630,9 +630,9 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 
-	public ArrayList<PlayerMatchPO> getPlayerRecentFiveMatch(String player) {
+	public ArrayList<PlayerMatchPO> getPlayerRecentFiveMatch(String season,String player) {
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
-		String sql = "SELECT * FROM playerdata WHERE playername='" + player
+		String sql = "SELECT * FROM `playerdata" + season + "` WHERE playername='" + player
 				+ "' ORDER BY date DESC LIMIT 5";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -656,13 +656,13 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 
 	public ArrayList<PlayerMatchPO> getDayTop(String condition) {
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
-		String sql = "SELECT date FROM playerdata ORDER BY date DESC LIMIT 1";
+		String sql = "SELECT date FROM `playerdata14-15a` ORDER BY date DESC LIMIT 1";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			String date = "";
 			while (rs.next())
 				date = rs.getString(1);
-			sql = "SELECT * FROM playerdata WHERE date='" + date
+			sql = "SELECT * FROM `playerdata14-15a` WHERE date='" + date
 					+ "' ORDER BY " + condition + " DESC LIMIT 5";
 			rs = statement.executeQuery(sql);
 			while (rs.next()) {
@@ -699,9 +699,9 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 	
-	public ArrayList<PlayerMatchPO> getPlayerRecentTenMatch(String player) {
+	public ArrayList<PlayerMatchPO> getPlayerRecentSeasonMatch(String season,String player) {
 		ArrayList<PlayerMatchPO> po = new ArrayList<PlayerMatchPO>();
-		String sql = "SELECT * FROM playerdata WHERE playername='" + player
+		String sql = "SELECT * FROM `playerdata" + season + "` WHERE playername='" + player
 				+ "' ORDER BY date DESC LIMIT 10";
 		try {
 			ResultSet rs = statement.executeQuery(sql);

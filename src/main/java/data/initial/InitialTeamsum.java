@@ -12,14 +12,19 @@ import data.getdata.SqlStatement;
 
 public class InitialTeamsum {
 
-	public InitialTeamsum(Connection conn, Statement statement) {
-		System.out.println("初始化球队统计……");
+	public InitialTeamsum(Connection conn, Statement statement,String thisSeason) {
+		System.out.println("初始化球队统计"+thisSeason);
 		DecimalFormat df = new DecimalFormat("#.0");
-		String[] tempYear = InitialDatabase.initial_season.split("-");
+		String[] tempYear;
+		if (thisSeason.contains("a")) {
+			tempYear = thisSeason.substring(0, thisSeason.length()-1).split("-");
+		} else {
+			tempYear = thisSeason.split("-");
+		}
 		String season = "date < '" + tempYear[1] + "-05' AND date > '"
 				+ tempYear[0] + "-09'";
 		String insert = "INSERT INTO `teamsum"
-				+ InitialDatabase.initial_season
+				+ thisSeason
 				+ "`  values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(insert);
@@ -57,11 +62,11 @@ public class InitialTeamsum {
 				int opponentBackBoard = 0;// 对手总篮板
 				int opponentThreePointFieldGoalAttempts = 0;// 对手三分出手数
 				rs = statement.executeQuery(SqlStatement.countTeamMatches(
-						teamName, season));
+						teamName, season, thisSeason));
 				while (rs.next())
 					matches = rs.getInt(1);
 				rs = statement.executeQuery(SqlStatement.countTeamSum(teamName,
-						season));
+						season,thisSeason));
 				while (rs.next()) {
 					fieldGoal = rs.getInt(1);
 					fieldGoalAttempts = rs.getInt(2);
@@ -82,20 +87,20 @@ public class InitialTeamsum {
 					minutes = Double.parseDouble(df.format(minutes));
 				}
 				rs = statement.executeQuery(SqlStatement.countTeamWins(
-						teamName, season));
+						teamName, season,thisSeason));
 				while (rs.next())
 					wins = rs.getInt(1);
 				ArrayList<String> date = new ArrayList<String>();
 				ArrayList<String> opponent = new ArrayList<String>();
 				rs = statement.executeQuery(SqlStatement.getTeamOpponent(
-						teamName, season));
+						teamName, season,thisSeason));
 				while (rs.next()) {
 					date.add(rs.getString(1));
 					opponent.add(rs.getString(2));
 				}
 				for (int i = 0; i < date.size(); i++) {
 					rs = statement.executeQuery(SqlStatement
-							.getTeamOpponentSum(date.get(i), opponent.get(i)));
+							.getTeamOpponentSum(date.get(i), opponent.get(i),thisSeason));
 					int temp1 = 0;
 					int temp2 = 0;
 					int temp3 = 0;
@@ -160,6 +165,8 @@ public class InitialTeamsum {
 				ps.addBatch();
 			}
 			ps.executeBatch();
+			String sql = "DELETE FROM `teamsum" + thisSeason + "` WHERE matches = 0";
+			statement.execute(sql);
 			conn.commit();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
