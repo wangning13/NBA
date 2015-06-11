@@ -32,6 +32,8 @@ public class InitialTeamsum {
 			ArrayList<String> team = new ArrayList<String>();
 			while (rs.next())
 				team.add(rs.getString(1));
+			team.add("NJN");
+			team.add("NOH");
 			for (int j = 0; j < team.size(); j++) {
 				String teamName = team.get(j);
 				int opponentFieldGoal = 0;// 对手投篮命中数
