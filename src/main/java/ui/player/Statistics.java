@@ -75,14 +75,16 @@ public class Statistics extends MyPanel implements ActionListener {
 	JButton ascending = new JButton("升序");
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 	Font font2 = new Font("黑体", Font.BOLD, 18);
-	JLabel jl1 = new JLabel("对所有球员排序：");
-	JLabel jl2 = new JLabel("筛选前50名：");
+	//JLabel jl1 = new JLabel("对所有球员排序：");
+	//JLabel jl2 = new JLabel("筛选前50名：");
+	JLabel jl3 = new JLabel("赛季选择：");
 	JComboBox<String> posision = new JComboBox<String>();
 	JComboBox<String> area = new JComboBox<String>();
 	JComboBox<String> term = new JComboBox<String>();
 	JComboBox<String> hot = new JComboBox<String>();
 	JComboBox<String> term1 = new JComboBox<String>();
 	JComboBox<String> option = new JComboBox<String>();
+	JComboBox<String> season = new JComboBox<String>();
 	JButton filter = new JButton("筛选");
 	JButton search = new JButton("查询");
 
@@ -159,30 +161,31 @@ public class Statistics extends MyPanel implements ActionListener {
 		term1.addItem("盖帽");
 		term1.addItem("抢断");
 		term1.setUI(new MyComboBoxUI());
+		/*
 		this.add(jl1);
 		jl1.setBounds(20, 175, 180, 20);
 		jl1.setFont(font1);
-
+*/
 		this.add(type);
-		type.setBounds(150, 175, 110, 20);
+		type.setBounds(200, 175, 110, 20);
 		type.setFont(font1);
 
 		this.add(descending);
-		descending.setBounds(270, 172, 60, 25);
+		descending.setBounds(320, 172, 60, 25);
 		descending.addActionListener(this);
 		descending.setActionCommand("descending");
 		descending.setUI(new MyButtonUI());
 
 		this.add(ascending);
-		ascending.setBounds(340, 172, 60, 25);
+		ascending.setBounds(390, 172, 60, 25);
 		ascending.addActionListener(this);
 		ascending.setActionCommand("ascending");
 		ascending.setUI(new MyButtonUI());
 
-		this.add(jl2);
+	/*	this.add(jl2);
 		jl2.setBounds(560, 160, 180, 20);
 		jl2.setFont(font1);
-
+    */
 		this.add(posision);
 		posision.setBounds(660, 160, 70, 20);
 		posision.setFont(font1);
@@ -246,7 +249,7 @@ public class Statistics extends MyPanel implements ActionListener {
 		option.addItem("赛季数据");
 		option.addItem("效率评估");
 		this.add(option);
-		option.setBounds(430, 164, 110, 40);
+		option.setBounds(500, 164, 110, 40);
 		option.setFont(font2);
 	//	option.setUI(new MyComboBoxUI());
 		option.addActionListener(new ActionListener() {
@@ -260,9 +263,32 @@ public class Statistics extends MyPanel implements ActionListener {
 			}
 		});
 		
+		this.add(jl3);
+		jl3.setBounds(5, 170, 100, 30);
+		jl3.setFont(font1);
+		
+		season.addItem("13-14");
+		season.addItem("14-15");
+		season.addItem("12-13");
+		season.addItem("11-12");
+		season.addItem("10-11");
+		this.add(season);
+		season.setBounds(90, 176, 80, 20);
+		season.setFont(font1);
+		season.setUI(new MyComboBoxUI());
+		season.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent e) {
+		        players = prs.getAllPlayerdata(season.getSelectedItem().toString(),"scoring","DESC");
+				Object[][] data = getData(players);
+				model.setDataVector(data, getColumnNames());
+				table.setWidth();
+				table.updateUI();
+			}
+		});
+		
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
-        players = prs.getAllPlayerdata("13-14","scoring","DESC");
+        players = prs.getAllPlayerdata(season.getSelectedItem().toString(),"scoring","DESC");
 		Object[][] data = getData(players);
 		model = new DefaultTableModel(new Object[][] {}, columnNames1_1);
 		model.setDataVector(data, columnNames1_1);
@@ -447,7 +473,7 @@ public class Statistics extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-		players = prs.getAllPlayerdata("13-14", "scoring",
+		players = prs.getAllPlayerdata(season.getSelectedItem().toString(), "scoring",
 				"DESC");
 		data = getData(players);
 
@@ -459,19 +485,19 @@ public class Statistics extends MyPanel implements ActionListener {
 	                 }
 		 });
 	/*	if (flag == 0) {
-			Object[][] data = getData(prs.getAllPlayerdata("13-14", "scoring",
+			Object[][] data = getData(prs.getAllPlayerdata(season.getSelectedItem().toString(), "scoring",
 					"DESC"));
 			model.setDataVector(data, columnNames);
 			table.setWidth();
 			table.updateUI();
 		} else if (flag == 1) {
-			Object[][] data = getData(prs.getAllPlayerdata("13-14", term2,
+			Object[][] data = getData(prs.getAllPlayerdata(season.getSelectedItem().toString(), term2,
 					order));
 			model.setDataVector(data, columnNames);
 			table.setWidth();
 			table.updateUI();
 		} else if (flag == 2) {
-			Object[][] data = getData(prs.getFirstFifty("13-14", term3, term4,
+			Object[][] data = getData(prs.getFirstFifty(season.getSelectedItem().toString(), term3, term4,
 					term5));
 			model.setDataVector(data, columnNames);
 			table.setWidth();
@@ -482,12 +508,12 @@ public class Statistics extends MyPanel implements ActionListener {
 			table.setWidth();
 			table.updateUI();
 		} else if (flag == 4) {
-			Object[][] data = getData(prs.getSeasonTop("13-14", term6));
+			Object[][] data = getData(prs.getSeasonTop(season.getSelectedItem().toString(), term6));
 			model.setDataVector(data, columnNames);
 			table.setWidth();
 			table.updateUI();
 		} else if (flag == 5) {
-			Object[][] data = getData(prs.getMostImporvedPlayer("13-14", key));
+			Object[][] data = getData(prs.getMostImporvedPlayer(season.getSelectedItem().toString(), key));
 			model.setDataVector(data, columnNames);
 			table.setWidth();
 			table.updateUI();
@@ -507,7 +533,7 @@ public class Statistics extends MyPanel implements ActionListener {
 			flag = 1;
 			term2 = Translate.translate1(type.getSelectedItem().toString());
 			order = "DESC";
-			players = prs.getAllPlayerdata("13-14",
+			players = prs.getAllPlayerdata(season.getSelectedItem().toString(),
 					Translate.translate1(type.getSelectedItem().toString()),
 					"DESC");
 			Object[][] data = getData(players);
@@ -519,7 +545,7 @@ public class Statistics extends MyPanel implements ActionListener {
 			flag = 1;
 			term2 = Translate.translate1(type.getSelectedItem().toString());
 			order = "ASC";
-			players = prs.getAllPlayerdata("13-14",
+			players = prs.getAllPlayerdata(season.getSelectedItem().toString(),
 					Translate.translate1(type.getSelectedItem().toString()),
 					"ASC");
 			Object[][] data = getData(players);
@@ -533,7 +559,7 @@ public class Statistics extends MyPanel implements ActionListener {
 			term4 = Translate.translate1(area.getSelectedItem().toString());
 			term5 = Translate.translate1(term.getSelectedItem().toString());
 			players = prs
-					.getFirstFifty("13-14", Translate.translate1(posision
+					.getFirstFifty(season.getSelectedItem().toString(), Translate.translate1(posision
 							.getSelectedItem().toString()), Translate
 							.translate1(area.getSelectedItem().toString()),
 							Translate.translate1(term.getSelectedItem()
@@ -555,7 +581,7 @@ public class Statistics extends MyPanel implements ActionListener {
 				
 			} else if (hot.getSelectedIndex() == 1) {
 				flag = 4;
-				players = prs.getSeasonTop("13-14", Translate
+				players = prs.getSeasonTop(season.getSelectedItem().toString(), Translate
 						.translate1(term1.getSelectedItem().toString()));
 				Object[][] data = getData(players);
 				model.setDataVector(data, getColumnNames());
@@ -570,7 +596,7 @@ public class Statistics extends MyPanel implements ActionListener {
 					key = "nearlyFiveBackboardPercentage";
 				else
 					key = "nearlyFiveAssistPercentage";
-				players = prs.getMostImporvedPlayer("13-14",
+				players = prs.getMostImporvedPlayer(season.getSelectedItem().toString(),
 						key);
 				Object[][] data = getData(players);
 				model.setDataVector(data, getColumnNames());

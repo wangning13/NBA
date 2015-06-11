@@ -155,11 +155,11 @@ public class PlayerAnalyze extends MyPanel implements ActionListener {
 	}
 	
 	public void updateChart(){
-		ArrayList<PlayerMatchVO> playerData1 = prs.getPlayerRecentFiveMatch(player1);
+		ArrayList<PlayerMatchVO> playerData1 = prs.getPlayerRecentTenMatch(player1);
 		String team = prs.getPlayerdata("13-14", player1).getTeam();
 		//初始化数据
 		String chartTitle = "得分统计图形";
-		String chartSeriesDesc = "近五场得分曲线";
+		String chartSeriesDesc = "近十场得分曲线";
 		String chartXdesc = "时间";
 		String chartYdesc = "得分";
 		String timeFormat = "dd";//yyyy-MM-dd
@@ -168,7 +168,7 @@ public class PlayerAnalyze extends MyPanel implements ActionListener {
 		TimeSeriesCollection dataset = new TimeSeriesCollection();
 		TimeSeries dayseries = new TimeSeries(chartSeriesDesc, Day.class);
 		for(int i=0;i<playerData1.size();i++){
-		    dayseries.add(new Day(1+i*7,1,2013), playerData1.get(i).getScoring());
+		    dayseries.add(new Day(1+i*3,1,2013), playerData1.get(i).getScoring());
 		}
 		//存储至集合对象中
 		dataset.addSeries(dayseries);

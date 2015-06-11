@@ -243,7 +243,7 @@ public class Ranking extends MyPanel implements ActionListener {
 
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
-		teams = trs.getAllTeamdata("13-14", "wins", "DESC");
+		teams = trs.getAllTeamdata(season.getSelectedItem().toString(), "wins", "DESC");
 		Object[][] data = getData(teams);
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
 		model1.setDataVector(data, columnNames1_1);
@@ -388,7 +388,7 @@ public class Ranking extends MyPanel implements ActionListener {
 	}
 
 	public void update() {
-		teams = trs.getAllTeamdata("13-14", "wins",
+		teams = trs.getAllTeamdata(season.getSelectedItem().toString(), "wins",
 				"DESC");
 		 data = getData(teams);
 	//	model1.setDataVector(data, getColumnNames1());
@@ -401,7 +401,7 @@ public class Ranking extends MyPanel implements ActionListener {
 	                 }
 		 });
 		/*if (flag == 0) {
-			Object[][] data = getData(trs.getAllTeamdata("13-14", "wins",
+			Object[][] data = getData(trs.getAllTeamdata(season.getSelectedItem().toString(), "wins",
 					"DESC"));
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();
@@ -409,25 +409,25 @@ public class Ranking extends MyPanel implements ActionListener {
 		}
 		if (flag == 1) {
 			if (area.equals("W") || area.equals("E")) {
-				Object[][] data = getData(trs.getTeamData("13-14",
+				Object[][] data = getData(trs.getTeamData(season.getSelectedItem().toString(),
 						"`east/west`='" + area + "'", "wins", "DESC"));
 				model1.setDataVector(data, columnNames1);
 				table1.setWidth();
 				table1.updateUI();
 			} else {
-				Object[][] data = getData(trs.getTeamData("13-14",
+				Object[][] data = getData(trs.getTeamData(season.getSelectedItem().toString(),
 						"`partition`='" + area + "'", "wins", "DESC"));
 				model1.setDataVector(data, columnNames1);
 				table1.setWidth();
 				table1.updateUI();
 			}
 		} else if (flag == 2) {
-			Object[][] data = getData(trs.getAllTeamdata("13-14", term1, order));
+			Object[][] data = getData(trs.getAllTeamdata(season.getSelectedItem().toString(), term1, order));
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();
 			table1.updateUI();
 		} else if (flag == 3) {
-			Object[][] data = getData(trs.getSeasonTop("13-14", term2));
+			Object[][] data = getData(trs.getSeasonTop(season.getSelectedItem().toString(), term2));
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();
 			table1.updateUI();
@@ -443,7 +443,7 @@ public class Ranking extends MyPanel implements ActionListener {
 			 */
 			flag = 1;
 			area = "W";
-            teams = trs.getTeamData("13-14",
+            teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`east/west`='W'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -458,7 +458,7 @@ public class Ranking extends MyPanel implements ActionListener {
 			 */
 			flag = 1;
 			area = "E";
-			teams = trs.getTeamData("13-14",
+			teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`east/west`='E'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -467,7 +467,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("southwest")) {
 			flag = 1;
 			area = "Southwest";
-			teams = trs.getTeamData("13-14",
+			teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`partition`='Southwest'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -476,7 +476,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("northwest")) {
 			flag = 1;
 			area = "Northwest";
-			teams = trs.getTeamData("13-14",
+			teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`partition`='Northwest'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -485,7 +485,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("pacific")) {
 			flag = 1;
 			area = "Pacific";
-			teams = trs.getTeamData("13-14",
+			teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`partition`='Pacific'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -494,7 +494,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("southeast")) {
 			flag = 1;
 			area = "Southeast";
-			teams = trs.getTeamData("13-14",
+			teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`partition`='Southeast'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -503,7 +503,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("central")) {
 			flag = 1;
 			area = "Central";
-			teams = trs.getTeamData("13-14",
+			teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`partition`='Central'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -512,7 +512,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("atlantic")) {
 			flag = 1;
 			area = "Atlantic";
-			teams = trs.getTeamData("13-14",
+			teams = trs.getTeamData(season.getSelectedItem().toString(),
 					"`partition`='Atlantic'", "wins", "DESC");
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());
@@ -533,7 +533,7 @@ public class Ranking extends MyPanel implements ActionListener {
 			flag = 2;
 			order = "DESC";
 			term1 = Translate.translate1(type.getSelectedItem().toString());
-			teams = trs.getAllTeamdata("13-14",
+			teams = trs.getAllTeamdata(season.getSelectedItem().toString(),
 					Translate.translate1(type.getSelectedItem().toString()),
 					"DESC");
 			Object[][] data = getData(teams);
@@ -551,7 +551,7 @@ public class Ranking extends MyPanel implements ActionListener {
 			flag = 2;
 			order = "ASC";
 			term1 = Translate.translate1(type.getSelectedItem().toString());
-			teams = trs.getAllTeamdata("13-14",
+			teams = trs.getAllTeamdata(season.getSelectedItem().toString(),
 					Translate.translate1(type.getSelectedItem().toString()),
 					"ASC");
 			Object[][] data = getData(teams);
@@ -561,7 +561,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("search")) {
 			flag = 3;
 			term2 = Translate.translate1(term.getSelectedItem().toString());
-			teams = trs.getSeasonTop("13-14",
+			teams = trs.getSeasonTop(season.getSelectedItem().toString(),
 					Translate.translate1(term.getSelectedItem().toString()));
 			Object[][] data = getData(teams);
 			model1.setDataVector(data, getColumnNames1());

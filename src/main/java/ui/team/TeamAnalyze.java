@@ -19,6 +19,7 @@ import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.JFreeUtils;
+import vo.PlayerVO;
 
 @SuppressWarnings("serial")
 public class TeamAnalyze extends MyPanel implements ActionListener {
@@ -29,7 +30,7 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 	JLabel teamIcon1 = new JLabel(Img.loadTeam("HOU"));
 	JLabel chart1 = new JLabel();
 	JLabel board = new JLabel(Img.BOARD2);
-    JLabel jl = new JLabel("得分贡献排行榜");
+    JLabel jl = new JLabel("队内效率排行榜");
     JLabel jl1 = new JLabel("");
     JLabel jl2 = new JLabel("");
     JLabel jl3 = new JLabel("");
@@ -98,20 +99,25 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 		ArrayList<String> players = prs.getAllPlayer("13-14", team);
 		//初始化数据
 		DefaultPieDataset dataset1 = new DefaultPieDataset();
-		for(int i=0;i<players.size();i++){
-			dataset1.setValue(players.get(i),Double.parseDouble(df1.format(prs.getPlayerdata("13-14", players.get(i)).getScoring()/82)));
-		}
 		
 
 		for(int i=0;i<players.size();i++){
 			for(int j=i+1;j<players.size();j++){
-				if(prs.getPlayerdata("13-14", players.get(i)).getScoring()<prs.getPlayerdata("13-14", players.get(j)).getScoring()){
+				if(prs.getPlayerdata("13-14", players.get(i)).getEfficiency()<prs.getPlayerdata("13-14", players.get(j)).getEfficiency()){
 					String temp = players.get(i);
 					players.set(i, players.get(j));
 					players.set(j, temp);
 				}
 			}
 		}
+		
+		for(int i=0;i<10;i++){
+			PlayerVO playerData = prs.getPlayerdata("13-14", players.get(i));
+		//	if(playerData.getEfficiency()>5)
+			    dataset1.setValue(players.get(i),Double.parseDouble(df1.format(playerData.getEfficiency())));
+		}
+		
+
 	
 		jl1.setText("1  "+players.get(0));
 		jl2.setText("2  "+players.get(1));
@@ -133,7 +139,7 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 		
 		
 		//生成图表
-		JFreeChart chart = JFreeUtils.createPieChart(dataset1,"球员得分贡献图",true);
+		JFreeChart chart = JFreeUtils.createPieChart(dataset1,"球员效率图",true);
 		//生成图片
 		JFreeUtils.drawToOutputStream("graphics/chart/饼图.JPG", chart, 832, 500);
 		ImageIcon icon = new ImageIcon(
