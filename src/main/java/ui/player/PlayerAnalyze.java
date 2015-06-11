@@ -155,7 +155,7 @@ public class PlayerAnalyze extends MyPanel implements ActionListener {
 	}
 	
 	public void updateChart(){
-		ArrayList<PlayerMatchVO> playerData1 = prs.getPlayerRecentTenMatch(player1);
+		ArrayList<PlayerMatchVO> playerData1 = prs.getPlayerRecentFiveMatch("13-14",player1);
 		String team = prs.getPlayerdata("13-14", player1).getTeam();
 		//初始化数据
 		String chartTitle = "得分统计图形";

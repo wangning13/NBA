@@ -443,7 +443,7 @@ public class Statistics extends MyPanel implements ActionListener {
 		for (int i = 0; i < num; i++) {
 			Object[] temp = {
 					matches.get(i).getPlayername(),
-					trs.getTeamMatch(matches.get(i).getDate(),
+					trs.getTeamMatch(season.getSelectedItem().toString(),matches.get(i).getDate(),
 							matches.get(i).getTeam()).getOpponent(),
 					matches.get(i).getMinutes(), matches.get(i).getScoring(),
 					matches.get(i).getFieldGoal()+"-"+

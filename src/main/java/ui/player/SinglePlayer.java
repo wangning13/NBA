@@ -358,7 +358,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		}
 		return data;
 	}
-
+/*
 	public void update() {
 		
 		SwingUtilities.invokeLater(new Runnable() {
@@ -399,19 +399,18 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 	        	table1.updateUI();
 	                 }
 		 });
-
 		if (isRecent) {
 
 			SwingUtilities.invokeLater(new Runnable() {
 		        public void run() {
-					matches = prs.getPlayerRecentFiveMatch(playerName);
+					matches = prs.getPlayerRecentFiveMatch("13-14",playerName);
 					model2.setDataVector(getData2(matches), columnNames2);
 					table2.setWidth();
 		        	table2.updateUI();
 		                 }
 			 });
 		} else {
-			matches = prs.getPlayerMonthMatch(date,
+			matches = prs.getPlayerMonthMatch("13-14",date,
 					playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 			table2.setWidth();
@@ -421,7 +420,8 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		                 }
 			 });
 		}
-	}
+	}*/
+
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
