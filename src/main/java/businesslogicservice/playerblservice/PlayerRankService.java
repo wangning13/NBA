@@ -21,14 +21,14 @@ public interface PlayerRankService {
 	public ArrayList<PlayerVO> getFirstFifty(String season, String position,
 			String partition, String key);// 筛选前50名
 
-	public ArrayList<PlayerMatchVO> getPlayerMatchdata(String date, String team);
+	public ArrayList<PlayerMatchVO> getPlayerMatchdata(String season,String date, String team);
 
-	public ArrayList<PlayerMatchVO> getPlayerMonthMatch(String month,
+	public ArrayList<PlayerMatchVO> getPlayerMonthMatch(String season,String month,
 			String team);
 
-	public ArrayList<PlayerMatchVO> getPlayerRecentFiveMatch(String player);
+	public ArrayList<PlayerMatchVO> getPlayerRecentFiveMatch(String season,String player);
 	
-	public ArrayList<PlayerMatchVO> getPlayerRecentTenMatch(String player);
+	public ArrayList<PlayerMatchVO> getPlayerRecentSeasonMatch(String season,String player);
 
 	public ArrayList<PlayerMatchVO> getDayTop(String condition);
 
