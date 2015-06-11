@@ -330,9 +330,9 @@ public class GetTeamdata implements GetTeamdataDataService {
 		return po;
 	}
 
-	public ArrayList<TeamMatchPO> getTeamMonthMatch(String month, String team) {
+	public ArrayList<TeamMatchPO> getTeamMonthMatch(String season,String month, String team) {
 		ArrayList<TeamMatchPO> po = new ArrayList<TeamMatchPO>();
-		String sql = "SELECT * FROM matches WHERE date LIKE '" + month
+		String sql = "SELECT * FROM `matches" + season + "` WHERE date LIKE '" + month
 				+ "%' AND name='" + team + "' ORDER BY date DESC";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -351,9 +351,9 @@ public class GetTeamdata implements GetTeamdataDataService {
 		return po;
 	}
 
-	public TeamMatchPO getTeamMatch(String date, String team) {
+	public TeamMatchPO getTeamMatch(String season,String date, String team) {
 		TeamMatchPO po = null;
-		String sql = "SELECT * FROM matches WHERE date= '" + date
+		String sql = "SELECT * FROM `matches" + season + "` WHERE date= '" + date
 				+ "' AND name='" + team + "'";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -370,9 +370,9 @@ public class GetTeamdata implements GetTeamdataDataService {
 		return po;
 	}
 
-	public ArrayList<TeamMatchPO> getTeamRecentFiveMatch(String team) {
+	public ArrayList<TeamMatchPO> getTeamRecentFiveMatch(String season,String team) {
 		ArrayList<TeamMatchPO> po = new ArrayList<TeamMatchPO>();
-		String sql = "SELECT * FROM matches WHERE name='" + team
+		String sql = "SELECT * FROM `matches" + season + "` WHERE name='" + team
 				+ "' ORDER BY date DESC LIMIT 5";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -402,7 +402,7 @@ public class GetTeamdata implements GetTeamdataDataService {
 
 	public ArrayList<TeamMatchPO> getRecentFifteen() {
 		ArrayList<TeamMatchPO> po = new ArrayList<TeamMatchPO>();
-		String sql = "SELECT * FROM matches ORDER BY date DESC LIMIT 30";
+		String sql = "SELECT * FROM `matches14-15a` ORDER BY date DESC LIMIT 30";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {

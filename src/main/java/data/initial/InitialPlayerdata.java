@@ -11,16 +11,19 @@ import java.text.DecimalFormat;
 public class InitialPlayerdata {
 	// 初始化球员技术统计
 	String info = "";
-
-	public InitialPlayerdata(Connection conn) {
+	String path;
+	public InitialPlayerdata(Connection conn,String path) {
 		try {
-			System.out.println("初始化球员技术统计……");
+			System.out.println("初始化球员技术统计"+path.substring(path.indexOf("-")-2, path.length()));
 			PreparedStatement ps = conn
-					.prepareStatement("INSERT INTO playerdata  values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO `playerdata" + path.substring(path.indexOf("-")-2, path.length()) + "`  values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			this.path = path;
 			ReadIn();
 			String[] singleinfo = info.split("%");
 			for (int i = 0; i < singleinfo.length; i++) {
 				String[] temp = singleinfo[i].split(";");
+				if (temp.length < 20) 
+					continue;
 				if (temp[2].contains("'"))
 					temp[2] = temp[2].replaceAll("'", "''");
 				if (temp[19].charAt(0) < 48 || temp[19].charAt(0) > 57)
@@ -74,12 +77,10 @@ public class InitialPlayerdata {
 	}
 
 	public void ReadIn() {
-		File f = new File(InitialDatabase.datasource + "/matches");
+		File f = new File(path);
 		String[] filelist = f.list();
 		for (int i = 0; i < filelist.length; i++) {
 			String[] temp = filelist[i].split("_");
-			if (!temp[0].equals(InitialDatabase.initial_season))
-				continue;
 			String[] year = temp[0].split("-");
 			String date = temp[1];
 			String[] team = temp[2].split("-");
@@ -89,8 +90,7 @@ public class InitialPlayerdata {
 			else
 				date = year[1] + "-" + date;
 			try {
-				FileReader fr = new FileReader(InitialDatabase.datasource + "/matches/" + filelist[i]);
-				@SuppressWarnings("resource")
+				FileReader fr = new FileReader(path + "/" + filelist[i]);
 				BufferedReader br = new BufferedReader(fr);
 				String line = "";
 				int count = 0;

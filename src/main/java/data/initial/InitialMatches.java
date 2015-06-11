@@ -10,13 +10,14 @@ import java.sql.SQLException;
 public class InitialMatches {
 	// 初始化比赛数据
 	String info = "";
-
-	public InitialMatches(Connection conn) {
-		System.out.println("初始化比赛数据……");
+	String path;
+	public InitialMatches(Connection conn,String path) {
+		System.out.println("初始化比赛数据"+path.substring(path.indexOf("-")-2, path.length()));
+		this.path = path;
 		ReadIn();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("INSERT INTO matches  values(?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO `matches" + path.substring(path.indexOf("-")-2, path.length()) + "`  values(?,?,?,?,?,?,?,?,?,?)");
 			String[] singleinfo = info.split("%");
 			for (int i = 0; i < singleinfo.length; i++) {
 				String[] singleline = singleinfo[i].split(":");
@@ -48,19 +49,16 @@ public class InitialMatches {
 	}
 
 	public void ReadIn() {
-		File f = new File(InitialDatabase.datasource + "/matches");
+		File f = new File(path);
 		String[] filelist = f.list();
 		for (int i = 0; i < filelist.length; i++) {
 			try {
-				FileReader fr = new FileReader(InitialDatabase.datasource + "/matches/" + filelist[i]);
-				@SuppressWarnings("resource")
+				FileReader fr = new FileReader(path + "/" + filelist[i]);
 				BufferedReader br = new BufferedReader(fr);
 				String line = br.readLine();
 				String[] temp = line.split(";");
 				String guest = "";
 				String[] item = filelist[i].split("_");
-				if (!item[0].equals(InitialDatabase.initial_season))
-					continue;
 				String[] year = item[0].split("-");
 				if (temp[0].startsWith("10-") || temp[0].startsWith("11-")
 						|| temp[0].startsWith("12-")) {
