@@ -213,12 +213,12 @@ public class PlayerRank implements PlayerRankService{
 	}
 	
 	//一场比赛一个球队所有球员数据
-	public ArrayList<PlayerMatchVO> getPlayerMatchdata(String season,String date,String team){
+	public ArrayList<PlayerMatchVO> getPlayerMatchdata(String date,String team){
 		ArrayList<PlayerMatchPO> playerMatchPOs = new ArrayList<PlayerMatchPO>();
 		ArrayList<PlayerMatchVO> playerMatchVOs = new ArrayList<PlayerMatchVO>();
 		GetPlayerdataDataService g;
 			g = new GetPlayerdata();
-			playerMatchPOs = g.getPlayerMatchdata(season,date, team);
+			playerMatchPOs = g.getPlayerMatchdata(date, team);
 			for (int i = 0; i < playerMatchPOs.size(); i++) {
 				GetPlayerMatchVO getPlayerMatchVO = new GetPlayerMatchVO();
 				PlayerMatchVO playerMatchVO = getPlayerMatchVO.getPlayerMatchVO(playerMatchPOs.get(i));
@@ -229,12 +229,12 @@ public class PlayerRank implements PlayerRankService{
 	}
 	
 	
-	public ArrayList<PlayerMatchVO> getPlayerMonthMatch(String season,String month,String player){
+	public ArrayList<PlayerMatchVO> getPlayerMonthMatch(String month,String player){
 		ArrayList<PlayerMatchPO> playerMatchPOs = new ArrayList<PlayerMatchPO>();
 		ArrayList<PlayerMatchVO> playerMatchVOs = new ArrayList<PlayerMatchVO>();
 		GetPlayerdataDataService g;
 			g = new GetPlayerdata();
-			playerMatchPOs = g.getPlayerMonthMatch(season,month, player);
+			playerMatchPOs = g.getPlayerMonthMatch(month, player);
 //			System.out.println(playerMatchPOs.size());
 			for (int i = 0; i < playerMatchPOs.size(); i++) {
 				GetPlayerMatchVO getPlayerMatchVO = new GetPlayerMatchVO();
@@ -370,5 +370,6 @@ public class PlayerRank implements PlayerRankService{
 		
 		return playerVOs;
 	}
+	
 	
 }
