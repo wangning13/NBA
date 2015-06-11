@@ -318,7 +318,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 		 * model2.setDataVector(data2, columnNames2); table2.setWidth();
 		 * table2.updateUI();
 		 */
-		matches = prs.getPlayerRecentFiveMatch(name);
+		matches = prs.getPlayerRecentFiveMatch("13-14",name);
 		model2.setDataVector(getData2(matches), columnNames2);
 		table2.setWidth();
 		table2.updateUI();
@@ -449,7 +449,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 			date = season.getSelectedItem().toString().substring(2) + "-"
 					+ month.getSelectedItem().toString().substring(0, 2);
 		} else if (e.getActionCommand().equals("recent")) {
-			matches = prs.getPlayerRecentFiveMatch(playerName);
+			matches = prs.getPlayerRecentFiveMatch("13-14",playerName);
 			model2.setDataVector(getData2(matches), columnNames2);
 			table2.setWidth();
 			table2.updateUI();

@@ -258,7 +258,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		table1.setWidth();
 		table1.updateUI();
 
-		matches = trs.getTeamRecentFiveMatch(team);
+		matches = trs.getTeamRecentFiveMatch("13-14",team);
 		Object[][] data2 = getData(matches);
 		model2.setDataVector(data2, columnNames2);
 		table2.setWidth();
@@ -371,7 +371,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 
 	public void update() {
 		if (isRecent) {
-			matches = trs.getTeamRecentFiveMatch(name);
+			matches = trs.getTeamRecentFiveMatch("13-14",name);
 			data2 = getData(matches);
 			SwingUtilities.invokeLater(new Runnable() {
 		        public void run() {
@@ -487,7 +487,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			isRecent = false;
 		} 
 		else if (e.getActionCommand().equals("recent")) {
-			matches = trs.getTeamRecentFiveMatch(name);
+			matches = trs.getTeamRecentFiveMatch("13-14",name);
 			Object[][] data2 = getData(matches);
 			model2.setDataVector(data2, columnNames2);
 			table2.setWidth();

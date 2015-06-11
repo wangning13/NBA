@@ -163,9 +163,9 @@ public class SingleMatch extends MyPanel implements ActionListener {
 	}
 
 	public void update(TeamMonthMatchVO temp) {
-		ArrayList<PlayerMatchVO> hostPlayers = prs.getPlayerMatchdata(,
+		ArrayList<PlayerMatchVO> hostPlayers = prs.getPlayerMatchdata(
 				temp.getDate(), temp.getHost());
-		ArrayList<PlayerMatchVO> guestPlayers = prs.getPlayerMatchdata(,
+		ArrayList<PlayerMatchVO> guestPlayers = prs.getPlayerMatchdata(
 				temp.getDate(), temp.getGuest());
 		ImageIcon icon = Img.loadTeam(temp.getHost());
 		icon.setImage(icon.getImage().getScaledInstance(100, 100,
