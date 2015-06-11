@@ -22,10 +22,10 @@ public interface TeamRankService {
 	public ArrayList<TeamVO> getAllTeamdata(String season, String key,
 			String order);
 
-	public ArrayList<TeamMonthMatchVO> getTeamMonthMatch(String season,String month,
+	public ArrayList<TeamMonthMatchVO> getTeamMonthMatch(String month,
 			String team);
 
-	public TeamMatchVO getTeamMatch(String season,String date, String team);
+	public TeamMatchVO getTeamMatch(String date, String team);
 
 	public ArrayList<TeamMonthMatchVO> getTeamRecentFiveMatch(String season,String team);
 

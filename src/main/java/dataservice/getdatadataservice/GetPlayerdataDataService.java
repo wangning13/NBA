@@ -19,9 +19,9 @@ public interface GetPlayerdataDataService {
 			String position, String partition, String key, String order);
 
 	// 一场比赛一个球队所有球员数据
-	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String season,String date, String team);
+	public ArrayList<PlayerMatchPO> getPlayerMatchdata(String date, String team);
 
-	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String season,String month,
+	public ArrayList<PlayerMatchPO> getPlayerMonthMatch(String month,
 			String player);
 
 	public ArrayList<PlayerMatchPO> getPlayerRecentFiveMatch(String season,String player);

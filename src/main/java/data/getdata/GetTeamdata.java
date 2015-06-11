@@ -330,18 +330,27 @@ public class GetTeamdata implements GetTeamdataDataService {
 		return po;
 	}
 
-	public ArrayList<TeamMatchPO> getTeamMonthMatch(String season,String month, String team) {
+	public ArrayList<TeamMatchPO> getTeamMonthMatch(String month, String team) {
+		String[] temp = month.split("-");
+		String season = "";
+		if (temp[1].equals("01") || temp[1].equals("02") || temp[1].equals("03") || temp[1].equals("04")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0];
+		} else if (temp[1].equals("05") || temp[1].equals("06")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0] + "a";
+		} else {
+			season = temp[0] + "-" + Integer.toString(Integer.parseInt(temp[0])+1);
+		}
 		ArrayList<TeamMatchPO> po = new ArrayList<TeamMatchPO>();
 		String sql = "SELECT * FROM `matches" + season + "` WHERE date LIKE '" + month
 				+ "%' AND name='" + team + "' ORDER BY date DESC";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
-				TeamMatchPO temp = new TeamMatchPO(rs.getString(1),
+				TeamMatchPO tmp = new TeamMatchPO(rs.getString(1),
 						rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getInt(6), rs.getInt(7),
 						rs.getInt(8), rs.getInt(9), rs.getInt(10));
-				po.add(temp);
+				po.add(tmp);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -351,7 +360,16 @@ public class GetTeamdata implements GetTeamdataDataService {
 		return po;
 	}
 
-	public TeamMatchPO getTeamMatch(String season,String date, String team) {
+	public TeamMatchPO getTeamMatch(String date, String team) {
+		String[] temp = date.split("-");
+		String season = "";
+		if (temp[1].equals("01") || temp[1].equals("02") || temp[1].equals("03") || temp[1].equals("04")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0];
+		} else if (temp[1].equals("05") || temp[1].equals("06")) {
+			season = Integer.toString(Integer.parseInt(temp[0])-1) + "-" + temp[0] + "a";
+		} else {
+			season = temp[0] + "-" + Integer.toString(Integer.parseInt(temp[0])+1);
+		}
 		TeamMatchPO po = null;
 		String sql = "SELECT * FROM `matches" + season + "` WHERE date= '" + date
 				+ "' AND name='" + team + "'";

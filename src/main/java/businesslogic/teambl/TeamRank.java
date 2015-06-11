@@ -85,14 +85,14 @@ public class TeamRank implements TeamRankService{
     	return this.getTeamData(season,"1", key, order);
     }
 	
-    public ArrayList<TeamMonthMatchVO> getTeamMonthMatch(String season,String month,String team){
+    public ArrayList<TeamMonthMatchVO> getTeamMonthMatch(String month,String team){
 		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = new ArrayList<TeamMonthMatchVO>();
 		ArrayList<TeamMatchPO> teamMatchPOs = new ArrayList<TeamMatchPO>();
 		GetTeamdataDataService g;
 			g = new GetTeamdata();
-			teamMatchPOs = g.getTeamMonthMatch(season,month, team);
+			teamMatchPOs = g.getTeamMonthMatch(month, team);
 			for (int i = 0; i < teamMatchPOs.size(); i++) {
-				ArrayList<TeamMatchPO> teamMatchPOs2 = g.getTeamMonthMatch(season,month, teamMatchPOs.get(i).getOpponent());
+				ArrayList<TeamMatchPO> teamMatchPOs2 = g.getTeamMonthMatch(month, teamMatchPOs.get(i).getOpponent());
 				for (int j = 0; j < teamMatchPOs2.size(); j++) {
 					if (teamMatchPOs2.get(j).getOpponent().equals(team) && teamMatchPOs2.get(j).getDate().equals(teamMatchPOs.get(i).getDate())) {
 						String data = teamMatchPOs.get(i).getDate();
@@ -131,12 +131,12 @@ public class TeamRank implements TeamRankService{
 		return teamMonthMatchVOs;
 	}
     
-    public TeamMatchVO getTeamMatch(String season,String date,String team){
+    public TeamMatchVO getTeamMatch(String date,String team){
     	TeamMatchVO teamMatchVO = new TeamMatchVO();
     	TeamMatchPO teamMatchPO = new TeamMatchPO();
     	GetTeamdataDataService g;
 			g = new GetTeamdata();
-			teamMatchPO = g.getTeamMatch(season,date, team);
+			teamMatchPO = g.getTeamMatch(date, team);
 			teamMatchVO = new TeamMatchVO(teamMatchPO.getDate(),
 					teamMatchPO.getHostGuest(), 
 					teamMatchPO.getName(),
