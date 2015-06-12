@@ -23,6 +23,9 @@ public class InitialMatches {
 				String[] singleline = singleinfo[i].split(":");
 				for (int j = 0; j < singleline.length; j++) {
 					String[] temp = singleline[j].split(";");
+					if (temp[0].length() != 8) {
+						temp[0] = temp[0].substring(0, 3) + temp[0].substring(4, temp[0].length());
+					}
 					ps.setString(1, temp[0]);
 					ps.setString(2, temp[1]);
 					ps.setString(3, temp[2]);

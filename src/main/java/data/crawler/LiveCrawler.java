@@ -14,7 +14,7 @@ import cn.edu.hfut.dmic.webcollector.model.Page;
 
 public class LiveCrawler extends DeepCrawler {
 	
-	public static String num = "150121";
+	public static String num = "150122";
 
 	public LiveCrawler(String crawlPath) {
         super(crawlPath);
