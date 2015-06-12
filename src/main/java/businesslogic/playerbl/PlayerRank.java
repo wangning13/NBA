@@ -291,8 +291,6 @@ public class PlayerRank implements PlayerRankService{
 		return playerMatchVOs;
 	}
 	
-	
-	
 	public ArrayList<PlayerVO> getSeasonTop(String season,String condition){
 		ArrayList<PlayerPO> playerPOs = new ArrayList<PlayerPO>();
 		ArrayList<PlayerPO> playerPOs2 = new ArrayList<PlayerPO>();
@@ -323,7 +321,6 @@ public class PlayerRank implements PlayerRankService{
 		return playerVOs;
 	}
 	 
-	
 	public ArrayList<PlayerVO> getMostImporvedPlayer(String season,String key){
 		ArrayList<PlayerVO> playerVOs = new ArrayList<PlayerVO>();
 		ArrayList<PlayerPO> playerPOs = new ArrayList<PlayerPO>();
@@ -371,5 +368,49 @@ public class PlayerRank implements PlayerRankService{
 		return playerVOs;
 	}
 	
+	//求球员得分和球员球龄的相关系数
+	public double getPlayerPearson(String season){
+		ArrayList<PlayerPO> playerPOs = new ArrayList<PlayerPO>();
+		GetPlayerdataDataService g = new GetPlayerdata();
+		playerPOs = g.getAllPlayerdata(season, "scoring", "DESC");
+		int [][] xy = new int[playerPOs.size()][2];
+		double r = 0;
+		for (int i = 0; i <playerPOs.size(); i++) {
+			xy[i][0] = playerPOs.get(i).getScoring();
+			xy[i][1] = Integer.parseInt(getPlayerinfo(playerPOs.get(i).getPlayerName()).getExp());
+		}
+		int a = 0;
+		int b = 0;
+		double c = 0.0;
+		double d = 0.0;
+		for (int i = 0; i < playerPOs.size(); i++) {
+			a = a + xy[i][0]*xy[i][1];
+		}
+		a = a * playerPOs.size();
+		int b1 = 0;
+		int b2 = 0;
+		for (int i = 0; i < playerPOs.size(); i++) {
+			b1 = b1 + xy[i][0];
+		}
+		for (int i = 0; i < playerPOs.size(); i++) {
+			b2 = b2 + xy[i][1];
+		}
+		b = b1 * b2;
+		double x_average = (double)b1/playerPOs.size();
+		double y_average = (double)b2/playerPOs.size();
+		double c1 = 0;
+		for (int i = 0; i < playerPOs.size(); i++) {
+			c1 = c1 + (xy[i][0] - x_average) * (xy[i][0] - x_average);
+		}
+		c = Math.sqrt(c1);
+		double d1 = 0;
+		for (int i = 0; i < playerPOs.size(); i++) {
+			d1 = d1 + (xy[i][1] - y_average) * (xy[i][1] - y_average);
+		}
+		d = Math.sqrt(d1);
+		r = (double)(a+b)/(c+d);
+		
+		return r;
+	}
 	
 }

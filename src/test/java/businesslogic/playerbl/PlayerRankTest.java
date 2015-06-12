@@ -113,7 +113,7 @@ public class PlayerRankTest {
 	@Test
 	public void getPlayerRencentFiveMatchTest(){
 		String player = "Ed Davis";
-		ArrayList<PlayerMatchVO> playerMatchVOs = playerRank.getPlayerRecentFiveMatch(player);
+		ArrayList<PlayerMatchVO> playerMatchVOs = playerRank.getPlayerRecentFiveMatch("13-14",player);
 		int number = playerMatchVOs.size();
 		assertEquals(number, 5);
 	}
