@@ -78,7 +78,7 @@ public class TeamRankTest {
 	@Test
 	public void getTeamRecentFiveMatchTest(){
 		String team = "LAL";
-		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getTeamRecentFiveMatch(team);
+		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getTeamRecentFiveMatch("13-14",team);
 		int number = teamMonthMatchVOs.size();
 		assertEquals(number, 5);
 	}
