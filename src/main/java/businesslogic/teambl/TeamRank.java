@@ -242,7 +242,7 @@ public class TeamRank implements TeamRankService{
 		int m = 8;
 		int n = host.size()+guest.size();
 		double[][] x = new double[m][n];
-		double[] y = new double[m];
+		double[] y = new double[n];
 		for (int i = 0; i < host.size(); i++) {
 			x[0][i]= 1; 
 			x[1][i]= host.get(i).getBackboard();
@@ -279,7 +279,7 @@ public class TeamRank implements TeamRankService{
 		int m = 8;
 		int n = host.size()+guest.size();
 		double[][] x = new double[m][n];
-		double[] y = new double[m];
+		double[] y = new double[n];
 		for (int i = 0; i < host.size(); i++) {
 			x[0][i]= 1; 
 			x[1][i]= host.get(i).getBackboard();
@@ -324,7 +324,75 @@ public class TeamRank implements TeamRankService{
 	 * @param v[m]
 	 *            返回m个自变量的偏相关系数
 	 */
-    private static double[]  sqt3(double[][] x, double[] y, int m, int n) {
+    
+    public static double[]  sqt4(double[][] x, double[] y, int m, int n) {
+    	double[] a = new double[m+1];
+    	double[] dt = new double[4];
+    	double[] v = new double[m];
+		int i, j, k, mm;
+		double q, e, u, p, yy, s, r, pp;
+		double[] b = new double[(m + 1) * (m + 1)];
+		mm = m + 1;
+		b[mm * mm - 1] = n;
+		for (j = 0; j <= m - 1; j++) {
+			p = 0.0;
+			for (i = 0; i <= n - 1; i++)
+				p = p + x[j][i];
+			b[m * mm + j] = p;
+			b[j * mm + m] = p;
+		}
+		for (i = 0; i <= m - 1; i++)
+			for (j = i; j <= m - 1; j++) {
+				p = 0.0;
+				for (k = 0; k <= n - 1; k++)
+					p = p + x[i][k] * x[j][k];
+				b[j * mm + i] = p;
+				b[i * mm + j] = p;
+			}
+		a[m] = 0.0;
+		for (i = 0; i <= n - 1; i++)
+			a[m] = a[m] + y[i];
+		for (i = 0; i <= m - 1; i++) {
+			a[i] = 0.0;
+			for (j = 0; j <= n - 1; j++)
+				a[i] = a[i] + x[i][j] * y[j];
+		}
+		chlk(b, mm, 1, a);
+		yy = 0.0;
+		for (i = 0; i <= n - 1; i++)
+			yy = yy + y[i] / n;
+		q = 0.0;
+		e = 0.0;
+		u = 0.0;
+		for (i = 0; i <= n - 1; i++) {
+			p = a[m];
+			for (j = 0; j <= m - 1; j++)
+				p = p + a[j] * x[j][i];
+			q = q + (y[i] - p) * (y[i] - p);
+			e = e + (y[i] - yy) * (y[i] - yy);
+			u = u + (yy - p) * (yy - p);
+		}
+		s = Math.sqrt(q / n);
+		r = Math.sqrt(1.0 - q / e);
+		for (j = 0; j <= m - 1; j++) {
+			p = 0.0;
+			for (i = 0; i <= n - 1; i++) {
+				pp = a[m];
+				for (k = 0; k <= m - 1; k++)
+					if (k != j)
+						pp = pp + a[k] * x[k][i];
+				p = p + (y[i] - pp) * (y[i] - pp);
+			}
+			v[j] = Math.sqrt(1.0 - q / p);
+		}
+		dt[0] = q;
+		dt[1] = s;
+		dt[2] = r;
+		dt[3] = u;
+		return dt;
+    }
+    
+    public static double[]  sqt3(double[][] x, double[] y, int m, int n) {
     	double[] a = new double[m+1];
     	double[] dt = new double[4];
     	double[] v = new double[m];
@@ -391,7 +459,7 @@ public class TeamRank implements TeamRankService{
 		return v;
 	}
 
-    private static double[]  sqt2(double[][] x, double[] y, int m, int n) {
+    public static double[]  sqt2(double[][] x, double[] y, int m, int n) {
     	double[] a = new double[m+1];
     	double[] dt = new double[4];
     	double[] v = new double[m];
@@ -512,6 +580,9 @@ public class TeamRank implements TeamRankService{
 		}
 		return (2);
 	}
+	
+	//研究主客场对球队最终得分的影响结果是否显著
+	
 
 
 
