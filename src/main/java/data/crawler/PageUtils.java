@@ -1,8 +1,10 @@
 package data.crawler;
 
-import cn.edu.hfut.dmic.webcollector.model.Page;
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
+import cn.edu.hfut.dmic.webcollector.model.Page;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public class PageUtils {
 

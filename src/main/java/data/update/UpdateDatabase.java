@@ -1,23 +1,6 @@
 package data.update;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TimerTask;
-
-import rmi.Server;
-import ui.main.Frame;
-import data.initial.InitialDatabase;
 
 public class UpdateDatabase extends TimerTask {
 

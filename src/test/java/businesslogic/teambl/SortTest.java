@@ -1,15 +1,14 @@
 package businesslogic.teambl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
+import po.TeamPO;
 import data.getdata.GetTeamdata;
 import dataservice.getdatadataservice.GetTeamdataDataService;
-import po.TeamPO;
-import vo.TeamVO;
 
 public class SortTest {
 	

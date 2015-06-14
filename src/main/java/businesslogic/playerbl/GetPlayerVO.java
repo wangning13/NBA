@@ -3,7 +3,6 @@ package businesslogic.playerbl;
 import java.text.DecimalFormat;
 
 import po.PlayerPO;
-import po.PlayerinfoPO;
 import vo.PlayerVO;
 
 public class GetPlayerVO {

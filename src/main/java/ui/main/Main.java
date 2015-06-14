@@ -1,7 +1,6 @@
 package ui.main;
 
 import rmi.Server;
-import ui.main.Frame;
 
 public class Main {
 	public static Frame frame = null;

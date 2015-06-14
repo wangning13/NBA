@@ -12,13 +12,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import businesslogic.playerbl.PlayerRank;
-import businesslogic.teambl.TeamRank;
-import businesslogicservice.playerblservice.PlayerRankService;
-import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
@@ -27,6 +22,10 @@ import ui.tools.MyTable1;
 import vo.PlayerMatchVO;
 import vo.PlayerVO;
 import vo.PlayerinfoVO;
+import businesslogic.playerbl.PlayerRank;
+import businesslogic.teambl.TeamRank;
+import businesslogicservice.playerblservice.PlayerRankService;
+import businesslogicservice.teamblservice.TeamRankService;
 
 @SuppressWarnings("serial")
 public class SinglePlayer extends MyPanel implements ActionListener {

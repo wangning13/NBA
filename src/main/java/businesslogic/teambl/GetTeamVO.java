@@ -3,7 +3,6 @@ package businesslogic.teambl;
 import java.text.DecimalFormat;
 
 import po.TeamPO;
-import po.TeaminfoPO;
 import vo.TeamVO;
 
 public class GetTeamVO {

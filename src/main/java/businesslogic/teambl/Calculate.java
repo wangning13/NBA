@@ -3,7 +3,6 @@ package businesslogic.teambl;
 import java.text.DecimalFormat;
 
 import po.TeamPO;
-import po.TeaminfoPO;
 
 public class Calculate {
 	DecimalFormat df=new DecimalFormat("#.0000");
