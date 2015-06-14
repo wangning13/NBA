@@ -259,7 +259,7 @@ public class TeamRank implements TeamRankService{
 			x[1][i]= guest.get(i-host.size()).getBackboard();
 			x[2][i]= guest.get(i-host.size()).getTurnOver();
 			x[3][i]= guest.get(i-host.size()).getFoul();
-			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
 			x[5][i]= guest.get(i-host.size()).getOpponentTurnOver();
 			x[6][i]= guest.get(i-host.size()).getOpponentFreeThrowAttempts();
 			x[7][i]= guest.get(i-host.size()).getOppenentScoring();
@@ -296,7 +296,7 @@ public class TeamRank implements TeamRankService{
 			x[1][i]= guest.get(i-host.size()).getBackboard();
 			x[2][i]= guest.get(i-host.size()).getTurnOver();
 			x[3][i]= guest.get(i-host.size()).getFoul();
-			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
 			x[5][i]= guest.get(i-host.size()).getOpponentTurnOver();
 			x[6][i]= guest.get(i-host.size()).getOpponentFreeThrowAttempts();
 			x[7][i]= guest.get(i-host.size()).getOppenentScoring();
@@ -582,7 +582,40 @@ public class TeamRank implements TeamRankService{
 	}
 	
 	//研究主客场对球队最终得分的影响结果是否显著
-	
+	public double[] HostOrGuest(String season) {
+		double[] a = new double[5];
+		GetTeamdataDataService g = new GetTeamdata();
+		ArrayList<ArrayList<TeamPO>> r = g.getHostGuestdata(season);
+		ArrayList<TeamPO> host = r.get(0);
+		ArrayList<TeamPO> guest = r.get(1);
+		double[] x = new double[host.size()];
+		double[] y = new double[guest.size()];
+		for (int i = 0; i < x.length; i++) {
+			x[i] = host.get(i).getScoring();
+		}
+		for (int i = 0; i < y.length; i++) {
+			y[i] = guest.get(i).getScoring();
+		}
+		double x_all = 0.0;
+		for (int i = 0; i < x.length; i++) {
+			x_all = x_all + x[i];
+		}
+		double y_all = 0.0;
+		for (int i = 0; i < y.length; i++) {
+			y_all = y_all + y[i];
+		}
+		double x_average = 	(double)x_all/x.length;	
+		double y_average = (double)y_all/y.length;
+		double xy_average = (double)(x_all+y_all)/(x.length+y.length);
+		double st = 0;//总偏差平方和
+		for (int i = 0; i < x.length; i++) {
+			st = st + (x[i]-xy_average)*(x[i]-xy_average);
+		}
+		for (int i = 0; i < y.length; i++) {
+			st = st + (y[i]-xy_average)*(y[i]-xy_average);
+		}
+		return a;
+	}
 
 
 
