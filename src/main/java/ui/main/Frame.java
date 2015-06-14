@@ -2,7 +2,8 @@ package ui.main;
 
 import java.awt.CardLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import ui.match.MatchLive;
 import ui.match.Matches;
@@ -12,7 +13,6 @@ import ui.player.PlayersCompare;
 import ui.player.PlayersSelect;
 import ui.player.SinglePlayer;
 import ui.player.Statistics;
-import ui.team.PlayOff;
 import ui.team.Ranking;
 import ui.team.SingleTeam;
 import ui.team.TeamAnalyze;
@@ -36,7 +36,6 @@ public class Frame extends JFrame {
 	public static PlayerAnalyze playerAnalyzePanel;
 	public static TeamAnalyze teamAnalyzePanel;
 	public static MatchLive matchLivePanel;
-	public static PlayOff playOffPanel;
 
 	public static String currentPanel = "main";
 
@@ -56,7 +55,6 @@ public class Frame extends JFrame {
 		playerAnalyzePanel = new PlayerAnalyze(this);
 		teamAnalyzePanel = new TeamAnalyze(this);
 		matchLivePanel = new MatchLive(this);
-		playOffPanel = new PlayOff(this);
 		
 		this.getContentPane().add(mainFrame);
 		CardLayout cl = new CardLayout();

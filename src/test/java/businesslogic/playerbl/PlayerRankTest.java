@@ -1,6 +1,7 @@
 package businesslogic.playerbl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -113,7 +114,7 @@ public class PlayerRankTest {
 	@Test
 	public void getPlayerRencentFiveMatchTest(){
 		String player = "Ed Davis";
-		ArrayList<PlayerMatchVO> playerMatchVOs = playerRank.getPlayerRecentFiveMatch("13-14",player);
+		ArrayList<PlayerMatchVO> playerMatchVOs = playerRank.getPlayerRecentFiveMatch(player);
 		int number = playerMatchVOs.size();
 		assertEquals(number, 5);
 	}

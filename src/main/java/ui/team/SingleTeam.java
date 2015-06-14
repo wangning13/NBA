@@ -16,10 +16,6 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import businesslogic.playerbl.PlayerRank;
-import businesslogic.teambl.TeamRank;
-import businesslogicservice.playerblservice.PlayerRankService;
-import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
@@ -30,6 +26,10 @@ import ui.tools.MyTable1;
 import vo.PlayerVO;
 import vo.TeamMonthMatchVO;
 import vo.TeaminfoVO;
+import businesslogic.playerbl.PlayerRank;
+import businesslogic.teambl.TeamRank;
+import businesslogicservice.playerblservice.PlayerRankService;
+import businesslogicservice.teamblservice.TeamRankService;
 
 @SuppressWarnings("serial")
 public class SingleTeam extends MyPanel implements ActionListener {
@@ -83,8 +83,6 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		super(frame);
 		// TODO Auto-generated constructor stub
 		this.frame = frame;
-
-		season.addItem("2015");
 		season.addItem("2014");
 		season.addItem("2013");
 		season.addItem("2012");
@@ -242,13 +240,13 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		home.setText(teamInfo.getCourt());
 		year.setText(String.valueOf(teamInfo.getYear()));
 
-		ArrayList<String> players = prs.getAllPlayer("14-15", team);
+		ArrayList<String> players = prs.getAllPlayer("13-14", team);
 
 		int num = players.size();
 		Object[][] data = new Object[num][];
 		for (int i = 0; i < num; i++) {
 			// System.out.println(players.get(i));
-			PlayerVO player = prs.getPlayerdata("14-15", players.get(i));
+			PlayerVO player = prs.getPlayerdata("13-14", players.get(i));
 			Object[] temp = { player.getPlayerName(), player.getAppearance(),
 					player.getFirstPlay(), player.getMinutes(),player.getBackboard(),
 					player.getAssist(), player.getSteal(), player.getBlock(), player.getTurnOver(),
@@ -260,7 +258,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		table1.setWidth();
 		table1.updateUI();
 
-		matches = trs.getTeamRecentFiveMatch("14-15",team);
+		matches = trs.getTeamRecentFiveMatch("13-14",team);
 		Object[][] data2 = getData(matches);
 		model2.setDataVector(data2, columnNames2);
 		table2.setWidth();
@@ -373,7 +371,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 
 	public void update() {
 		if (isRecent) {
-			matches = trs.getTeamRecentFiveMatch("14-15",name);
+			matches = trs.getTeamRecentFiveMatch("13-14",name);
 			data2 = getData(matches);
 			SwingUtilities.invokeLater(new Runnable() {
 		        public void run() {
@@ -425,13 +423,13 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			 });
 		}
 		
-		ArrayList<String> players = prs.getAllPlayer("14-15", name);
+		ArrayList<String> players = prs.getAllPlayer("13-14", name);
 
 		int num = players.size();
 		data = new Object[num][];
 		for (int i = 0; i < num; i++) {
 			// System.out.println(players.get(i));
-			PlayerVO player = prs.getPlayerdata("14-15", players.get(i));
+			PlayerVO player = prs.getPlayerdata("13-14", players.get(i));
 			Object[] temp = { player.getPlayerName(), player.getAppearance(),
 					player.getFirstPlay(), player.getMinutes(),player.getBackboard(),
 					player.getAssist(), player.getSteal(), player.getBlock(), player.getTurnOver(),
@@ -489,7 +487,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			isRecent = false;
 		} 
 		else if (e.getActionCommand().equals("recent")) {
-			matches = trs.getTeamRecentFiveMatch("14-15",name);
+			matches = trs.getTeamRecentFiveMatch("13-14",name);
 			Object[][] data2 = getData(matches);
 			model2.setDataVector(data2, columnNames2);
 			table2.setWidth();

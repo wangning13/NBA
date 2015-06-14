@@ -1,13 +1,12 @@
 package businesslogic.teambl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-import businesslogic.playerbl.PlayerRank;
-import po.TeaminfoPO;
 import vo.TeamMatchVO;
 import vo.TeamMonthMatchVO;
 import vo.TeamVO;
@@ -78,7 +77,7 @@ public class TeamRankTest {
 	@Test
 	public void getTeamRecentFiveMatchTest(){
 		String team = "LAL";
-		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getTeamRecentFiveMatch("13-14",team);
+		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getTeamRecentFiveMatch(team);
 		int number = teamMonthMatchVOs.size();
 		assertEquals(number, 5);
 	}

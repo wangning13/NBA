@@ -341,7 +341,25 @@ public class GetTeamdata implements GetTeamdataDataService {
 			season = temp[0] + "-" + Integer.toString(Integer.parseInt(temp[0])+1);
 		}
 		ArrayList<TeamMatchPO> po = new ArrayList<TeamMatchPO>();
-		String sql = "SELECT * FROM `matches" + season + "` WHERE date LIKE '" + month
+		String sql;
+		if (temp[1].equals("04")) {
+			sql = "SELECT * FROM `matches" + season + "a` WHERE date LIKE '" + month
+					+ "%' AND name='" + team + "' ORDER BY date DESC";
+			try {
+				ResultSet rs = statement.executeQuery(sql);
+				while (rs.next()) {
+					TeamMatchPO tmp = new TeamMatchPO(rs.getString(1),
+							rs.getString(2), rs.getString(3), rs.getString(4),
+							rs.getString(5), rs.getInt(6), rs.getInt(7),
+							rs.getInt(8), rs.getInt(9), rs.getInt(10));
+					po.add(tmp);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		sql = "SELECT * FROM `matches" + season + "` WHERE date LIKE '" + month
 				+ "%' AND name='" + team + "' ORDER BY date DESC";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -356,7 +374,6 @@ public class GetTeamdata implements GetTeamdataDataService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return po;
 	}
 
