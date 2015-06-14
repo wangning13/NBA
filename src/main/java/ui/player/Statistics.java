@@ -14,10 +14,6 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import businesslogic.playerbl.PlayerRank;
-import businesslogic.teambl.TeamRank;
-import businesslogicservice.playerblservice.PlayerRankService;
-import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
@@ -25,6 +21,10 @@ import ui.tools.MyTable1;
 import ui.tools.Translate;
 import vo.PlayerMatchVO;
 import vo.PlayerVO;
+import businesslogic.playerbl.PlayerRank;
+import businesslogic.teambl.TeamRank;
+import businesslogicservice.playerblservice.PlayerRankService;
+import businesslogicservice.teamblservice.TeamRankService;
 
 @SuppressWarnings("serial")
 public class Statistics extends MyPanel implements ActionListener {

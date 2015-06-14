@@ -2,7 +2,8 @@ package ui.main;
 
 import java.awt.CardLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import ui.match.MatchLive;
 import ui.match.Matches;

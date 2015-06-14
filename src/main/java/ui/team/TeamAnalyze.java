@@ -13,13 +13,13 @@ import javax.swing.JLabel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
-import businesslogic.playerbl.PlayerRank;
-import businesslogicservice.playerblservice.PlayerRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.JFreeUtils;
 import vo.PlayerVO;
+import businesslogic.playerbl.PlayerRank;
+import businesslogicservice.playerblservice.PlayerRankService;
 
 @SuppressWarnings("serial")
 public class TeamAnalyze extends MyPanel implements ActionListener {
