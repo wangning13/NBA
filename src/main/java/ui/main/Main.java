@@ -2,7 +2,7 @@ package ui.main;
 
 import java.util.Timer;
 
-import data.crawler.Task;
+import data.crawler.LiveTask;
 import rmi.Server;
 import ui.main.Frame;
 
@@ -13,6 +13,6 @@ public class Main {
 		frame = new Frame();
 		
         Timer timer = new Timer();
-        timer.schedule(new Task(), 0, 20000);
+        timer.schedule(new LiveTask(), 0, 20000);
 	}
 }

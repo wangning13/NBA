@@ -2,7 +2,7 @@ package data.crawler;
 
 import java.util.TimerTask;
 
-public class Task extends TimerTask{
+public class LiveTask extends TimerTask {
 	
 	@Override
 	public void run() {
