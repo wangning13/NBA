@@ -70,6 +70,8 @@ public class Img {
 			"graphics/player/blank.png");
     public static final ImageIcon PLAYOFF = new ImageIcon(
 			"graphics/ranking/playOff.png");
+    public static final ImageIcon LINE = new ImageIcon(
+			"graphics/match/Line.png");
 	public static final ImageIcon ATL = new ImageIcon("graphics/teams/ATL.png");
 	public static final ImageIcon BKN = new ImageIcon("graphics/teams/BKN.png");
 	public static final ImageIcon BOS = new ImageIcon("graphics/teams/BOS.png");

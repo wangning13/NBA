@@ -261,6 +261,11 @@ public class Ranking extends MyPanel implements ActionListener {
 		this.add(pane1);
 		pane1.setBounds(0, 220, 1052, 430);
 
+		
+		double[] result = trs.LinerRegression("14-15");
+		for(int i = 0;i<result.length;i++){
+			System.out.println(result[i]);
+		}
 	}
 /*
 	public Object[][] getData(ArrayList<TeamVO> teams) {

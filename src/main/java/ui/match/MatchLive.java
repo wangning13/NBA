@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,12 +20,12 @@ import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.MyTable1;
-import vo.PlayerMatchVO;
 import vo.TeamMonthMatchVO;
 
 @SuppressWarnings("serial")
 public class MatchLive extends MyPanel implements ActionListener {
 	PlayerRankService prs = new PlayerRank();
+	GetLive getLive = new GetLive();
 	public boolean flag = false;
 	Frame frame;
 	JScrollPane pane1;
@@ -37,7 +35,6 @@ public class MatchLive extends MyPanel implements ActionListener {
     String totalScore = "0-0";
     ArrayList<String> scores = new ArrayList<String>(0) ;
 	JLabel rankingBand = new JLabel(Img.MATCHBAND);
-
 	JLabel teamIcon1 = new JLabel();
 	JLabel teamIcon2 = new JLabel();
 	JLabel point1 = new JLabel("0");
@@ -65,7 +62,7 @@ public class MatchLive extends MyPanel implements ActionListener {
 		super(frame);
 		// TODO Auto-generated constructor stub
 		this.frame = frame;
-
+		
 		this.add(teamIcon1);
 		teamIcon1.setBounds(30, 150, 100, 100);
 		this.add(teamIcon2);
@@ -262,14 +259,12 @@ public class MatchLive extends MyPanel implements ActionListener {
 	public void update(){
 		SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
-	          	GetLive getLive = new GetLive();
 	        	ArrayList<ArrayList<String>> live = getLive.getLiveString(); 
 	    		model1.setDataVector(getData(live), columnNames1);
 	    		table1.setWidth();
 	    		table1.updateUI();
 	                 
 
-		
 		for(int i = 0;i<scores.size();i++){
 			System.out.println(scores.get(i));
 		}
@@ -340,7 +335,7 @@ public class MatchLive extends MyPanel implements ActionListener {
 	        System.out.println(i);
 	        update();
 	        try{
-	            Thread.sleep(20000);//睡眠1000毫秒
+	            Thread.sleep(20000);//睡眠20000毫秒
 	        }catch(InterruptedException e){e.printStackTrace();}
 	    }
 	}
