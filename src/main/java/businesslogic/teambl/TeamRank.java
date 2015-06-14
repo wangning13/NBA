@@ -256,14 +256,14 @@ public class TeamRank implements TeamRankService{
 		}
 		for (int i = host.size(); i < n; i++) {
 			x[0][i]= -1; 
-			x[1][i]= guest.get(i).getBackboard();
-			x[2][i]= guest.get(i).getTurnOver();
-			x[3][i]= guest.get(i).getFoul();
-			x[4][i]= guest.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
-			x[5][i]= guest.get(i).getOpponentTurnOver();
-			x[6][i]= guest.get(i).getOpponentFreeThrowAttempts();
-			x[7][i]= guest.get(i).getOppenentScoring();
-			y[i]= guest.get(i).getScoring(); 
+			x[1][i]= guest.get(i-host.size()).getBackboard();
+			x[2][i]= guest.get(i-host.size()).getTurnOver();
+			x[3][i]= guest.get(i-host.size()).getFoul();
+			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			x[5][i]= guest.get(i-host.size()).getOpponentTurnOver();
+			x[6][i]= guest.get(i-host.size()).getOpponentFreeThrowAttempts();
+			x[7][i]= guest.get(i-host.size()).getOppenentScoring();
+			y[i]= guest.get(i-host.size()).getScoring(); 
 		}
 		a = sqt2(x,y,m,n);
 		return a;
@@ -293,14 +293,14 @@ public class TeamRank implements TeamRankService{
 		}
 		for (int i = host.size(); i < n; i++) {
 			x[0][i]= -1; 
-			x[1][i]= guest.get(i).getBackboard();
-			x[2][i]= guest.get(i).getTurnOver();
-			x[3][i]= guest.get(i).getFoul();
-			x[4][i]= guest.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
-			x[5][i]= guest.get(i).getOpponentTurnOver();
-			x[6][i]= guest.get(i).getOpponentFreeThrowAttempts();
-			x[7][i]= guest.get(i).getOppenentScoring();
-			y[i]= guest.get(i).getScoring(); 
+			x[1][i]= guest.get(i-host.size()).getBackboard();
+			x[2][i]= guest.get(i-host.size()).getTurnOver();
+			x[3][i]= guest.get(i-host.size()).getFoul();
+			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			x[5][i]= guest.get(i-host.size()).getOpponentTurnOver();
+			x[6][i]= guest.get(i-host.size()).getOpponentFreeThrowAttempts();
+			x[7][i]= guest.get(i-host.size()).getOppenentScoring();
+			y[i]= guest.get(i-host.size()).getScoring(); 
 		}
 		v = sqt3(x,y,m,n);
 		return v;
