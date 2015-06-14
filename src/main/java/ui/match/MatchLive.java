@@ -6,8 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -32,6 +34,14 @@ public class MatchLive extends MyPanel implements ActionListener {
 	MyTable1 table1;
 	DefaultTableModel model1;
 	String[] columnNames1 = { "时间", "球队", "事件","比分" };
+	JScrollPane pane2;
+	MyTable1 table2;
+	DefaultTableModel model2;
+	String[] columnNames2 = { "主队", "位置", "时间","投篮" ,"3分", "罚球", "前场","后场","篮板","助攻","犯规","抢断","失误","封盖","得分","+/-"};
+	JScrollPane pane3;
+	MyTable1 table3;
+	DefaultTableModel model3;
+	String[] columnNames3 = {  "客队", "位置", "时间","投篮" ,"3分", "罚球", "前场","后场","篮板","助攻","犯规","抢断","失误","封盖","得分","+/-" };
     String totalScore = "0-0";
     ArrayList<String> scores = new ArrayList<String>(0) ;
 	JLabel rankingBand = new JLabel(Img.MATCHBAND);
@@ -57,7 +67,10 @@ public class MatchLive extends MyPanel implements ActionListener {
 
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 	Font font2 = new Font("黑体", Font.BOLD, 40);
-
+	
+	JRadioButton jrb1 = new JRadioButton("文字直播");
+	JRadioButton jrb2 = new JRadioButton("数据统计");
+	ButtonGroup group = new ButtonGroup();
 	public MatchLive(Frame frame) {
 		super(frame);
 		// TODO Auto-generated constructor stub
@@ -66,58 +79,72 @@ public class MatchLive extends MyPanel implements ActionListener {
 		this.add(teamIcon1);
 		teamIcon1.setBounds(30, 150, 100, 100);
 		this.add(teamIcon2);
-		teamIcon2.setBounds(922, 150, 100, 100);
+		teamIcon2.setBounds(822, 150, 100, 100);
 		this.add(jl5);
-		jl5.setBounds(200, 150, 70, 30);
+		jl5.setBounds(170, 150, 70, 30);
 		jl5.setFont(font1);
 		this.add(jl6);
-		jl6.setBounds(820, 150, 70, 30);
+		jl6.setBounds(760-10, 150, 70, 30);
 		jl6.setFont(font1);
 		this.add(point1);
-		point1.setBounds(190, 155, 200, 100);
+		point1.setBounds(160, 155, 200, 100);
 		point1.setFont(font2);
 		this.add(point2);
-		point2.setBounds(810, 155, 200, 100);
+		point2.setBounds(750-10, 155, 200, 100);
 		point2.setFont(font2);
 		this.add(jl1);
-		jl1.setBounds(313, 150, 100, 30);
+		jl1.setBounds(293-10, 150, 100, 30);
 		jl1.setFont(font1);
 		this.add(jl2);
-		jl2.setBounds(440, 150, 100, 30);
+		jl2.setBounds(410-10, 150, 100, 30);
 		jl2.setFont(font1);
 		this.add(jl3);
-		jl3.setBounds(570, 150, 100, 30);
+		jl3.setBounds(530-10, 150, 100, 30);
 		jl3.setFont(font1);
 		this.add(jl4);
-		jl4.setBounds(700, 150, 100, 30);
+		jl4.setBounds(650-10, 150, 100, 30);
 		jl4.setFont(font1);
 
 		this.add(point1_1);
-		point1_1.setBounds(325, 180, 100, 30);
+		point1_1.setBounds(305-10, 170, 100, 30);
 		point1_1.setFont(font1);
 		this.add(point1_2);
-		point1_2.setBounds(455, 180, 100, 30);
+		point1_2.setBounds(425-10, 170, 100, 30);
 		point1_2.setFont(font1);
 		this.add(point1_3);
-		point1_3.setBounds(585, 180, 100, 30);
+		point1_3.setBounds(545-10, 170, 100, 30);
 		point1_3.setFont(font1);
 		this.add(point1_4);
-		point1_4.setBounds(715, 180, 100, 30);
+		point1_4.setBounds(665-10, 170, 100, 30);
 		point1_4.setFont(font1);
 
 		this.add(point2_1);
-		point2_1.setBounds(325, 210, 100, 30);
+		point2_1.setBounds(305-10, 190, 100, 30);
 		point2_1.setFont(font1);
 		this.add(point2_2);
-		point2_2.setBounds(455, 210, 100, 30);
+		point2_2.setBounds(425-10, 190, 100, 30);
 		point2_2.setFont(font1);
 		this.add(point2_3);
-		point2_3.setBounds(585, 210, 100, 30);
+		point2_3.setBounds(545-10, 190, 100, 30);
 		point2_3.setFont(font1);
 		this.add(point2_4);
-		point2_4.setBounds(715, 210, 100, 30);
+		point2_4.setBounds(665-10, 190, 100, 30);
 		point2_4.setFont(font1);
 
+		group.add(jrb1);
+		group.add(jrb2);
+		
+		this.add(jrb1);
+		jrb1.setBounds(930, 170, 100, 20);
+		jrb1.setFont(font1);
+		jrb1.addActionListener(this);
+		jrb1.setActionCommand("live");
+		this.add(jrb2);
+		jrb2.setBounds(930, 205, 100, 20);
+		jrb2.setFont(font1);
+		jrb2.addActionListener(this);
+		jrb2.setActionCommand("statistics");
+		
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 100);
 
@@ -132,6 +159,28 @@ public class MatchLive extends MyPanel implements ActionListener {
 		pane1 = new JScrollPane(table1);
 		this.add(pane1);
 		pane1.setBounds(0, 250, 1052, 400);
+		
+		Object[][] data2 = null;
+		model2 = new DefaultTableModel(new Object[][] {}, columnNames2);
+		model2.setDataVector(data2, columnNames2);
+		table2 = new MyTable1(model2);
+
+		table2.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		pane2 = new JScrollPane(table2);
+		this.add(pane2);
+		pane2.setBounds(0, 250, 1052, 200);
+		
+		Object[][] data3 = null;
+		model3 = new DefaultTableModel(new Object[][] {}, columnNames3);
+		model3.setDataVector(data3, columnNames3);
+		table3 = new MyTable1(model3);
+
+		table3.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		pane3 = new JScrollPane(table3);
+		this.add(pane3);
+		pane3.setBounds(0, 450, 1052, 200);
+		
+
         timer runner=new timer();
         runner.start();
         
@@ -282,7 +331,6 @@ public class MatchLive extends MyPanel implements ActionListener {
 			}
 			else
 				temps.add(temps.get(temps.size()-1));
-				
 		}
 		
 		for(int i = temps.size()-2;i>=0;i--){
@@ -307,11 +355,12 @@ public class MatchLive extends MyPanel implements ActionListener {
 		point2_3.setText(third[1]);
 		point1_4.setText(fourth[0]);
 		point2_4.setText(fourth[1]);
-	                 }
+		}
 		 });
 	      
 		
 	}
+	
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -323,7 +372,16 @@ public class MatchLive extends MyPanel implements ActionListener {
 		if (e.getActionCommand().equals("back")) {		
 			frame.change(this, Frame.matchesPanel);
 			Frame.currentPanel = "matches";
-			
+		}
+		if (e.getActionCommand().equals("statistics")) {		
+            pane1.setVisible(false);
+            pane2.setVisible(true);
+            pane3.setVisible(true);
+		}
+		if (e.getActionCommand().equals("live")) {		
+            pane1.setVisible(true);
+            pane2.setVisible(false);
+            pane3.setVisible(false);
 		}
 
 	}

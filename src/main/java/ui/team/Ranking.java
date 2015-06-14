@@ -262,9 +262,14 @@ public class Ranking extends MyPanel implements ActionListener {
 		pane1.setBounds(0, 220, 1052, 430);
 
 		
-		double[] result = trs.LinerRegression("14-15");
-		for(int i = 0;i<result.length;i++){
-			System.out.println(result[i]);
+		double[] result1 = trs.LinerRegression("14-15");
+		double[] result2 = trs.RegressionCoefficient("14-15");
+		for(int i = 0;i<result1.length;i++){
+			System.out.println("第"+i+"个："+result1[i]);
+		}
+		
+		for(int i = 0;i<result2.length;i++){
+			System.out.println("第"+i+"个："+result2[i]);
 		}
 	}
 /*

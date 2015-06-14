@@ -138,7 +138,7 @@ public class Matches extends MyPanel implements ActionListener {
 		rankingBand.setBounds(0, 150, 1052, 70);
  
 		matches = new ArrayList<TeamMonthMatchVO>(0);
-		TeamMonthMatchVO temp = new TeamMonthMatchVO("15-06-15", "CLE", "GSW", "0-0", "0-0", "0-0", "0-0", "0-0");
+		TeamMonthMatchVO temp = new TeamMonthMatchVO("15-06-15", "GSW", "CLE", "0-0", "0-0", "0-0", "0-0", "0-0");
 		matches.add(temp);
 		Object[][] data = getData1(matches);
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
