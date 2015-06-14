@@ -34,7 +34,7 @@ public interface TeamRankService {
 	/*
 	 * 多元线性回归方程，数组表示 系数a1,a2,a3,...am,a0。 数组大小m+1
 	 * 自变量分别是
-	 * 主客场、篮板数、失误数、犯规数、对手总篮板、对手失误数、对手罚球数、对手得分
+	 * 主客场、篮板数、失误数、犯规数、助攻数、抢断数、对手总篮板、对手罚球数、对手得分
 	 * 
 	 */
     public double[] LinerRegression(String season);
