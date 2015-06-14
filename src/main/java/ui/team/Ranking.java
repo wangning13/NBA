@@ -16,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.teambl.TeamRank;
+import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
@@ -23,8 +25,6 @@ import ui.player.MyComboBoxUI;
 import ui.tools.MyTable1;
 import ui.tools.Translate;
 import vo.TeamVO;
-import businesslogic.teambl.TeamRank;
-import businesslogicservice.teamblservice.TeamRankService;
 
 @SuppressWarnings("serial")
 public class Ranking extends MyPanel implements ActionListener {
@@ -79,6 +79,7 @@ public class Ranking extends MyPanel implements ActionListener {
 	JButton descending = new JButton("降序");
 	JButton ascending = new JButton("升序");
 	JButton search = new JButton("查询");
+	JButton playOff = new JButton("季后赛对阵");
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 	Font font2 = new Font("黑体", Font.BOLD, 18);
 	public Ranking(Frame frame) {
@@ -184,16 +185,16 @@ public class Ranking extends MyPanel implements ActionListener {
 		});
 		
 		this.add(jl1);
-		jl1.setBounds(5, 170, 100, 30);
+		jl1.setBounds(5, 160, 100, 30);
 		jl1.setFont(font1);
 		
-		season.addItem("13-14");
-		season.addItem("14-15");	
+		season.addItem("14-15");
+		season.addItem("13-14");	
 		season.addItem("12-13");	
 		season.addItem("11-12");
 		season.addItem("10-11");	
 		this.add(season);
-		season.setBounds(90, 176, 80, 20);
+		season.setBounds(90, 166, 80, 20);
 		season.setFont(font1);
 		season.setUI(new MyComboBoxUI());
 		season.addActionListener(new ActionListener() {
@@ -205,6 +206,12 @@ public class Ranking extends MyPanel implements ActionListener {
 				table1.updateUI();
 			}
 		});
+		
+		this.add(playOff);
+		playOff.setBounds(70, 190, 100, 25);
+		playOff.addActionListener(this);
+		playOff.setActionCommand("playOff");
+		playOff.setUI(new MyButtonUI());
 		
 		this.add(descending);
 		descending.setBounds(880, 157, 60, 25);
@@ -567,6 +574,10 @@ public class Ranking extends MyPanel implements ActionListener {
 			model1.setDataVector(data, getColumnNames1());
 			table1.setWidth();
 			table1.updateUI();
+		}else if (e.getActionCommand().equals("playOff")) {
+			frame.change(this, Frame.playOffPanel);
+			Frame.playOffPanel.update(season.getSelectedItem().toString());
+			Frame.currentPanel = "playOff";
 		}
 
 	}

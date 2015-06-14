@@ -13,13 +13,13 @@ import javax.swing.JLabel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
+import businesslogic.playerbl.PlayerRank;
+import businesslogicservice.playerblservice.PlayerRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.JFreeUtils;
 import vo.PlayerVO;
-import businesslogic.playerbl.PlayerRank;
-import businesslogicservice.playerblservice.PlayerRankService;
 
 @SuppressWarnings("serial")
 public class TeamAnalyze extends MyPanel implements ActionListener {
@@ -96,14 +96,14 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 
 	
 	public void updateChart(){
-		ArrayList<String> players = prs.getAllPlayer("13-14", team);
+		ArrayList<String> players = prs.getAllPlayer("14-15", team);
 		//初始化数据
 		DefaultPieDataset dataset1 = new DefaultPieDataset();
 		
 
 		for(int i=0;i<players.size();i++){
 			for(int j=i+1;j<players.size();j++){
-				if(prs.getPlayerdata("13-14", players.get(i)).getEfficiency()<prs.getPlayerdata("13-14", players.get(j)).getEfficiency()){
+				if(prs.getPlayerdata("14-15", players.get(i)).getEfficiency()<prs.getPlayerdata("14-15", players.get(j)).getEfficiency()){
 					String temp = players.get(i);
 					players.set(i, players.get(j));
 					players.set(j, temp);
@@ -112,7 +112,7 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 		}
 		
 		for(int i=0;i<10;i++){
-			PlayerVO playerData = prs.getPlayerdata("13-14", players.get(i));
+			PlayerVO playerData = prs.getPlayerdata("14-15", players.get(i));
 		//	if(playerData.getEfficiency()>5)
 			    dataset1.setValue(players.get(i),Double.parseDouble(df1.format(playerData.getEfficiency())));
 		}

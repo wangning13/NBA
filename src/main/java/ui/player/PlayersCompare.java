@@ -13,14 +13,14 @@ import javax.swing.JLabel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import businesslogic.playerbl.PlayerRank;
+import businesslogicservice.playerblservice.PlayerRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.JFreeUtils;
 import ui.tools.Translate;
 import vo.PlayerVO;
-import businesslogic.playerbl.PlayerRank;
-import businesslogicservice.playerblservice.PlayerRankService;
 
 
 @SuppressWarnings("serial")
@@ -150,7 +150,7 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 		selectTeam1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
 				if(selectTeam1.getSelectedIndex()!=0){
-					ArrayList<String> players = prs.getAllPlayer("13-14", Translate.translate(selectTeam1.getSelectedItem().toString()));
+					ArrayList<String> players = prs.getAllPlayer("14-15", Translate.translate(selectTeam1.getSelectedItem().toString()));
 					selectPlayer1.removeAllItems();
 					selectPlayer1.addItem("请选择球员");
 					for(int i=0;i<players.size();i++){
@@ -164,7 +164,7 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 		selectTeam2.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
 				if(selectTeam2.getSelectedIndex()!=0){
-					ArrayList<String> players = prs.getAllPlayer("13-14", Translate.translate(selectTeam2.getSelectedItem().toString()));
+					ArrayList<String> players = prs.getAllPlayer("14-15", Translate.translate(selectTeam2.getSelectedItem().toString()));
 					selectPlayer2.removeAllItems();
 					selectPlayer2.addItem("请选择球员");
 					for(int i=0;i<players.size();i++){
@@ -238,8 +238,8 @@ public class PlayersCompare extends MyPanel implements ActionListener {
 	}
 	
 	public void updateChart(){
-		PlayerVO playerData1 = prs.getPlayerdata("13-14", player1);
-		PlayerVO playerData2 = prs.getPlayerdata("13-14", player2);
+		PlayerVO playerData1 = prs.getPlayerdata("14-15", player1);
+		PlayerVO playerData2 = prs.getPlayerdata("14-15", player2);
 		
 	    //初始化数据
 	    DefaultCategoryDataset dataset = new DefaultCategoryDataset();

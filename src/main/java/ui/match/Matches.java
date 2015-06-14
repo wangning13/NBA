@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import businesslogic.teambl.TeamRank;
+import businesslogicservice.teamblservice.TeamRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
@@ -23,8 +25,6 @@ import ui.player.MyComboBoxUI;
 import ui.tools.MyTable;
 import ui.tools.Translate;
 import vo.TeamMonthMatchVO;
-import businesslogic.teambl.TeamRank;
-import businesslogicservice.teamblservice.TeamRankService;
 
 @SuppressWarnings("serial")
 public class Matches extends MyPanel implements ActionListener {
@@ -56,6 +56,7 @@ public class Matches extends MyPanel implements ActionListener {
 		// TODO Auto-generated constructor stub
 		this.frame = frame;
 
+		season.addItem("2015");
 		season.addItem("2014");
 		season.addItem("2013");
 		season.addItem("2012");
@@ -137,7 +138,9 @@ public class Matches extends MyPanel implements ActionListener {
 		rankingBand.setBounds(0, 150, 1052, 70);
  
 		matches = new ArrayList<TeamMonthMatchVO>(0);
-		Object[][] data = getData(matches);
+		TeamMonthMatchVO temp = new TeamMonthMatchVO("15-06-15", "CLE", "GSW", "0-0", "0-0", "0-0", "0-0", "0-0");
+		matches.add(temp);
+		Object[][] data = getData1(matches);
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
 		model1.setDataVector(data, columnNames1);
 		table1 = new MyTable(model1);
@@ -160,6 +163,7 @@ public class Matches extends MyPanel implements ActionListener {
 	public void jump(int row) {
 		if(table1.getValueAt(row, 8).toString().equals("直播")){
 			frame.change(this, Frame.matchLivePanel);
+			Frame.matchLivePanel.update(matches.get(matches.size() - row - 1));
 			Frame.currentPanel = "MatchLive";
 	    }else{
 		    frame.change(this, Frame.singleMatchPanel);
@@ -179,6 +183,19 @@ public class Matches extends MyPanel implements ActionListener {
 					matches.get(i).getGuest(), matches.get(i).getFirst(),
 					matches.get(i).getSecond(), matches.get(i).getThird(),
 					matches.get(i).getFourth(), "查看" };
+			data[num - 1 - i] = temp;
+		}
+		return data;
+	}
+	public Object[][] getData1(ArrayList<TeamMonthMatchVO> matches) {
+		int num = matches.size();
+		Object[][] data = new Object[num][];
+		for (int i = 0; i < num; i++) {
+			Object[] temp = { matches.get(i).getDate(),
+					matches.get(i).getHost(), matches.get(i).getScore(),
+					matches.get(i).getGuest(), matches.get(i).getFirst(),
+					matches.get(i).getSecond(), matches.get(i).getThird(),
+					matches.get(i).getFourth(), "直播" };
 			data[num - 1 - i] = temp;
 		}
 		return data;

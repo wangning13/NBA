@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 
+import ui.main.Frame;
+import ui.main.MyButton;
+import ui.main.MyPanel;
 import ui.material.Img;
 
 @SuppressWarnings("serial")

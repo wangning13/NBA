@@ -295,11 +295,6 @@ public class MatchLive extends MyPanel implements ActionListener {
 			String[] temp1 = temps.get(i).split("-");
 			temps.set(i+1,String.valueOf(Integer.parseInt(temp2[0])-Integer.parseInt(temp1[0]))+"-"+String.valueOf(Integer.parseInt(temp2[1])-Integer.parseInt(temp1[1])));
 		}
-		
-/*		for(int i=0;i<temps.size();i++){
-			System.out.println("asdasd"+temps.get(i));
-		}
-	*/	
 		String score[] = totalScore.split("-");
 		String first[] = temps.get(0).split("-");
 		String second[] = temps.get(1).split("-");
