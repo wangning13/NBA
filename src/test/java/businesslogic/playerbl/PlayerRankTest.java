@@ -111,13 +111,7 @@ public class PlayerRankTest {
 		}
 		assertTrue(notNull);
 	}
-	@Test
-	public void getPlayerRencentFiveMatchTest(){
-		String player = "Ed Davis";
-		ArrayList<PlayerMatchVO> playerMatchVOs = playerRank.getPlayerRecentFiveMatch(player);
-		int number = playerMatchVOs.size();
-		assertEquals(number, 5);
-	}
+	
 	@Test
 	public void getDayTop(){
 		String condition = "backboard";
