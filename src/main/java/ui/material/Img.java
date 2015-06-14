@@ -68,7 +68,8 @@ public class Img {
 			"graphics/main/copyright.png");
 	public static final ImageIcon BLANK = new ImageIcon(
 			"graphics/player/blank.png");
-
+    public static final ImageIcon PLAYOFF = new ImageIcon(
+			"graphics/ranking/playOff.png");
 	public static final ImageIcon ATL = new ImageIcon("graphics/teams/ATL.png");
 	public static final ImageIcon BKN = new ImageIcon("graphics/teams/BKN.png");
 	public static final ImageIcon BOS = new ImageIcon("graphics/teams/BOS.png");
@@ -145,6 +146,11 @@ public class Img {
 	
 	public static ImageIcon loadTeam(String name) {
 		ImageIcon TEAM = new ImageIcon("graphics/teams/" + name + ".png");
+		return TEAM;
+	}
+	
+	public static ImageIcon loadTeam1(String name) {
+		ImageIcon TEAM = new ImageIcon("graphics/teams1/" + name + ".png");
 		return TEAM;
 	}
 

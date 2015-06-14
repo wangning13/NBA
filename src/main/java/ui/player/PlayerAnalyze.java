@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -11,18 +12,24 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYDataItem;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
+import businesslogic.playerbl.PlayerRank;
+import businesslogicservice.playerblservice.PlayerRankService;
 import ui.main.Frame;
 import ui.main.MyPanel;
 import ui.material.Img;
 import ui.tools.JFreeUtils;
 import ui.tools.Translate;
 import vo.PlayerMatchVO;
-import businesslogic.playerbl.PlayerRank;
-import businesslogicservice.playerblservice.PlayerRankService;
+import vo.PlayerVO;
 
 
 @SuppressWarnings("serial")
@@ -102,7 +109,7 @@ public class PlayerAnalyze extends MyPanel implements ActionListener {
 		selectTeam1.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
 				if(selectTeam1.getSelectedIndex()!=0){
-					ArrayList<String> players = prs.getAllPlayer("13-14", Translate.translate(selectTeam1.getSelectedItem().toString()));
+					ArrayList<String> players = prs.getAllPlayer("14-15", Translate.translate(selectTeam1.getSelectedItem().toString()));
 					selectPlayer1.removeAllItems();
 					selectPlayer1.addItem("请选择球员");
 					for(int i=0;i<players.size();i++){
@@ -151,23 +158,24 @@ public class PlayerAnalyze extends MyPanel implements ActionListener {
 	}
 	
 	public void updateChart(){
-		ArrayList<PlayerMatchVO> playerData1 = prs.getPlayerRecentFiveMatch("13-14",player1);
-		String team = prs.getPlayerdata("13-14", player1).getTeam();
+		ArrayList<PlayerMatchVO> playerData1 = prs.getPlayerRecentSeasonMatch("14-15",player1);
+	//	ArrayList<PlayerMatchVO> playerData2 = prs.getPlayerRecentSeasonMatch("13-14",player1);
 		//初始化数据
 		String chartTitle = "得分统计图形";
-		String chartSeriesDesc = "近十场得分曲线";
-		String chartXdesc = "时间";
+		String chartSeriesDesc = "赛季得分曲线";
+		String chartXdesc = "比赛";
 		String chartYdesc = "得分";
 		String timeFormat = "dd";//yyyy-MM-dd
 		String periodType = "DAY";
 		int dateInterval = 1;
-		TimeSeriesCollection dataset = new TimeSeriesCollection();
-		TimeSeries dayseries = new TimeSeries(chartSeriesDesc, Day.class);
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		XYSeries xyseries = new XYSeries(chartSeriesDesc);
 		for(int i=0;i<playerData1.size();i++){
-		    dayseries.add(new Day(1+i*3,1,2013), playerData1.get(i).getScoring());
+		    xyseries.add(new XYDataItem( i+1,playerData1.get(i).getScoring()));
 		}
 		//存储至集合对象中
-		dataset.addSeries(dayseries);
+		dataset.addSeries(xyseries);
+		
 		//生成图表
 		JFreeChart chart = JFreeUtils.createLineChart(chartTitle,chartXdesc,chartYdesc,
 		periodType,dateInterval,timeFormat,dataset);
