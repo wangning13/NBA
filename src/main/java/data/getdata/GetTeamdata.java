@@ -494,10 +494,18 @@ public class GetTeamdata implements GetTeamdataDataService {
 		String sql = "SELECT date,`host/guest`,name,opponent FROM `matches" + season + "` ORDER BY date DESC LIMIT 30";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
-			ResultSet tempRs;
+			ArrayList<ArrayList<String>> item = new ArrayList<ArrayList<String>>();
 			while (rs.next()) {
-				sql = "SELECT SUM(fieldGoal),SUM(fieldGoalAttempts),SUM(threepointFieldGoal),SUM(threepointFieldGoalAttempts),SUM(freeThrow),SUM(freeThrowAttempts),SUM(offensiveRebound),SUM(defensiveRebound),SUM(backboard),SUM(assist),SUM(steal),SUM(block),SUM(turnOver),SUM(foul),SUM(scoring) FROM `playerdata" + season + "` WHERE date=" + rs.getString(1) + " AND team=" + rs.getString(3);
-				tempRs = statement.executeQuery(sql);
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(rs.getString(1));
+				temp.add(rs.getString(2));
+				temp.add(rs.getString(3));
+				temp.add(rs.getString(4));
+				item.add(temp);
+			}
+			for (ArrayList<String> temp : item) {
+				sql = "SELECT SUM(fieldGoal),SUM(fieldGoalAttempts),SUM(threepointFieldGoal),SUM(threepointFieldGoalAttempts),SUM(freeThrow),SUM(freeThrowAttempts),SUM(offensiveRebound),SUM(defensiveRebound),SUM(backboard),SUM(assist),SUM(steal),SUM(block),SUM(turnOver),SUM(foul),SUM(scoring) FROM `playerdata" + season + "` WHERE date='" + temp.get(0) + "' AND team='" + temp.get(2) + "'";
+				ResultSet tempRs = statement.executeQuery(sql);
 				while(tempRs.next()) {
 					fieldGoal = tempRs.getInt(1);
 					fieldGoalAttempts = tempRs.getInt(2);
@@ -515,7 +523,8 @@ public class GetTeamdata implements GetTeamdataDataService {
 					foul = tempRs.getInt(14);
 					scoring = tempRs.getInt(15);
 				}
-				sql = "SELECT SUM(fieldGoal),SUM(fieldGoalAttempts),SUM(freeThrowAttempts),SUM(offensiveRebound),SUM(defensiveRebound),SUM(turnOver),SUM(scoring) FROM `playerdata" + season + "` WHERE date=" + rs.getString(1) + " AND team=" + rs.getString(4);
+				sql = "SELECT SUM(fieldGoal),SUM(fieldGoalAttempts),SUM(freeThrowAttempts),SUM(offensiveRebound),SUM(defensiveRebound),SUM(turnOver),SUM(scoring) FROM `playerdata" + season + "` WHERE date='" + temp.get(0) + "' AND team='" + temp.get(3) + "'";
+				tempRs = statement.executeQuery(sql);
 				while(tempRs.next()) {
 					opponentFieldGoal = tempRs.getInt(1);
 					opponentFieldGoalAttempts = tempRs.getInt(2);
@@ -526,7 +535,7 @@ public class GetTeamdata implements GetTeamdataDataService {
 					opponentDefensiveRebound = tempRs.getInt(5);
 				}
 				TeamPO po = new TeamPO(opponentFieldGoal, opponentFieldGoalAttempts, opponentTurnOver, opponentFreeThrowAttempts, oppenentScoring, teamName, matches, wins, fieldGoal, fieldGoalAttempts, threePointFieldGoal, threePointFieldGoalAttempts, freeThrow, freeThrowAttempts, offensiveRebound, defensiveRebound, opponentOffensiveRebound, opponentDefensiveRebound, backboard, assist, steal, block, turnOver, foul, scoring, fieldGoalPercentage, threePointShotPercentage, freeThrowPercentage, winningPercentage, possessions, offensiveEfficiency, defensiveEfficiency, offensivebackboardEfficiency, defensivebackboardEfficiency, stealEfficiency, assistEfficiency);
-				if (rs.getString(2).equals("h")) {
+				if (temp.get(1).equals("h")) {
 					host.add(po);
 				} else {
 					guest.add(po);

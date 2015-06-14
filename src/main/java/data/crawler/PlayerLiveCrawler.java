@@ -12,27 +12,26 @@ import cn.edu.hfut.dmic.webcollector.crawler.DeepCrawler;
 import cn.edu.hfut.dmic.webcollector.model.Links;
 import cn.edu.hfut.dmic.webcollector.model.Page;
 
-public class LiveCrawler extends DeepCrawler {
-	
-	public static String num = "150122";
+public class PlayerLiveCrawler extends DeepCrawler {
 
-	public LiveCrawler(String crawlPath) {
-        super(crawlPath);
-    }
+	public PlayerLiveCrawler(String crawlPath) {
+		super(crawlPath);
+		// TODO Auto-generated constructor stub
+	}
 
     @Override
     public Links visitAndGetNextLinks(Page page) {
         HtmlUnitDriver driver=PageUtils.getDriver(page);
-        List<WebElement> divInfos=driver.findElementsByCssSelector("table[matchid='" + num + "']");
+        List<WebElement> divInfos=driver.findElementsByCssSelector("div[class='table_list_live']");
         try {
-			FileWriter fr = new FileWriter("matchLive");
-	        for(WebElement divInfo:divInfos){
-	        	List<WebElement> info = divInfo.findElements(By.cssSelector("tr"));
-	        	for (WebElement temp : info) {
-					fr.write(temp.getText()+"\r\n");
+			FileWriter fr = new FileWriter("playerLive");
+			for(WebElement divInfo:divInfos){
+				List<WebElement> info = divInfo.findElements(By.cssSelector("tr"));
+				for (WebElement temp : info) {
+					//fr.write(temp.getText()+"\r\n");
 				}
-	        }
-	        fr.close();
+			}
+			fr.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
