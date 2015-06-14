@@ -31,6 +31,14 @@ public interface TeamRankService {
 
 	public ArrayList<TeamVO> getSeasonTop(String season, String condition);
 	
-//	public ArrayList<TeamMonthMatchVO> getRecentFifteen();
+	/*
+	 * 多元线性回归方程，数组表示 系数a1,a2,a3,...am,a0。 数组大小m+1
+	 * 自变量分别是
+	 * 主客场、篮板数、失误数、犯规数、对手总篮板、对手失误数、对手罚球数、对手得分
+	 * 
+	 */
+    public double[] LinerRegression(String season);
+    //偏回归系数，数组表示 m个自变量的偏回归系数,数组大小m
+    public double[] RegressionCoefficient(String season);
 
 }

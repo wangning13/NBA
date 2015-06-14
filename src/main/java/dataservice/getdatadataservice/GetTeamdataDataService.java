@@ -28,4 +28,6 @@ public interface GetTeamdataDataService {
 
 	public ArrayList<TeamMatchPO> getRecentFifteen();
 	
+	public ArrayList<ArrayList<TeamPO>> getHostGuestdata(String season);
+	
 }

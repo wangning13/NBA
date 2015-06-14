@@ -74,13 +74,7 @@ public class TeamRankTest {
 		}
 		assertTrue(isTrue);
 	}
-	@Test
-	public void getTeamRecentFiveMatchTest(){
-		String team = "LAL";
-		ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = teamRank.getTeamRecentFiveMatch(team);
-		int number = teamMonthMatchVOs.size();
-		assertEquals(number, 5);
-	}
+	
 	@Test
 	public void getSeasonTopTest(){
 		String season = "13-14";
