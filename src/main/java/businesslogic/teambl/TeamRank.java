@@ -239,32 +239,88 @@ public class TeamRank implements TeamRankService{
 		ArrayList<TeamPO> host = r.get(0);
 		ArrayList<TeamPO> guest = r.get(1);
 		
-		int m = 9;
+		int m = 15;
 		int n = host.size()+guest.size();
 		double[][] x = new double[m][n];
 		double[] y = new double[n];
 		for (int i = 0; i < host.size(); i++) {
+			//主客场
 			x[0][i]= 1; 
+			//篮板数
 			x[1][i]= host.get(i).getBackboard();
+			//失误数
 			x[2][i]= host.get(i).getTurnOver();
+			//犯规数
 			x[3][i]= host.get(i).getFoul();
+			//助攻数
 			x[4][i]= host.get(i).getAssist();
+			//抢断数
 			x[5][i]= host.get(i).getSteal();
+			//盖帽数
 			x[6][i]= host.get(i).getBlock();
-			x[7][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
-			x[8][i]= host.get(i).getOpponentTurnOver();
+			//投篮命中率
+			double fieldGoalPercentage = ((double)host.get(i).getFieldGoal())/host.get(i).getFieldGoalAttempts();
+			x[7][i]= fieldGoalPercentage; 
+			//三分命中率
+			double threePointShotPercentage = ((double)host.get(i).getThreePointFieldGoal())/host.get(i).getThreePointFieldGoalAttempts();
+			x[8][i]= threePointShotPercentage; 
+			//罚球命中率
+			double freeThrowPercentage = ((double)host.get(i).getFreeThrow())/host.get(i).getFreeThrowAttempts();
+			x[9][i] = freeThrowPercentage;
+			//对手篮板数
+			x[10][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			//对手投篮命中数
+			double opponentFieldGoal = host.get(i).getOpponentFieldGoal();
+			x[11][i]= opponentFieldGoal; 
+			//对手投篮出手次数
+			double opponentFieldGoalAttempts = host.get(i).getOpponentFieldGoalAttempts();
+			x[12][i]= opponentFieldGoalAttempts; 
+			//对手失误数
+			x[13][i]= host.get(i).getOpponentTurnOver();
+			//对手罚球数
+			double opponentFreeThrowAttempts = host.get(i).getOpponentFreeThrowAttempts();
+			x[14][i]= opponentFreeThrowAttempts;
+			//自己得分-对手得分
 			y[i]= host.get(i).getScoring()-host.get(i).getOppenentScoring(); 
 		}
 		for (int i = host.size(); i < n; i++) {
+			//主客场
 			x[0][i]= -1; 
+			//篮板数
 			x[1][i]= guest.get(i-host.size()).getBackboard();
+			//失误数
 			x[2][i]= guest.get(i-host.size()).getTurnOver();
+			//犯规数
 			x[3][i]= guest.get(i-host.size()).getFoul();
+			//助攻数
 			x[4][i]= guest.get(i-host.size()).getAssist();
+			//抢断数
 			x[5][i]= guest.get(i-host.size()).getSteal();
+			//盖帽数
 			x[6][i]= guest.get(i-host.size()).getBlock();
-			x[7][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
-			x[8][i]= guest.get(i-host.size()).getOpponentTurnOver();
+			//投篮命中率
+			double fieldGoalPercentage = ((double)guest.get(i-host.size()).getFieldGoal())/guest.get(i-host.size()).getFieldGoalAttempts();
+			x[7][i]= fieldGoalPercentage; 
+			//三分命中率
+			double threePointShotPercentage = ((double)guest.get(i-host.size()).getThreePointFieldGoal())/guest.get(i-host.size()).getThreePointFieldGoalAttempts();
+			x[8][i]= threePointShotPercentage; 
+			//罚球命中率
+			double freeThrowPercentage = ((double)guest.get(i-host.size()).getFreeThrow())/guest.get(i-host.size()).getFreeThrowAttempts();
+			x[9][i] = freeThrowPercentage;
+			//对手篮板数
+			x[10][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+guest.get(i-host.size()).getOpponentOffensiveRebound();
+			//对手投篮命中数
+			double opponentFieldGoal = guest.get(i-host.size()).getOpponentFieldGoal();
+			x[11][i]= opponentFieldGoal; 
+			//对手投篮出手次数
+			double opponentFieldGoalAttempts = guest.get(i-host.size()).getOpponentFieldGoalAttempts();
+			x[12][i]= opponentFieldGoalAttempts; 
+			//对手失误数
+			x[13][i]= guest.get(i-host.size()).getOpponentTurnOver();
+			//对手罚球数
+			double opponentFreeThrowAttempts = guest.get(i-host.size()).getOpponentFreeThrowAttempts();
+			x[14][i]= opponentFreeThrowAttempts;
+			//自己得分-对手得分
 			y[i]= guest.get(i-host.size()).getScoring()-guest.get(i-host.size()).getOppenentScoring(); 
 		}
 		double[] a = sqt2(x,y,m,n);
@@ -278,32 +334,88 @@ public class TeamRank implements TeamRankService{
 		ArrayList<TeamPO> host = r.get(0);
 		ArrayList<TeamPO> guest = r.get(1);
 		
-		int m = 9;
+		int m = 15;
 		int n = host.size()+guest.size();
 		double[][] x = new double[m][n];
 		double[] y = new double[n];
 		for (int i = 0; i < host.size(); i++) {
+			//主客场
 			x[0][i]= 1; 
+			//篮板数
 			x[1][i]= host.get(i).getBackboard();
+			//失误数
 			x[2][i]= host.get(i).getTurnOver();
+			//犯规数
 			x[3][i]= host.get(i).getFoul();
+			//助攻数
 			x[4][i]= host.get(i).getAssist();
+			//抢断数
 			x[5][i]= host.get(i).getSteal();
+			//盖帽数
 			x[6][i]= host.get(i).getBlock();
-			x[7][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
-			x[8][i]= host.get(i).getOpponentTurnOver();
+			//投篮命中率
+			double fieldGoalPercentage = ((double)host.get(i).getFieldGoal())/host.get(i).getFieldGoalAttempts();
+			x[7][i]= fieldGoalPercentage; 
+			//三分命中率
+			double threePointShotPercentage = ((double)host.get(i).getThreePointFieldGoal())/host.get(i).getThreePointFieldGoalAttempts();
+			x[8][i]= threePointShotPercentage; 
+			//罚球命中率
+			double freeThrowPercentage = ((double)host.get(i).getFreeThrow())/host.get(i).getFreeThrowAttempts();
+			x[9][i] = freeThrowPercentage;
+			//对手篮板数
+			x[10][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			//对手投篮命中数
+			double opponentFieldGoal = host.get(i).getOpponentFieldGoal();
+			x[11][i]= opponentFieldGoal; 
+			//对手投篮出手次数
+			double opponentFieldGoalAttempts = host.get(i).getOpponentFieldGoalAttempts();
+			x[12][i]= opponentFieldGoalAttempts; 
+			//对手失误数
+			x[13][i]= host.get(i).getOpponentTurnOver();
+			//对手罚球数
+			double opponentFreeThrowAttempts = host.get(i).getOpponentFreeThrowAttempts();
+			x[14][i]= opponentFreeThrowAttempts;
+			//自己得分-对手得分
 			y[i]= host.get(i).getScoring()-host.get(i).getOppenentScoring(); 
 		}
 		for (int i = host.size(); i < n; i++) {
+			//主客场
 			x[0][i]= -1; 
+			//篮板数
 			x[1][i]= guest.get(i-host.size()).getBackboard();
+			//失误数
 			x[2][i]= guest.get(i-host.size()).getTurnOver();
+			//犯规数
 			x[3][i]= guest.get(i-host.size()).getFoul();
+			//助攻数
 			x[4][i]= guest.get(i-host.size()).getAssist();
+			//抢断数
 			x[5][i]= guest.get(i-host.size()).getSteal();
+			//盖帽数
 			x[6][i]= guest.get(i-host.size()).getBlock();
-			x[7][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
-			x[8][i]= guest.get(i-host.size()).getOpponentTurnOver();
+			//投篮命中率
+			double fieldGoalPercentage = ((double)guest.get(i-host.size()).getFieldGoal())/guest.get(i-host.size()).getFieldGoalAttempts();
+			x[7][i]= fieldGoalPercentage; 
+			//三分命中率
+			double threePointShotPercentage = ((double)guest.get(i-host.size()).getThreePointFieldGoal())/guest.get(i-host.size()).getThreePointFieldGoalAttempts();
+			x[8][i]= threePointShotPercentage; 
+			//罚球命中率
+			double freeThrowPercentage = ((double)guest.get(i-host.size()).getFreeThrow())/guest.get(i-host.size()).getFreeThrowAttempts();
+			x[9][i] = freeThrowPercentage;
+			//对手篮板数
+			x[10][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+guest.get(i-host.size()).getOpponentOffensiveRebound();
+			//对手投篮命中数
+			double opponentFieldGoal = guest.get(i-host.size()).getOpponentFieldGoal();
+			x[11][i]= opponentFieldGoal; 
+			//对手投篮出手次数
+			double opponentFieldGoalAttempts = guest.get(i-host.size()).getOpponentFieldGoalAttempts();
+			x[12][i]= opponentFieldGoalAttempts; 
+			//对手失误数
+			x[13][i]= guest.get(i-host.size()).getOpponentTurnOver();
+			//对手罚球数
+			double opponentFreeThrowAttempts = guest.get(i-host.size()).getOpponentFreeThrowAttempts();
+			x[14][i]= opponentFreeThrowAttempts;
+			//自己得分-对手得分
 			y[i]= guest.get(i-host.size()).getScoring()-guest.get(i-host.size()).getOppenentScoring(); 
 		}
 		double[] v=  sqt3(x,y,m,n);
