@@ -264,8 +264,9 @@ public class TeamRank implements TeamRankService{
 				team1[12] = (double)teamVOs.get(i).getOpponentFieldGoalAttempts()/teamVOs.get(i).getMatches();
 				team1[13] = (double)teamVOs.get(i).getOpponentTurnOver()/teamVOs.get(i).getMatches();
 				team1[14] = (double)teamVOs.get(i).getFreeThrowAttempts()/teamVOs.get(i).getMatches();
-			}else if (TeamName2.equals(teamVOs.get(i).getTeamName())) {
-				team2[0] = 1;
+			}
+			if (TeamName2.equals(teamVOs.get(i).getTeamName())) {
+				team2[0] = -1;
 				team2[1] = teamVOs.get(i).getAverageBackboard();
 				team2[2] = teamVOs.get(i).getAverageTurnOver();
 				team2[3] = teamVOs.get(i).getAverageFoul();
@@ -290,7 +291,7 @@ public class TeamRank implements TeamRankService{
 			Scoring1 = Scoring1 + team1[j]*a[j];
 		}
 		Scoring1 = Scoring1 + a[a.length-1];
-		for (int j = 0; j < team1.length; j++) {
+		for (int j = 0; j < team2.length; j++) {
 			Scoring2 = Scoring2 + team2[j]*a[j];
 		}
 		Scoring2 = Scoring2 + a[a.length-1];
