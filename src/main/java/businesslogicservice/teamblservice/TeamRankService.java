@@ -31,6 +31,9 @@ public interface TeamRankService {
 
 	public ArrayList<TeamVO> getSeasonTop(String season, String condition);
 	
+	//通过多元线性回归方程预测球队得分
+    public double[] TwoScoring(String TeamName1,String TeamName2);
+    
 	/*
 	 * 多元线性回归方程，数组表示 系数a1,a2,a3,...am,a0。 数组大小m+1
 	 * 自变量分别是
