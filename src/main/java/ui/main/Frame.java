@@ -35,7 +35,7 @@ public class Frame extends JFrame {
 	public static PlayersCompare playersComparePanel;
 	public static PlayerAnalyze playerAnalyzePanel;
 	public static TeamAnalyze teamAnalyzePanel;
-	public static MatchLive matchLivePanel;
+//	public static MatchLive matchLivePanel;
 	public static PlayOff playOffPanel;
 
 	public static String currentPanel = "main";
@@ -55,7 +55,7 @@ public class Frame extends JFrame {
 		playersComparePanel = new PlayersCompare(this);
 		playerAnalyzePanel = new PlayerAnalyze(this);
 		teamAnalyzePanel = new TeamAnalyze(this);
-		matchLivePanel = new MatchLive(this);
+	//	matchLivePanel = new MatchLive(this);
 		playOffPanel = new PlayOff(this);
 		
 		this.getContentPane().add(mainFrame);

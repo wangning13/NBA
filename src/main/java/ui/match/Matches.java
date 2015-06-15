@@ -162,9 +162,9 @@ public class Matches extends MyPanel implements ActionListener {
 
 	public void jump(int row) {
 		if(table1.getValueAt(row, 8).toString().equals("直播")){
-			frame.change(this, Frame.matchLivePanel);
+			/*frame.change(this, Frame.matchLivePanel);
 			Frame.matchLivePanel.update(matches.get(matches.size() - row - 1));
-			Frame.currentPanel = "MatchLive";
+			Frame.currentPanel = "MatchLive";*/
 	    }else{
 		    frame.change(this, Frame.singleMatchPanel);
 		    TeamMonthMatchVO temp = matches.get(matches.size() - row - 1);

@@ -9,7 +9,7 @@ public class GetLive {
 	public ArrayList<ArrayList<String>> getLiveString() {
 		ArrayList<ArrayList<String>> r = new ArrayList<ArrayList<String>>();
 		try {
-			FileReader fr = new FileReader("test");
+			FileReader fr = new FileReader("matchLive");
 			BufferedReader br = new BufferedReader(fr);
 			String line = "";
 			while((line = br.readLine()) != null) {
@@ -49,6 +49,27 @@ public class GetLive {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return r;
+	}
+	
+	public ArrayList<String> getPlayerLive() {
+		ArrayList<String> r = new ArrayList<String>();
+		try {
+			FileReader fr = new FileReader("playerLive");
+			BufferedReader br = new BufferedReader(fr);
+			String line = "";
+			while((line=br.readLine()) != null) {
+				if (line.startsWith("首发") || line.startsWith("替补")/*||line.startsWith("统计")||line.startsWith("命中率")*/) {
+					continue;
+				}
+				r.add(line);
+				line = "";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return r;
 	}
 	
