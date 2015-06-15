@@ -239,7 +239,7 @@ public class TeamRank implements TeamRankService{
 		ArrayList<TeamPO> host = r.get(0);
 		ArrayList<TeamPO> guest = r.get(1);
 		
-		int m = 8;
+		int m = 9;
 		int n = host.size()+guest.size();
 		double[][] x = new double[m][n];
 		double[] y = new double[n];
@@ -248,10 +248,11 @@ public class TeamRank implements TeamRankService{
 			x[1][i]= host.get(i).getBackboard();
 			x[2][i]= host.get(i).getTurnOver();
 			x[3][i]= host.get(i).getFoul();
-			x[4][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
-			x[5][i]= host.get(i).getOpponentTurnOver();
-			x[6][i]= host.get(i).getOpponentFreeThrowAttempts();
-			x[7][i]= host.get(i).getOppenentScoring();
+			x[4][i]= host.get(i).getAssist();
+			x[5][i]= host.get(i).getSteal();
+			x[6][i]= host.get(i).getBlock();
+			x[7][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			x[8][i]= host.get(i).getOpponentTurnOver();
 			y[i]= host.get(i).getScoring(); 
 		}
 		for (int i = host.size(); i < n; i++) {
@@ -259,10 +260,11 @@ public class TeamRank implements TeamRankService{
 			x[1][i]= guest.get(i-host.size()).getBackboard();
 			x[2][i]= guest.get(i-host.size()).getTurnOver();
 			x[3][i]= guest.get(i-host.size()).getFoul();
-			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
-			x[5][i]= guest.get(i-host.size()).getOpponentTurnOver();
-			x[6][i]= guest.get(i-host.size()).getOpponentFreeThrowAttempts();
-			x[7][i]= host.get(i-host.size()).getOppenentScoring();
+			x[4][i]= guest.get(i-host.size()).getAssist();
+			x[5][i]= guest.get(i-host.size()).getSteal();
+			x[6][i]= guest.get(i-host.size()).getBlock();
+			x[7][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
+			x[8][i]= guest.get(i-host.size()).getOpponentTurnOver();
 			y[i]= guest.get(i-host.size()).getScoring(); 
 		}
 		double[] a = sqt2(x,y,m,n);
@@ -276,7 +278,7 @@ public class TeamRank implements TeamRankService{
 		ArrayList<TeamPO> host = r.get(0);
 		ArrayList<TeamPO> guest = r.get(1);
 		
-		int m = 8;
+		int m = 10;
 		int n = host.size()+guest.size();
 		double[][] x = new double[m][n];
 		double[] y = new double[n];
@@ -285,21 +287,23 @@ public class TeamRank implements TeamRankService{
 			x[1][i]= host.get(i).getBackboard();
 			x[2][i]= host.get(i).getTurnOver();
 			x[3][i]= host.get(i).getFoul();
-			x[4][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
-			x[5][i]= host.get(i).getOpponentTurnOver();
-			x[6][i]= host.get(i).getOpponentFreeThrowAttempts();
-			x[7][i]= host.get(i).getOppenentScoring();
-			y[i]= host.get(i).getScoring(); 
+			x[4][i]= host.get(i).getAssist();
+			x[5][i]= host.get(i).getSteal();
+			x[6][i]= host.get(i).getBlock();
+			x[7][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
+			x[8][i]= host.get(i).getOpponentTurnOver();
+			y[i]= host.get(i).getScoring();
 		}
 		for (int i = host.size(); i < n; i++) {
 			x[0][i]= -1; 
 			x[1][i]= guest.get(i-host.size()).getBackboard();
 			x[2][i]= guest.get(i-host.size()).getTurnOver();
 			x[3][i]= guest.get(i-host.size()).getFoul();
-			x[4][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
-			x[5][i]= guest.get(i-host.size()).getOpponentTurnOver();
-			x[6][i]= guest.get(i-host.size()).getOpponentFreeThrowAttempts();
-			x[7][i]= host.get(i-host.size()).getOppenentScoring();
+			x[4][i]= guest.get(i-host.size()).getAssist();
+			x[5][i]= guest.get(i-host.size()).getSteal();
+			x[6][i]= guest.get(i-host.size()).getBlock();
+			x[7][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
+			x[8][i]= guest.get(i-host.size()).getOpponentTurnOver();
 			y[i]= guest.get(i-host.size()).getScoring(); 
 		}
 		double[] v=  sqt3(x,y,m,n);
@@ -585,9 +589,10 @@ public class TeamRank implements TeamRankService{
 	public double[] HostOrGuest(String season) {
 		double[] a = new double[5];
 		GetTeamdataDataService g = new GetTeamdata();
-		ArrayList<ArrayList<TeamPO>> r = g.getHostGuestdata(season);
-		ArrayList<TeamPO> host = r.get(0);
-		ArrayList<TeamPO> guest = r.get(1);
+		ArrayList<ArrayList<TeamPO>> teampoList = g.getHostGuestdata(season);
+		ArrayList<TeamPO> host = teampoList.get(0);
+		ArrayList<TeamPO> guest = teampoList.get(1);
+		int r = host.size();
 		double[] x = new double[host.size()];
 		double[] y = new double[guest.size()];
 		for (int i = 0; i < x.length; i++) {
@@ -607,13 +612,32 @@ public class TeamRank implements TeamRankService{
 		double x_average = 	(double)x_all/x.length;	
 		double y_average = (double)y_all/y.length;
 		double xy_average = (double)(x_all+y_all)/(x.length+y.length);
-		double st = 0;//总偏差平方和
+		double St = 0;//总偏差平方和
 		for (int i = 0; i < x.length; i++) {
-			st = st + (x[i]-xy_average)*(x[i]-xy_average);
+			St = St + (x[i]-xy_average)*(x[i]-xy_average);
 		}
 		for (int i = 0; i < y.length; i++) {
-			st = st + (y[i]-xy_average)*(y[i]-xy_average);
+			St = St + (y[i]-xy_average)*(y[i]-xy_average);
 		}
+		double Sa = 0;//水平间偏差平方和
+		Sa = Sa + (x_average-xy_average)*(x_average-xy_average);
+		Sa = Sa + (y_average-xy_average)*(y_average-xy_average);
+		Sa = Sa*r;
+		double Se = 0;//水平内偏差平方和
+		for (int i = 0; i < r; i++) {
+			Se = Se + (x[i]-x_average)*(x[i]-x_average);
+		}
+		for (int i = 0; i < r; i++) {
+			Se = Se + (y[i]-y_average)*(y[i]-y_average);
+		}
+		int ft = 2*r-1;//St的自由度
+		int fa = 1;//Sa的自由度
+		int fe = 2*r-2;//Se的自由度
+		double Va = Sa/fa;
+		double Ve = Se/fe;
+		double F = Va/Ve;
+		
+		
 		
 		return a;
 	}
