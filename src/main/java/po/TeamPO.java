@@ -3,9 +3,9 @@ package po;
 public class TeamPO {
 
 	int opponentFieldGoal;// 对手投篮命中数
-	int opponentFieldGoalAttempts;// 对手投篮出手次数
-	int opponentTurnOver;// 对手失误数
-	int opponentFreeThrowAttempts;// 对手罚球数
+	int opponentFieldGoalAttempts;// 对手投篮出手次数///////
+	int opponentTurnOver;// 对手失误数//////
+	int opponentFreeThrowAttempts;// 对手罚球数///////
 	int oppenentScoring;// 对手得分
 	String teamName;// 球队名称
 	int matches;// 比赛场数
@@ -18,19 +18,19 @@ public class TeamPO {
 	int freeThrowAttempts;// 罚球出手数
 	int offensiveRebound;// 进攻篮板数
 	int defensiveRebound;// 防守篮板数
-	int opponentOffensiveRebound;// 对手进攻篮板数
-	int opponentDefensiveRebound;// 对手防守篮板数
-	int backboard;// 篮板数
-	int assist;// 助攻数
-	int steal;// 抢断数
-	int block;// 盖帽数
-	int turnOver;// 失误数
-	int foul;// 犯规数
+	int opponentOffensiveRebound;// 对手进攻篮板数//
+	int opponentDefensiveRebound;// 对手防守篮板数//
+	int backboard;// 篮板数////
+	int assist;// 助攻数////
+	int steal;// 抢断数////
+	int block;// 盖帽数////
+	int turnOver;// 失误数/////
+	int foul;// 犯规数////////
 	int scoring;// 比赛得分
 
-	double fieldGoalPercentage;// 投篮命中率
-	double threePointShotPercentage;// 三分命中率
-	double freeThrowPercentage;// 三分命中率
+	double fieldGoalPercentage;// 投篮命中率////////
+	double threePointShotPercentage;// 三分命中率///////
+	double freeThrowPercentage;// 罚球命中率//////////
 	double winningPercentage;// 胜率
 	double possessions;// 进攻回合
 	double offensiveEfficiency;// 进攻效率

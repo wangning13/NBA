@@ -253,7 +253,7 @@ public class TeamRank implements TeamRankService{
 			x[6][i]= host.get(i).getBlock();
 			x[7][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
 			x[8][i]= host.get(i).getOpponentTurnOver();
-			y[i]= host.get(i).getScoring(); 
+			y[i]= host.get(i).getScoring()-host.get(i).getOppenentScoring(); 
 		}
 		for (int i = host.size(); i < n; i++) {
 			x[0][i]= -1; 
@@ -265,7 +265,7 @@ public class TeamRank implements TeamRankService{
 			x[6][i]= guest.get(i-host.size()).getBlock();
 			x[7][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
 			x[8][i]= guest.get(i-host.size()).getOpponentTurnOver();
-			y[i]= guest.get(i-host.size()).getScoring(); 
+			y[i]= guest.get(i-host.size()).getScoring()-guest.get(i-host.size()).getOppenentScoring(); 
 		}
 		double[] a = sqt2(x,y,m,n);
 		return a;
@@ -278,7 +278,7 @@ public class TeamRank implements TeamRankService{
 		ArrayList<TeamPO> host = r.get(0);
 		ArrayList<TeamPO> guest = r.get(1);
 		
-		int m = 10;
+		int m = 9;
 		int n = host.size()+guest.size();
 		double[][] x = new double[m][n];
 		double[] y = new double[n];
@@ -292,7 +292,7 @@ public class TeamRank implements TeamRankService{
 			x[6][i]= host.get(i).getBlock();
 			x[7][i]= host.get(i).getOpponentDefensiveRebound()+host.get(i).getOpponentOffensiveRebound();
 			x[8][i]= host.get(i).getOpponentTurnOver();
-			y[i]= host.get(i).getScoring();
+			y[i]= host.get(i).getScoring()-host.get(i).getOppenentScoring(); 
 		}
 		for (int i = host.size(); i < n; i++) {
 			x[0][i]= -1; 
@@ -304,7 +304,7 @@ public class TeamRank implements TeamRankService{
 			x[6][i]= guest.get(i-host.size()).getBlock();
 			x[7][i]= guest.get(i-host.size()).getOpponentDefensiveRebound()+host.get(i-host.size()).getOpponentOffensiveRebound();
 			x[8][i]= guest.get(i-host.size()).getOpponentTurnOver();
-			y[i]= guest.get(i-host.size()).getScoring(); 
+			y[i]= guest.get(i-host.size()).getScoring()-guest.get(i-host.size()).getOppenentScoring(); 
 		}
 		double[] v=  sqt3(x,y,m,n);
 		return v;
