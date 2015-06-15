@@ -18,6 +18,7 @@ import dataservice.getdatadataservice.GetTeamdataDataService;
 
 public class TeamRank implements TeamRankService{
 	DecimalFormat df=new DecimalFormat("#.0000");
+	DecimalFormat df1=new DecimalFormat("#.0");
 	
 	private  ArrayList<TeamPO> Ranking(String season,String condition,String order) {
 		ArrayList<TeamPO> teamPOs = new ArrayList<TeamPO>();
@@ -295,8 +296,8 @@ public class TeamRank implements TeamRankService{
 			Scoring2 = Scoring2 + team2[j]*a[j];
 		}
 		Scoring2 = Scoring2 + a[a.length-1];
-		Scoring[0] = Scoring1;
-		Scoring[1] = Scoring2;
+		Scoring[0] = Double.parseDouble(df1.format(Scoring1));
+		Scoring[1] = Double.parseDouble(df1.format(Scoring2));
 		return Scoring;
 	}
     //多元线性回归方程，数组表示 a1,a2,a3,...am,a0,大小m+1，y表示自己得分
