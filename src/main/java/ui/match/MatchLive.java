@@ -37,11 +37,11 @@ public class MatchLive extends MyPanel implements ActionListener {
 	JScrollPane pane2;
 	MyTable1 table2;
 	DefaultTableModel model2;
-	String[] columnNames2 = { "主队", "位置", "时间","投篮" ,"3分", "罚球", "前场","后场","篮板","助攻","犯规","抢断","失误","封盖","得分","+/-"};
+	String[] columnNames2 = { "主队", "位置", "时间","投篮" ,"3分", "罚球", "前场","后场","篮板","助攻","犯规","抢断","失误","封盖","得分"};
 	JScrollPane pane3;
 	MyTable1 table3;
 	DefaultTableModel model3;
-	String[] columnNames3 = {  "客队", "位置", "时间","投篮" ,"3分", "罚球", "前场","后场","篮板","助攻","犯规","抢断","失误","封盖","得分","+/-" };
+	String[] columnNames3 = {  "客队", "位置", "时间","投篮" ,"3分", "罚球", "前场","后场","篮板","助攻","犯规","抢断","失误","封盖","得分"};
     String totalScore = "0-0";
     ArrayList<String> scores = new ArrayList<String>(0) ;
 	JLabel rankingBand = new JLabel(Img.MATCHBAND);
@@ -106,29 +106,29 @@ public class MatchLive extends MyPanel implements ActionListener {
 		jl4.setFont(font1);
 
 		this.add(point1_1);
-		point1_1.setBounds(305-10, 170, 100, 30);
+		point1_1.setBounds(305-10, 180, 100, 30);
 		point1_1.setFont(font1);
 		this.add(point1_2);
-		point1_2.setBounds(425-10, 170, 100, 30);
+		point1_2.setBounds(425-10, 180, 100, 30);
 		point1_2.setFont(font1);
 		this.add(point1_3);
-		point1_3.setBounds(545-10, 170, 100, 30);
+		point1_3.setBounds(545-10, 180, 100, 30);
 		point1_3.setFont(font1);
 		this.add(point1_4);
-		point1_4.setBounds(665-10, 170, 100, 30);
+		point1_4.setBounds(665-10, 180, 100, 30);
 		point1_4.setFont(font1);
 
 		this.add(point2_1);
-		point2_1.setBounds(305-10, 190, 100, 30);
+		point2_1.setBounds(305-10, 210, 100, 30);
 		point2_1.setFont(font1);
 		this.add(point2_2);
-		point2_2.setBounds(425-10, 190, 100, 30);
+		point2_2.setBounds(425-10, 210, 100, 30);
 		point2_2.setFont(font1);
 		this.add(point2_3);
-		point2_3.setBounds(545-10, 190, 100, 30);
+		point2_3.setBounds(545-10, 210, 100, 30);
 		point2_3.setFont(font1);
 		this.add(point2_4);
-		point2_4.setBounds(665-10, 190, 100, 30);
+		point2_4.setBounds(665-10, 210, 100, 30);
 		point2_4.setFont(font1);
 
 		group.add(jrb1);
@@ -139,6 +139,7 @@ public class MatchLive extends MyPanel implements ActionListener {
 		jrb1.setFont(font1);
 		jrb1.addActionListener(this);
 		jrb1.setActionCommand("live");
+		jrb1.setSelected(true);
 		this.add(jrb2);
 		jrb2.setBounds(930, 205, 100, 20);
 		jrb2.setFont(font1);
@@ -179,7 +180,7 @@ public class MatchLive extends MyPanel implements ActionListener {
 		pane3 = new JScrollPane(table3);
 		this.add(pane3);
 		pane3.setBounds(0, 450, 1052, 200);
-		
+		 update1();
 
         timer runner=new timer();
         runner.start();
@@ -309,8 +310,12 @@ public class MatchLive extends MyPanel implements ActionListener {
 		SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	        	ArrayList<ArrayList<String>> live = getLive.getLiveString(); 
-	    		model1.setDataVector(getData(live), columnNames1);
+	    		model1.setDataVector(getData(live), columnNames1);    		
 	    		table1.setWidth();
+	          }
+	        });		
+		SwingUtilities.invokeLater(new Runnable() {
+		        public void run() {
 	    		table1.updateUI();
 	                 
 
@@ -361,6 +366,70 @@ public class MatchLive extends MyPanel implements ActionListener {
 		
 	}
 	
+	public void update1(){		
+		SwingUtilities.invokeLater(new Runnable() {
+	
+        public void run() {
+		ArrayList<String>statistics = getLive.getPlayerLive();
+	   int num = statistics.size();
+		Object[][] data1 = new Object[17][];
+		for(int i=0;i<17;i++){
+			String[] temps = statistics.get(i).split(";");
+		    Object[] temp = { temps[0],
+		    		temps[1],
+		    		temps[2],
+		    		temps[3],
+		    		temps[4],
+		    		temps[5],
+		    		temps[6],
+		    		temps[7],
+		    		temps[8],
+		    		temps[9],
+		    		temps[10],
+		    		temps[11],
+		    		temps[12],
+		    		temps[13],
+		    		temps[14],
+		    		//temps[15],	
+			     };
+		    data1[i] = temp;
+		}
+		model2.setDataVector(data1, columnNames2);
+		table2.setWidth();
+		table2.updateUI();
+		
+		Object[][] data2 = new Object[num-17][];
+		for(int i=17;i<num;i++){
+			String[] temps = statistics.get(i).split(";");
+		    Object[] temp = { temps[0],
+		    		temps[1],
+		    		temps[2],
+		    		temps[3],
+		    		temps[4],
+		    		temps[5],
+		    		temps[6],
+		    		temps[7],
+		    		temps[8],
+		    		temps[9],
+		    		temps[10],
+		    		temps[11],
+		    		temps[12],
+		    		temps[13],
+		    		temps[14],
+		    		//temps[15],	
+			     };
+		    data2[i-17] = temp;
+		}
+		model3.setDataVector(data2, columnNames3);
+		table3.setWidth();
+		table3.updateUI();
+        }
+		});
+	}
+
+	
+	
+	
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -389,9 +458,10 @@ public class MatchLive extends MyPanel implements ActionListener {
 	{
 
 	public void run(){
-	    for(int i=0;i<1000;i++){
-	        System.out.println(i);
+	    while(true){
+	      //  System.out.println(i);
 	        update();
+	        update1();
 	        try{
 	            Thread.sleep(20000);//睡眠20000毫秒
 	        }catch(InterruptedException e){e.printStackTrace();}

@@ -271,6 +271,7 @@ public class Ranking extends MyPanel implements ActionListener {
 		for(int i = 0;i<result2.length;i++){
 			System.out.println("第"+i+"个："+result2[i]);
 		}
+		
 	}
 /*
 	public Object[][] getData(ArrayList<TeamVO> teams) {
