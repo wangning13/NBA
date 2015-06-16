@@ -30,7 +30,7 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 	JLabel teamIcon1 = new JLabel(Img.loadTeam("HOU"));
 	JLabel chart1 = new JLabel();
 	JLabel board = new JLabel(Img.BOARD2);
-    JLabel jl = new JLabel("队内效率排行榜");
+    JLabel jl = new JLabel("队内贡献率排行榜");
     JLabel jl1 = new JLabel("");
     JLabel jl2 = new JLabel("");
     JLabel jl3 = new JLabel("");
@@ -111,7 +111,7 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 			}
 		}
 		
-		for(int i=0;i<10;i++){
+		for(int i=0;i<players.size();i++){
 			PlayerVO playerData = prs.getPlayerdata("14-15", players.get(i));
 		//	if(playerData.getEfficiency()>5)
 			    dataset1.setValue(players.get(i),Double.parseDouble(df1.format(playerData.getEfficiency())));
@@ -139,7 +139,7 @@ public class TeamAnalyze extends MyPanel implements ActionListener {
 		
 		
 		//生成图表
-		JFreeChart chart = JFreeUtils.createPieChart(dataset1,"球员效率图",true);
+		JFreeChart chart = JFreeUtils.createPieChart(dataset1,"球员贡献率图",true);
 		//生成图片
 		JFreeUtils.drawToOutputStream("graphics/chart/饼图.JPG", chart, 832, 500);
 		ImageIcon icon = new ImageIcon(

@@ -46,5 +46,7 @@ public interface TeamRankService {
     public double[] LinerRegression(String season);
     //偏回归系数，数组表示 m个自变量的偏回归系数,数组大小m
     public double[] RegressionCoefficient(String season);
+    
+    public double[] HostOrGuest(String season);
 
 }
