@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
@@ -71,6 +72,8 @@ public class TeamsCompare extends MyPanel implements ActionListener {
 	JLabel rr4 = new JLabel();
 	JLabel rr5 = new JLabel();
 	
+	JButton refer = new JButton("影响因素");
+	
 	JComboBox<String> selectTeam1 = new JComboBox<String>();
 	JComboBox<String> selectTeam2 = new JComboBox<String>();
 	Font font = new Font("黑体", Font.BOLD, 16);
@@ -82,6 +85,12 @@ public class TeamsCompare extends MyPanel implements ActionListener {
 		// TODO Auto-generated constructor stub
 		this.frame = frame;
 
+		this.add(refer);
+		refer.setBounds(480,620,100,25);
+		refer.addActionListener(this);
+		refer.setActionCommand("refer");
+		refer.setUI(new MyButtonUI());
+		
 		this.add(l1);
 		this.add(l2);
 		this.add(l3);
@@ -400,5 +409,9 @@ public class TeamsCompare extends MyPanel implements ActionListener {
 			frame.change(this, Frame.singleTeamPanel);
 			Frame.currentPanel = "singleTeam";
 		} 
+		 else if (e.getActionCommand().equals("refer")) {
+				frame.change(this, Frame.referPanel);
+				Frame.currentPanel = "refer";
+			} 
 	}
 }

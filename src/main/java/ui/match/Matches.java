@@ -24,6 +24,7 @@ import ui.player.MyButtonUI;
 import ui.player.MyComboBoxUI;
 import ui.tools.MyTable;
 import ui.tools.Translate;
+import vo.TeamMatchVO;
 import vo.TeamMonthMatchVO;
 
 @SuppressWarnings("serial")
@@ -137,10 +138,9 @@ public class Matches extends MyPanel implements ActionListener {
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
  
-		matches = new ArrayList<TeamMonthMatchVO>(0);
-	//	TeamMonthMatchVO temp = new TeamMonthMatchVO("15-06-15", "GSW", "CLE", "0-0", "0-0", "0-0", "0-0", "0-0");
-		//matches.add(temp);
-		Object[][] data = getData1(matches);
+		matches = trs.getRecentFifteen();
+
+		Object[][] data = getData(matches);
 		model1 = new DefaultTableModel(new Object[][] {}, columnNames1);
 		model1.setDataVector(data, columnNames1);
 		table1 = new MyTable(model1);
@@ -187,19 +187,7 @@ public class Matches extends MyPanel implements ActionListener {
 		}
 		return data;
 	}
-	public Object[][] getData1(ArrayList<TeamMonthMatchVO> matches) {
-		int num = matches.size();
-		Object[][] data = new Object[num][];
-		for (int i = 0; i < num; i++) {
-			Object[] temp = { matches.get(i).getDate(),
-					matches.get(i).getHost(), matches.get(i).getScore(),
-					matches.get(i).getGuest(), matches.get(i).getFirst(),
-					matches.get(i).getSecond(), matches.get(i).getThird(),
-					matches.get(i).getFourth(), "直播" };
-			data[num - 1 - i] = temp;
-		}
-		return data;
-	}
+
 
 	public void update() {
 		if (isStart) {

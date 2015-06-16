@@ -14,6 +14,7 @@ import ui.player.SinglePlayer;
 import ui.player.Statistics;
 import ui.team.PlayOff;
 import ui.team.Ranking;
+import ui.team.Refer;
 import ui.team.SingleTeam;
 import ui.team.TeamAnalyze;
 import ui.team.TeamsCompare;
@@ -39,6 +40,7 @@ public class Frame extends JFrame {
 //	public static MatchLive matchLivePanel;
 	public static PlayOff playOffPanel;
 	public static TeamsCompare teamsComparePanel;
+	public static Refer referPanel;
 	public static String currentPanel = "main";
 
 	public Frame() {
@@ -59,6 +61,7 @@ public class Frame extends JFrame {
 	//	matchLivePanel = new MatchLive(this);
 		playOffPanel = new PlayOff(this);
 		teamsComparePanel = new TeamsCompare(this);
+		referPanel = new Refer(this);
 		
 		this.getContentPane().add(mainFrame);
 		CardLayout cl = new CardLayout();
