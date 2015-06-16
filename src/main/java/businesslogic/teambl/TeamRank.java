@@ -75,17 +75,17 @@ public class TeamRank implements TeamRankService{
     	ArrayList<TeamVO> teamVOs = getAllTeamdata(season,"wins", "DESC");
     	int teamRank = 0;
     	TeamVO teamVO = new TeamVO();
-    	GetTeamdataDataService g;
-			g = new GetTeamdata();
-			TeamPO teamPO = g.getTeamdata(season,teamName);
-			for (int i = 0; i < teamVOs.size(); i++) {
+    	GetTeamdataDataService g = new GetTeamdata();
+		TeamPO teamPO = g.getTeamdata(season,teamName);
+		for (int i = 0; i < teamVOs.size(); i++) {
 				if (teamName.equals(teamVOs.get(i).getTeamName())) {
 					teamRank = teamVOs.get(i).getRank();
 				}
-			}
-			GetTeamVO getTeamVO = new GetTeamVO();
-			
-			teamVO = getTeamVO.GetTeamVO(teamPO);
+		}
+		Calculate calculate = new Calculate();
+		teamPO = calculate.Calculate(teamPO);	
+		GetTeamVO getTeamVO = new GetTeamVO();
+		teamVO = getTeamVO.GetTeamVO(teamPO);
     	return teamVO;
     }
     
