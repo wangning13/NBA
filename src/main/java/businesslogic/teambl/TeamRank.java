@@ -1,9 +1,15 @@
 package businesslogic.teambl;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.apache.regexp.recompile;
+
+import com.lowagie.text.SplitCharacter;
 
 import po.TeamMatchPO;
 import po.TeamPO;
@@ -921,6 +927,33 @@ public class TeamRank implements TeamRankService{
 		a[8] = F;
 		double F1 = 2.46261492591;
 		double F2 = 3.5126840636;
+		String line = "";
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("f.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String [] k = new String[3];
+		try {
+			for(int i=0;(line=br.readLine())!=null;i++){
+				if (line.startsWith("0.01/"+fe)) {
+					k = line.split("/");
+					F2 = Double.valueOf(k[2]);
+				}
+				if (line.startsWith("0.05/"+fe)) {
+					k = line.split("/");
+					F1 = Double.valueOf(k[2]);
+				}
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		a[9] = F1;
 		a[10] = F2;
 		
