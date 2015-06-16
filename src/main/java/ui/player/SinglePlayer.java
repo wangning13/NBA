@@ -228,7 +228,7 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				int row = table1.getSelectedRow();
 				int column = table1.getSelectedColumn();
-				if (column == 0)
+				if (column == 1)
 					jump(row);
 			}
 		});
@@ -338,8 +338,8 @@ public class SinglePlayer extends MyPanel implements ActionListener {
 	}
 
 	public void jump(int row) {
-		if (table1.getValueAt(row, 0) != null) {
-			String team = table1.getValueAt(row, 0).toString();
+		if (table1.getValueAt(row, 1) != null) {
+			String team = table1.getValueAt(row, 1).toString();
 			frame.change(this, Frame.singleTeamPanel);
 			Frame.singleTeamPanel.update(team);
 			Frame.singleTeamPanel.flag = true;
