@@ -763,4 +763,30 @@ public class GetPlayerdata implements GetPlayerdataDataService {
 		return po;
 	}
 	
+	public ArrayList<ArrayList<String>> getRecentFifteenMatch(String season) {
+		ArrayList<ArrayList<String>> po = new ArrayList<ArrayList<String>>();
+		String sql = "SELECT * FROM `matches" + season + "` ORDER BY date DESC LIMIT 30";
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(rs.getString(1));
+				temp.add(rs.getString(2));
+				temp.add(rs.getString(3));
+				temp.add(rs.getString(4));
+				temp.add(rs.getString(5));
+				temp.add(rs.getString(6));
+				temp.add(rs.getString(7));
+				temp.add(rs.getString(8));
+				temp.add(rs.getString(9));
+				temp.add(rs.getString(10));
+				po.add(temp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return po;
+	}
+	
 }

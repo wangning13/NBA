@@ -32,4 +32,6 @@ public interface GetPlayerdataDataService {
 	
 	public ArrayList<PlayerMatchPO> getPlayerRecentSeasonMatch(String season,String player);
 	
+	public ArrayList<ArrayList<String>> getRecentFifteenMatch(String season);
+	
 }
