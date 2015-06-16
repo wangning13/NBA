@@ -418,7 +418,7 @@ public class GetTeamdata implements GetTeamdataDataService {
 						rs.getInt(8), rs.getInt(9), rs.getInt(10));
 				po.add(temp);
 			}
-			sql = "SELECT b.`date`,b.`host/guest`,b.`name`,b.`opponent`,b.`win/lose`,b.`total`,b.`first`,b.`second`,b.`third`,b.`fourth` FROM matches a,matches b WHERE a.opponent=b.name AND a.date=b.date AND a.name='"
+			sql = "SELECT b.`date`,b.`host/guest`,b.`name`,b.`opponent`,b.`win/lose`,b.`total`,b.`first`,b.`second`,b.`third`,b.`fourth` FROM `matches" + season + "` a,`matches" + season + "` b WHERE a.opponent=b.name AND a.date=b.date AND a.name='"
 					+ team + "' ORDER BY a.date DESC LIMIT 5";
 			rs = statement.executeQuery(sql);
 			while (rs.next()) {
