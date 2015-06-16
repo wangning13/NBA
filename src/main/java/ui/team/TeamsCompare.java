@@ -57,8 +57,8 @@ public class TeamsCompare extends MyPanel implements ActionListener {
 	JLabel r1 = new JLabel(Img.GREY);
 	JLabel r2 = new JLabel(Img.GREY);
 	JLabel r3 = new JLabel(Img.GREY);
-	JLabel r4 = new JLabel(Img.BLUE);
-	JLabel r5 = new JLabel(Img.BLUE);
+	JLabel r4 = new JLabel(Img.GREY);
+	JLabel r5 = new JLabel(Img.GREY);
 	
 	JLabel ll1 = new JLabel();
 	JLabel ll2 = new JLabel();
@@ -296,6 +296,19 @@ public class TeamsCompare extends MyPanel implements ActionListener {
 	    ll3.setBounds( 415-Integer.parseInt(new DecimalFormat("0").format(assist))*300/100,480,50,30);
 	    ll4.setBounds( 415-Integer.parseInt(new DecimalFormat("0").format(threePercent*100))*250/100,530,50 ,30);
 	    ll5.setBounds( 415-Integer.parseInt(new DecimalFormat("0").format(freePercent*100))*250/100,580,50,30);
+	
+	    
+	    r1.setBounds(0,0,0,0);
+	    r2.setBounds(0,0,0,0);
+	    r3.setBounds(0,0,0,0);
+	    r4.setBounds(0,0,0,0);
+	    r5.setBounds(0,0,0,0);
+	    rr1.setBounds(0,0,0,0);
+	    rr2.setBounds(0,0,0,0);
+	    rr3.setBounds(0,0,0,0);
+	    rr4.setBounds(0,0,0,0);
+	    rr5.setBounds(0,0,0,0);
+	    
 	}
 	
 	public void update1(String name){
