@@ -77,16 +77,7 @@ public class Refer extends MyPanel implements ActionListener {
 	}
 
 	
-	public Object[][] getData() {
-
-		for(int i = 0;i<result1.length;i++){
-			System.out.println("第"+i+"个："+result1[i]);
-		}
-		
-		for(int i = 0;i<result2.length;i++){
-			System.out.println("第"+i+"个："+result2[i]);
-		}
-		
+	public Object[][] getData() {	
 		Object[][] data = new Object[2][];
 				
 		Object[] temp = {"正/负相关","+","+","-","+","+","+","+","+","+","-","+","+","-"};
