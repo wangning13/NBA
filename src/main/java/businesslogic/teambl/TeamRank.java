@@ -1,9 +1,15 @@
 package businesslogic.teambl;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.apache.regexp.recompile;
+
+import com.lowagie.text.SplitCharacter;
 
 import po.TeamMatchPO;
 import po.TeamPO;
@@ -69,17 +75,17 @@ public class TeamRank implements TeamRankService{
     	ArrayList<TeamVO> teamVOs = getAllTeamdata(season,"wins", "DESC");
     	int teamRank = 0;
     	TeamVO teamVO = new TeamVO();
-    	GetTeamdataDataService g;
-			g = new GetTeamdata();
-			TeamPO teamPO = g.getTeamdata(season,teamName);
-			for (int i = 0; i < teamVOs.size(); i++) {
+    	GetTeamdataDataService g = new GetTeamdata();
+		TeamPO teamPO = g.getTeamdata(season,teamName);
+		for (int i = 0; i < teamVOs.size(); i++) {
 				if (teamName.equals(teamVOs.get(i).getTeamName())) {
 					teamRank = teamVOs.get(i).getRank();
 				}
-			}
-			GetTeamVO getTeamVO = new GetTeamVO();
-			
-			teamVO = getTeamVO.GetTeamVO(teamPO);
+		}
+		Calculate calculate = new Calculate();
+		teamPO = calculate.Calculate(teamPO);	
+		GetTeamVO getTeamVO = new GetTeamVO();
+		teamVO = getTeamVO.GetTeamVO(teamPO);
     	return teamVO;
     }
     
@@ -242,6 +248,9 @@ public class TeamRank implements TeamRankService{
 		ArrayList<TeamVO> teamVOs = new ArrayList<>();
 		double[] team1 = new double[15];
 		double[] team2 = new double[15];
+		double[] trueTeam1 = new double[15];
+		double[] trueTeam2 = new double[15];
+		
 		for (int i = 0; i < teamVOs1.size(); i++) {
 			teamVOs.add(teamVOs1.get(i));
 		}
@@ -260,16 +269,16 @@ public class TeamRank implements TeamRankService{
 				team1[7] = teamVOs.get(i).getFieldGoalPercentage();
 				team1[8] = teamVOs.get(i).getThreePointShotPercentage();
 				team1[9] = teamVOs.get(i).getFreeThrowPercentage();
-				team1[10] = teamVOs.get(i).getAverageOffensiveRebound()+teamVOs.get(i).getAverageDefensiveRebound();
-				team1[11] = (double)teamVOs.get(i).getOpponentFieldGoal()/teamVOs.get(i).getMatches();
-				team1[12] = (double)teamVOs.get(i).getOpponentFieldGoalAttempts()/teamVOs.get(i).getMatches();
+				team1[10] = teamVOs.get(i).getAverageFieldGoal();//场均投篮命中数
+				team1[11] = teamVOs.get(i).getAverageFieldGoalAttempts();//场均投篮出手次数
+				team1[12] = teamVOs.get(i).getAverageFreeThrowAttempts();//场均罚球数
 				team1[13] = (double)teamVOs.get(i).getOpponentTurnOver()/teamVOs.get(i).getMatches();
 				team1[14] = (double)teamVOs.get(i).getFreeThrowAttempts()/teamVOs.get(i).getMatches();
 			}
 			if (TeamName2.equals(teamVOs.get(i).getTeamName())) {
 				team2[0] = -1;
 				team2[1] = teamVOs.get(i).getAverageBackboard();
-				team2[2] = teamVOs.get(i).getAverageTurnOver();
+				team2[2] = teamVOs.get(i).getAverageTurnOver();//失误数
 				team2[3] = teamVOs.get(i).getAverageFoul();
 				team2[4] = teamVOs.get(i).getAverageAsist();
 				team2[5] = teamVOs.get(i).getAverageSteal();
@@ -277,23 +286,54 @@ public class TeamRank implements TeamRankService{
 				team2[7] = teamVOs.get(i).getFieldGoalPercentage();
 				team2[8] = teamVOs.get(i).getThreePointShotPercentage();
 				team2[9] = teamVOs.get(i).getFreeThrowPercentage();
-				team2[10] = teamVOs.get(i).getAverageOffensiveRebound()+teamVOs.get(i).getAverageDefensiveRebound();
-				team2[11] = (double)teamVOs.get(i).getOpponentFieldGoal()/teamVOs.get(i).getMatches();
-				team2[12] = (double)teamVOs.get(i).getOpponentFieldGoalAttempts()/teamVOs.get(i).getMatches();
+				team2[10] = teamVOs.get(i).getAverageFieldGoal();//场均投篮命中数
+				team2[11] = teamVOs.get(i).getAverageFieldGoalAttempts();//场均投篮出手次数
+				team2[12] = teamVOs.get(i).getAverageFreeThrowAttempts();//场均罚球数
 				team2[13] = (double)teamVOs.get(i).getOpponentTurnOver()/teamVOs.get(i).getMatches();
 				team2[14] = (double)teamVOs.get(i).getFreeThrowAttempts()/teamVOs.get(i).getMatches();
 			}
 			
 		}
+		trueTeam1[0] = 1;
+		trueTeam1[1] = team1[1];
+		trueTeam1[2] = team1[2];
+		trueTeam1[3] = team1[3];
+		trueTeam1[4] = team1[4];
+		trueTeam1[5] = team1[5];
+		trueTeam1[6] = team1[6];
+		trueTeam1[7] = team1[7];
+		trueTeam1[8] = team1[8];
+		trueTeam1[9] = team1[9];
+		trueTeam1[10] = team2[1];
+		trueTeam1[11] = team2[10];
+		trueTeam1[12] = team2[11];
+		trueTeam1[13] = team2[2];
+		trueTeam1[14] = team2[12];
+		
+		trueTeam2[0] = -1;
+		trueTeam2[1] = team2[1];
+		trueTeam2[2] = team2[2];
+		trueTeam2[3] = team2[3];
+		trueTeam2[4] = team2[4];
+		trueTeam2[5] = team2[5];
+		trueTeam2[6] = team2[6];
+		trueTeam2[7] = team2[7];
+		trueTeam2[8] = team2[8];
+		trueTeam2[9] = team2[9];
+		trueTeam2[10] = team1[1];
+		trueTeam2[11] = team1[10];
+		trueTeam2[12] = team1[11];
+		trueTeam2[13] = team1[2];
+		trueTeam2[14] = team1[12];
 		double[] a = this.LinerRegression2("14-15");
 		double Scoring1 = 0;
 		double Scoring2 = 0;
-		for (int j = 0; j < team1.length; j++) {
-			Scoring1 = Scoring1 + team1[j]*a[j];
+		for (int j = 0; j < trueTeam1.length; j++) {
+			Scoring1 = Scoring1 + trueTeam1[j]*a[j];
 		}
 		Scoring1 = Scoring1 + a[a.length-1];
-		for (int j = 0; j < team2.length; j++) {
-			Scoring2 = Scoring2 + team2[j]*a[j];
+		for (int j = 0; j < trueTeam2.length; j++) {
+			Scoring2 = Scoring2 + trueTeam2[j]*a[j];
 		}
 		Scoring2 = Scoring2 + a[a.length-1];
 		Scoring[0] = Double.parseDouble(df1.format(Scoring1));
@@ -921,6 +961,33 @@ public class TeamRank implements TeamRankService{
 		a[8] = F;
 		double F1 = 2.46261492591;
 		double F2 = 3.5126840636;
+		String line = "";
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader("f.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String [] k = new String[3];
+		try {
+			for(int i=0;(line=br.readLine())!=null;i++){
+				if (line.startsWith("0.01/"+fe)) {
+					k = line.split("/");
+					F2 = Double.valueOf(k[2]);
+				}
+				if (line.startsWith("0.05/"+fe)) {
+					k = line.split("/");
+					F1 = Double.valueOf(k[2]);
+				}
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		a[9] = F1;
 		a[10] = F2;
 		
