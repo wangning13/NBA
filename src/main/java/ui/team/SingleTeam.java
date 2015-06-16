@@ -76,6 +76,7 @@ public class SingleTeam extends MyPanel implements ActionListener {
 	JButton search = new JButton("查询");
 	JButton recent = new JButton("最近五场");
 	JButton analyze = new JButton("分析");
+	JButton compare = new JButton("预测");
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 	JLabel teamIcon = new JLabel(Img.GSW);
 
@@ -137,6 +138,13 @@ public class SingleTeam extends MyPanel implements ActionListener {
 		analyze.addActionListener(this);
 		analyze.setActionCommand("analyze");
 		analyze.setUI(new MyButtonUI());
+		
+		this.add(compare);
+		compare.setBounds(400, 172, 60, 25);
+		compare.addActionListener(this);
+		compare.setActionCommand("compare");
+		compare.setUI(new MyButtonUI());
+
 
 		this.add(rankingBand);
 		rankingBand.setBounds(300, 150, 752, 70);
@@ -500,6 +508,12 @@ public class SingleTeam extends MyPanel implements ActionListener {
 			frame.change(this, Frame.teamAnalyzePanel);
 			Frame.teamAnalyzePanel.update(name);
 			Frame.currentPanel = "teamAnalyze";
+		}
+		else if (e.getActionCommand().equals("compare")) {
+			frame.change(this, Frame.teamsComparePanel);
+			Frame.teamsComparePanel.update(name);
+			Frame.teamsComparePanel.update(name);
+			Frame.currentPanel = "teamsCompare";
 		}
 		
 		

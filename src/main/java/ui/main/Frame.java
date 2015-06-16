@@ -16,6 +16,7 @@ import ui.team.PlayOff;
 import ui.team.Ranking;
 import ui.team.SingleTeam;
 import ui.team.TeamAnalyze;
+import ui.team.TeamsCompare;
 import ui.team.TeamsSelect;
 
 @SuppressWarnings("serial")
@@ -37,7 +38,7 @@ public class Frame extends JFrame {
 	public static TeamAnalyze teamAnalyzePanel;
 //	public static MatchLive matchLivePanel;
 	public static PlayOff playOffPanel;
-
+	public static TeamsCompare teamsComparePanel;
 	public static String currentPanel = "main";
 
 	public Frame() {
@@ -57,6 +58,7 @@ public class Frame extends JFrame {
 		teamAnalyzePanel = new TeamAnalyze(this);
 	//	matchLivePanel = new MatchLive(this);
 		playOffPanel = new PlayOff(this);
+		teamsComparePanel = new TeamsCompare(this);
 		
 		this.getContentPane().add(mainFrame);
 		CardLayout cl = new CardLayout();
