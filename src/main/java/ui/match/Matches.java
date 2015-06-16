@@ -48,7 +48,7 @@ public class Matches extends MyPanel implements ActionListener {
 	JComboBox<String> month = new JComboBox<String>();
 	JComboBox<String> season = new JComboBox<String>();
 	JButton search = new JButton("查询");
-//	JButton recent = new JButton("最近一轮");
+	JButton recent = new JButton("近期比赛");
 
 	Font font1 = new Font("黑体", Font.BOLD, 16);
 
@@ -112,28 +112,28 @@ public class Matches extends MyPanel implements ActionListener {
 		team.addItem("多伦多猛龙");
 
 		this.add(season);
-		season.setBounds(585, 175, 70, 20);
+		season.setBounds(465, 175, 70, 20);
 		season.setFont(font1);
 		season.setUI(new MyComboBoxUI());
 		this.add(month);
-		month.setBounds(680, 175, 60, 20);
+		month.setBounds(560, 175, 60, 20);
 		month.setFont(font1);
 		month.setUI(new MyComboBoxUI());
 		this.add(team);
-		team.setBounds(760, 175, 150, 20);
+		team.setBounds(640, 175, 150, 20);
 		team.setFont(font1);
 		team.setUI(new MyComboBoxUI());
 		this.add(search);
-		search.setBounds(930, 172, 60, 25);
+		search.setBounds(810, 172, 60, 25);
 		search.addActionListener(this);
 		search.setActionCommand("search");
 		search.setUI(new MyButtonUI());
-	/*	this.add(recent);
-		recent.setBounds(920, 172, 90, 25);
+		this.add(recent);
+		recent.setBounds(890, 172, 90, 25);
 		recent.addActionListener(this);
 		recent.setActionCommand("recent");
 		recent.setUI(new MyButtonUI());
-*/
+
 
 		this.add(rankingBand);
 		rankingBand.setBounds(0, 150, 1052, 70);
@@ -242,13 +242,13 @@ public class Matches extends MyPanel implements ActionListener {
 			table1.setWidth();
 			table1.updateUI();
 		}
-		/*if (e.getActionCommand().equals("recent")) {
+		if (e.getActionCommand().equals("recent")) {
 			isStart = false;
 			matches = trs.getRecentFifteen();
 			Object[][] data = getData(matches);
 			model1.setDataVector(data, columnNames1);
 			table1.setWidth();
 			table1.updateUI();
-		}*/
+		}
 	}
 }

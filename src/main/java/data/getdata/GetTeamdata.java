@@ -491,7 +491,7 @@ public class GetTeamdata implements GetTeamdataDataService {
 		ArrayList<ArrayList<TeamPO>> r = new ArrayList<ArrayList<TeamPO>>();
 		ArrayList<TeamPO> host = new ArrayList<TeamPO>();
 		ArrayList<TeamPO> guest = new ArrayList<TeamPO>();
-		String sql = "SELECT date,`host/guest`,name,opponent FROM `matches" + season + "` ORDER BY date DESC LIMIT 500";
+		String sql = "SELECT date,`host/guest`,name,opponent FROM `matches" + season + "` ORDER BY date DESC LIMIT 1200";
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			ArrayList<ArrayList<String>> item = new ArrayList<ArrayList<String>>();
