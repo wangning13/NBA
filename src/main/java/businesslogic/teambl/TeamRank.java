@@ -239,20 +239,49 @@ public class TeamRank implements TeamRankService{
 			}
     	return teamVOs;
     }
-    public ArrayList<TeamMatchVO> getRecentFifteen(){
-    	ArrayList<TeamMatchPO> teamMatchPOs = new ArrayList<>();
-    	ArrayList<TeamMatchVO> teamMatchVOs = new ArrayList<>();
+    public ArrayList<TeamMonthMatchVO> getRecentFifteen(){
+    	ArrayList<TeamMonthMatchVO> teamMonthMatchVOs = new ArrayList<TeamMonthMatchVO>();
+    	ArrayList<TeamMatchPO> teamMatchPOs = new ArrayList<TeamMatchPO>();
     	GetTeamdataDataService g = new GetTeamdata();
     	teamMatchPOs = g.getRecentFifteen();
     	for (int i = 0; i < teamMatchPOs.size(); i++) {
-			TeamMatchVO teamMatchVO = new TeamMatchVO(teamMatchPOs.get(i).getDate(), teamMatchPOs.get(i).getHostGuest(), 
-					teamMatchPOs.get(i).getName(),
-					teamMatchPOs.get(i).getOpponent(), teamMatchPOs.get(i).getWinLose(), teamMatchPOs.get(i).getTotal(),
-					teamMatchPOs.get(i).getFirst(), teamMatchPOs.get(i).getSecond(), teamMatchPOs.get(i).getThird(), 
-					teamMatchPOs.get(i).getFourth());
-			teamMatchVOs.add(teamMatchVO);
+			ArrayList<TeamMatchPO> teamMatchPOs2 = g.getRecentFifteen();
+			for (int j = 0; j < teamMatchPOs2.size(); j++) {
+				if (teamMatchPOs2.get(j).getOpponent().equals(teamMatchPOs.get(i).getName()) && teamMatchPOs2.get(j).getDate().equals(teamMatchPOs.get(i).getDate())) {
+					String data = teamMatchPOs.get(i).getDate();
+					String host = "";
+					String guest = "";
+					String score = "";
+					String first = "";
+					String second = "";
+					String third = "";
+					String fourth = "";
+					if (teamMatchPOs.get(i).getHostGuest().equals("h")) {
+						host = teamMatchPOs.get(i).getName();
+						guest = teamMatchPOs2.get(j).getName();
+						score = teamMatchPOs.get(i).getTotal() + "-" + teamMatchPOs2.get(j).getTotal();
+						first = teamMatchPOs.get(i).getFirst() + "-" + teamMatchPOs2.get(j).getFirst();
+						second = teamMatchPOs.get(i).getSecond() + "-" + teamMatchPOs2.get(j).getSecond();
+						third = teamMatchPOs.get(i).getThird() + "-" + teamMatchPOs2.get(j).getThird();
+						fourth = teamMatchPOs.get(i).getFourth() + "-" + teamMatchPOs2.get(j).getFourth();
+					}else {
+						host = teamMatchPOs2.get(j).getName();
+						guest = teamMatchPOs.get(i).getName();
+						score = teamMatchPOs2.get(j).getTotal() + "-" + teamMatchPOs.get(i).getTotal();
+						first = teamMatchPOs2.get(j).getFirst() + "-" + teamMatchPOs.get(i).getFirst();
+						second = teamMatchPOs2.get(j).getSecond() + "-" + teamMatchPOs.get(i).getSecond();
+						third = teamMatchPOs2.get(j).getThird() + "-" + teamMatchPOs.get(i).getThird();
+						fourth = teamMatchPOs2.get(j).getFourth() + "-" + teamMatchPOs.get(i).getFourth();
+					}
+					
+					TeamMonthMatchVO teamMonthMatchVO = new TeamMonthMatchVO(data, host, guest, score, first, second, third, fourth);
+					teamMonthMatchVOs.add(teamMonthMatchVO);
+				}
+			}
+			
 		}
-    	return teamMatchVOs;
+		
+	return teamMonthMatchVOs;
     }
     //通过多元线性回归方程预测球队得分
     public double[] TwoScoring(String TeamName1,String TeamName2) {

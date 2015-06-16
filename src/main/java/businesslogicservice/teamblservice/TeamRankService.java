@@ -31,7 +31,7 @@ public interface TeamRankService {
 
 	public ArrayList<TeamVO> getSeasonTop(String season, String condition);
 	//最近15场
-	public ArrayList<TeamMatchVO> getRecentFifteen();
+	public ArrayList<TeamMonthMatchVO> getRecentFifteen();
 	//通过多元线性回归方程预测球队得分
     public double[] TwoScoring(String TeamName1,String TeamName2);
     
